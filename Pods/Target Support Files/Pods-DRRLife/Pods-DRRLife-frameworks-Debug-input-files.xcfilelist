@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-DRRLife/Pods-DRRLife-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/Then/Then.framework
