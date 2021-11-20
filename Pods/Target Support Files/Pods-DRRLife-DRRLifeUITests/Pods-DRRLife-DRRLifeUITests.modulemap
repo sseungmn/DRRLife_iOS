@@ -1,0 +1,6 @@
+framework module Pods_DRRLife_DRRLifeUITests {
+  umbrella header "Pods-DRRLife-DRRLifeUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

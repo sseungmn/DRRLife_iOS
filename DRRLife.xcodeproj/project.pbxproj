@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4204DC6C3BDEABB44A6ADCA2 /* Pods_DRRLife_DRRLifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FAD4F99F209A58998B54BC9 /* Pods_DRRLife_DRRLifeUITests.framework */; };
+		4D9E30DC1E33C0E2EB677340 /* Pods_DRRLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866BA0D8948F844F707799EC /* Pods_DRRLife.framework */; };
+		E905885DCF7515815F2821A4 /* Pods_DRRLifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC157479CE1164BC01D6909 /* Pods_DRRLifeTests.framework */; };
 		FDF1C0EE2748D49A00F08D2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C0ED2748D49A00F08D2D /* AppDelegate.swift */; };
 		FDF1C0F02748D49A00F08D2D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C0EF2748D49A00F08D2D /* SceneDelegate.swift */; };
 		FDF1C0F22748D49A00F08D2D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C0F12748D49A00F08D2D /* ViewController.swift */; };
@@ -16,6 +19,7 @@
 		FDF1C1052748D49E00F08D2D /* DRRLifeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C1042748D49E00F08D2D /* DRRLifeTests.swift */; };
 		FDF1C10F2748D49E00F08D2D /* DRRLifeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C10E2748D49E00F08D2D /* DRRLifeUITests.swift */; };
 		FDF1C1112748D49E00F08D2D /* DRRLifeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C1102748D49E00F08D2D /* DRRLifeUITestsLaunchTests.swift */; };
+		FDF1C11E2748DD0300F08D2D /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDF1C11D2748DD0300F08D2D /* APIKeys.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +40,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11376A8324DD6FBA18A7E5B9 /* Pods-DRRLife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife.release.xcconfig"; path = "Target Support Files/Pods-DRRLife/Pods-DRRLife.release.xcconfig"; sourceTree = "<group>"; };
+		1B265250634E3DDEBA525A6C /* Pods-DRRLifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLifeTests.release.xcconfig"; path = "Target Support Files/Pods-DRRLifeTests/Pods-DRRLifeTests.release.xcconfig"; sourceTree = "<group>"; };
+		1DD17318981F67791F0105DE /* Pods-DRRLife-DRRLifeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife-DRRLifeUITests.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife-DRRLifeUITests/Pods-DRRLife-DRRLifeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4FAD4F99F209A58998B54BC9 /* Pods_DRRLife_DRRLifeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLife_DRRLifeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		536B487AD37AD04E3D780830 /* Pods-DRRLife-DRRLifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife-DRRLifeUITests.release.xcconfig"; path = "Target Support Files/Pods-DRRLife-DRRLifeUITests/Pods-DRRLife-DRRLifeUITests.release.xcconfig"; sourceTree = "<group>"; };
+		631554348187625C6869099C /* Pods-DRRLifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLifeTests.debug.xcconfig"; path = "Target Support Files/Pods-DRRLifeTests/Pods-DRRLifeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		866BA0D8948F844F707799EC /* Pods_DRRLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EC157479CE1164BC01D6909 /* Pods_DRRLifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E90EF2A2197C0C49AAB37C1D /* Pods-DRRLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife/Pods-DRRLife.debug.xcconfig"; sourceTree = "<group>"; };
 		FDF1C0EA2748D49A00F08D2D /* DRRLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DRRLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDF1C0ED2748D49A00F08D2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDF1C0EF2748D49A00F08D2D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +62,7 @@
 		FDF1C10A2748D49E00F08D2D /* DRRLifeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DRRLifeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDF1C10E2748D49E00F08D2D /* DRRLifeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRRLifeUITests.swift; sourceTree = "<group>"; };
 		FDF1C1102748D49E00F08D2D /* DRRLifeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRRLifeUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		FDF1C11D2748DD0300F08D2D /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D9E30DC1E33C0E2EB677340 /* Pods_DRRLife.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E905885DCF7515815F2821A4 /* Pods_DRRLifeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +86,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4204DC6C3BDEABB44A6ADCA2 /* Pods_DRRLife_DRRLifeUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19B0FC0977A643ACA83C26C6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E90EF2A2197C0C49AAB37C1D /* Pods-DRRLife.debug.xcconfig */,
+				11376A8324DD6FBA18A7E5B9 /* Pods-DRRLife.release.xcconfig */,
+				1DD17318981F67791F0105DE /* Pods-DRRLife-DRRLifeUITests.debug.xcconfig */,
+				536B487AD37AD04E3D780830 /* Pods-DRRLife-DRRLifeUITests.release.xcconfig */,
+				631554348187625C6869099C /* Pods-DRRLifeTests.debug.xcconfig */,
+				1B265250634E3DDEBA525A6C /* Pods-DRRLifeTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		7E9443C148652C85FDB1BA52 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				866BA0D8948F844F707799EC /* Pods_DRRLife.framework */,
+				4FAD4F99F209A58998B54BC9 /* Pods_DRRLife_DRRLifeUITests.framework */,
+				8EC157479CE1164BC01D6909 /* Pods_DRRLifeTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FDF1C0E12748D49A00F08D2D = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +124,8 @@
 				FDF1C1032748D49E00F08D2D /* DRRLifeTests */,
 				FDF1C10D2748D49E00F08D2D /* DRRLifeUITests */,
 				FDF1C0EB2748D49A00F08D2D /* Products */,
+				19B0FC0977A643ACA83C26C6 /* Pods */,
+				7E9443C148652C85FDB1BA52 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +149,7 @@
 				FDF1C0F62748D49E00F08D2D /* Assets.xcassets */,
 				FDF1C0F82748D49E00F08D2D /* LaunchScreen.storyboard */,
 				FDF1C0FB2748D49E00F08D2D /* Info.plist */,
+				FDF1C11D2748DD0300F08D2D /* APIKeys.plist */,
 			);
 			path = DRRLife;
 			sourceTree = "<group>";
@@ -134,6 +178,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FDF1C1142748D49E00F08D2D /* Build configuration list for PBXNativeTarget "DRRLife" */;
 			buildPhases = (
+				A7D3E4FF77B584D9EC948D9D /* [CP] Check Pods Manifest.lock */,
 				FDF1C0E62748D49A00F08D2D /* Sources */,
 				FDF1C0E72748D49A00F08D2D /* Frameworks */,
 				FDF1C0E82748D49A00F08D2D /* Resources */,
@@ -151,6 +196,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FDF1C1172748D49E00F08D2D /* Build configuration list for PBXNativeTarget "DRRLifeTests" */;
 			buildPhases = (
+				1D8BC9334E7E3BB84D61C3D0 /* [CP] Check Pods Manifest.lock */,
 				FDF1C0FC2748D49E00F08D2D /* Sources */,
 				FDF1C0FD2748D49E00F08D2D /* Frameworks */,
 				FDF1C0FE2748D49E00F08D2D /* Resources */,
@@ -169,6 +215,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FDF1C11A2748D49E00F08D2D /* Build configuration list for PBXNativeTarget "DRRLifeUITests" */;
 			buildPhases = (
+				62B8262FC30205584331A7BC /* [CP] Check Pods Manifest.lock */,
 				FDF1C1062748D49E00F08D2D /* Sources */,
 				FDF1C1072748D49E00F08D2D /* Frameworks */,
 				FDF1C1082748D49E00F08D2D /* Resources */,
@@ -232,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDF1C0FA2748D49E00F08D2D /* LaunchScreen.storyboard in Resources */,
+				FDF1C11E2748DD0300F08D2D /* APIKeys.plist in Resources */,
 				FDF1C0F72748D49E00F08D2D /* Assets.xcassets in Resources */,
 				FDF1C0F52748D49A00F08D2D /* Main.storyboard in Resources */,
 			);
@@ -252,6 +300,75 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1D8BC9334E7E3BB84D61C3D0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DRRLifeTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		62B8262FC30205584331A7BC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DRRLife-DRRLifeUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7D3E4FF77B584D9EC948D9D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DRRLife-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FDF1C0E62748D49A00F08D2D /* Sources */ = {
@@ -434,6 +551,7 @@
 		};
 		FDF1C1152748D49E00F08D2D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E90EF2A2197C0C49AAB37C1D /* Pods-DRRLife.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -463,6 +581,7 @@
 		};
 		FDF1C1162748D49E00F08D2D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11376A8324DD6FBA18A7E5B9 /* Pods-DRRLife.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -492,6 +611,7 @@
 		};
 		FDF1C1182748D49E00F08D2D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 631554348187625C6869099C /* Pods-DRRLifeTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -517,6 +637,7 @@
 		};
 		FDF1C1192748D49E00F08D2D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B265250634E3DDEBA525A6C /* Pods-DRRLifeTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -542,6 +663,7 @@
 		};
 		FDF1C11B2748D49E00F08D2D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1DD17318981F67791F0105DE /* Pods-DRRLife-DRRLifeUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -565,6 +687,7 @@
 		};
 		FDF1C11C2748D49E00F08D2D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 536B487AD37AD04E3D780830 /* Pods-DRRLife-DRRLifeUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
