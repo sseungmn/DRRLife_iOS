@@ -10,6 +10,8 @@
 		4204DC6C3BDEABB44A6ADCA2 /* Pods_DRRLife_DRRLifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FAD4F99F209A58998B54BC9 /* Pods_DRRLife_DRRLifeUITests.framework */; };
 		4D9E30DC1E33C0E2EB677340 /* Pods_DRRLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866BA0D8948F844F707799EC /* Pods_DRRLife.framework */; };
 		E905885DCF7515815F2821A4 /* Pods_DRRLifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC157479CE1164BC01D6909 /* Pods_DRRLifeTests.framework */; };
+		FD96C3362748F337007691E6 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = FD96C3352748F337007691E6 /* APIKeys.plist */; };
+		FD96C3382748F571007691E6 /* DRRLife++Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD96C3372748F571007691E6 /* DRRLife++Bundle.swift */; };
 		FDF1C0EE2748D49A00F08D2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C0ED2748D49A00F08D2D /* AppDelegate.swift */; };
 		FDF1C0F02748D49A00F08D2D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C0EF2748D49A00F08D2D /* SceneDelegate.swift */; };
 		FDF1C0F22748D49A00F08D2D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C0F12748D49A00F08D2D /* ViewController.swift */; };
@@ -19,7 +21,6 @@
 		FDF1C1052748D49E00F08D2D /* DRRLifeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C1042748D49E00F08D2D /* DRRLifeTests.swift */; };
 		FDF1C10F2748D49E00F08D2D /* DRRLifeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C10E2748D49E00F08D2D /* DRRLifeUITests.swift */; };
 		FDF1C1112748D49E00F08D2D /* DRRLifeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C1102748D49E00F08D2D /* DRRLifeUITestsLaunchTests.swift */; };
-		FDF1C11E2748DD0300F08D2D /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDF1C11D2748DD0300F08D2D /* APIKeys.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,8 @@
 		866BA0D8948F844F707799EC /* Pods_DRRLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EC157479CE1164BC01D6909 /* Pods_DRRLifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E90EF2A2197C0C49AAB37C1D /* Pods-DRRLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife/Pods-DRRLife.debug.xcconfig"; sourceTree = "<group>"; };
+		FD96C3352748F337007691E6 /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
+		FD96C3372748F571007691E6 /* DRRLife++Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DRRLife++Bundle.swift"; sourceTree = "<group>"; };
 		FDF1C0EA2748D49A00F08D2D /* DRRLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DRRLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDF1C0ED2748D49A00F08D2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDF1C0EF2748D49A00F08D2D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,7 +65,6 @@
 		FDF1C10A2748D49E00F08D2D /* DRRLifeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DRRLifeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDF1C10E2748D49E00F08D2D /* DRRLifeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRRLifeUITests.swift; sourceTree = "<group>"; };
 		FDF1C1102748D49E00F08D2D /* DRRLifeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRRLifeUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		FDF1C11D2748DD0300F08D2D /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +105,6 @@
 				631554348187625C6869099C /* Pods-DRRLifeTests.debug.xcconfig */,
 				1B265250634E3DDEBA525A6C /* Pods-DRRLifeTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -142,6 +143,7 @@
 		FDF1C0EC2748D49A00F08D2D /* DRRLife */ = {
 			isa = PBXGroup;
 			children = (
+				FD96C3372748F571007691E6 /* DRRLife++Bundle.swift */,
 				FDF1C0ED2748D49A00F08D2D /* AppDelegate.swift */,
 				FDF1C0EF2748D49A00F08D2D /* SceneDelegate.swift */,
 				FDF1C0F12748D49A00F08D2D /* ViewController.swift */,
@@ -149,7 +151,7 @@
 				FDF1C0F62748D49E00F08D2D /* Assets.xcassets */,
 				FDF1C0F82748D49E00F08D2D /* LaunchScreen.storyboard */,
 				FDF1C0FB2748D49E00F08D2D /* Info.plist */,
-				FDF1C11D2748DD0300F08D2D /* APIKeys.plist */,
+				FD96C3352748F337007691E6 /* APIKeys.plist */,
 			);
 			path = DRRLife;
 			sourceTree = "<group>";
@@ -281,7 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDF1C0FA2748D49E00F08D2D /* LaunchScreen.storyboard in Resources */,
-				FDF1C11E2748DD0300F08D2D /* APIKeys.plist in Resources */,
+				FD96C3362748F337007691E6 /* APIKeys.plist in Resources */,
 				FDF1C0F72748D49E00F08D2D /* Assets.xcassets in Resources */,
 				FDF1C0F52748D49A00F08D2D /* Main.storyboard in Resources */,
 			);
@@ -412,6 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDF1C0F22748D49A00F08D2D /* ViewController.swift in Sources */,
+				FD96C3382748F571007691E6 /* DRRLife++Bundle.swift in Sources */,
 				FDF1C0EE2748D49A00F08D2D /* AppDelegate.swift in Sources */,
 				FDF1C0F02748D49A00F08D2D /* SceneDelegate.swift in Sources */,
 			);
