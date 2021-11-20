@@ -118,6 +118,40 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FD96C3392748FABA007691E6 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FD96C3372748F571007691E6 /* DRRLife++Bundle.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		FD96C33B2748FADA007691E6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FD96C33D2748FC38007691E6 /* LaunchScreen */,
+				FD96C33C2748FBC4007691E6 /* Main */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FD96C33C2748FBC4007691E6 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				FDF1C0F32748D49A00F08D2D /* Main.storyboard */,
+				FDF1C0F12748D49A00F08D2D /* ViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		FD96C33D2748FC38007691E6 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				FDF1C0F82748D49E00F08D2D /* LaunchScreen.storyboard */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
 		FDF1C0E12748D49A00F08D2D = {
 			isa = PBXGroup;
 			children = (
@@ -143,13 +177,11 @@
 		FDF1C0EC2748D49A00F08D2D /* DRRLife */ = {
 			isa = PBXGroup;
 			children = (
-				FD96C3372748F571007691E6 /* DRRLife++Bundle.swift */,
+				FD96C33B2748FADA007691E6 /* View */,
+				FD96C3392748FABA007691E6 /* Extension */,
 				FDF1C0ED2748D49A00F08D2D /* AppDelegate.swift */,
 				FDF1C0EF2748D49A00F08D2D /* SceneDelegate.swift */,
-				FDF1C0F12748D49A00F08D2D /* ViewController.swift */,
-				FDF1C0F32748D49A00F08D2D /* Main.storyboard */,
 				FDF1C0F62748D49E00F08D2D /* Assets.xcassets */,
-				FDF1C0F82748D49E00F08D2D /* LaunchScreen.storyboard */,
 				FDF1C0FB2748D49E00F08D2D /* Info.plist */,
 				FD96C3352748F337007691E6 /* APIKeys.plist */,
 			);
