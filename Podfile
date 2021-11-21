@@ -9,6 +9,7 @@ target 'DRRLife' do
   pod 'NMapsMap'
   pod 'Alamofire', '~> 5.4'
   pod 'Then'
+  pod 'SnapKit', '~> 5.0.0'
 
   target 'DRRLifeTests' do
     inherit! :search_paths
