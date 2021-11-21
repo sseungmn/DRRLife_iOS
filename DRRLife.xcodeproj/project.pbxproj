@@ -10,6 +10,10 @@
 		4204DC6C3BDEABB44A6ADCA2 /* Pods_DRRLife_DRRLifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FAD4F99F209A58998B54BC9 /* Pods_DRRLife_DRRLifeUITests.framework */; };
 		4D9E30DC1E33C0E2EB677340 /* Pods_DRRLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 866BA0D8948F844F707799EC /* Pods_DRRLife.framework */; };
 		E905885DCF7515815F2821A4 /* Pods_DRRLifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC157479CE1164BC01D6909 /* Pods_DRRLifeTests.framework */; };
+		FD18F118274A36CB004814DB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD18F117274A36CA004814DB /* MapViewController.swift */; };
+		FD18F11A274A36DE004814DB /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD18F119274A36DE004814DB /* Map.storyboard */; };
+		FD18F121274A4FD8004814DB /* LocationInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD18F120274A4FD8004814DB /* LocationInfo.xib */; };
+		FD18F123274A4FE5004814DB /* LocationInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD18F122274A4FE5004814DB /* LocationInfoView.swift */; };
 		FD96C3362748F337007691E6 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = FD96C3352748F337007691E6 /* APIKeys.plist */; };
 		FD96C3382748F571007691E6 /* DRRLife++Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD96C3372748F571007691E6 /* DRRLife++Bundle.swift */; };
 		FDF1C0EE2748D49A00F08D2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C0ED2748D49A00F08D2D /* AppDelegate.swift */; };
@@ -50,6 +54,10 @@
 		866BA0D8948F844F707799EC /* Pods_DRRLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EC157479CE1164BC01D6909 /* Pods_DRRLifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E90EF2A2197C0C49AAB37C1D /* Pods-DRRLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife/Pods-DRRLife.debug.xcconfig"; sourceTree = "<group>"; };
+		FD18F117274A36CA004814DB /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FD18F119274A36DE004814DB /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
+		FD18F120274A4FD8004814DB /* LocationInfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationInfo.xib; sourceTree = "<group>"; };
+		FD18F122274A4FE5004814DB /* LocationInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfoView.swift; sourceTree = "<group>"; };
 		FD96C3352748F337007691E6 /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		FD96C3372748F571007691E6 /* DRRLife++Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DRRLife++Bundle.swift"; sourceTree = "<group>"; };
 		FDF1C0EA2748D49A00F08D2D /* DRRLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DRRLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +126,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FD18F116274A3647004814DB /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				FD18F119274A36DE004814DB /* Map.storyboard */,
+				FD18F117274A36CA004814DB /* MapViewController.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		FD18F11B274A4F50004814DB /* LocationInfo */ = {
+			isa = PBXGroup;
+			children = (
+				FD18F120274A4FD8004814DB /* LocationInfo.xib */,
+				FD18F122274A4FE5004814DB /* LocationInfoView.swift */,
+			);
+			path = LocationInfo;
+			sourceTree = "<group>";
+		};
 		FD96C3392748FABA007691E6 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -129,6 +155,8 @@
 		FD96C33B2748FADA007691E6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FD18F11B274A4F50004814DB /* LocationInfo */,
+				FD18F116274A3647004814DB /* Map */,
 				FD96C33D2748FC38007691E6 /* LaunchScreen */,
 				FD96C33C2748FBC4007691E6 /* Main */,
 			);
@@ -314,8 +342,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD18F121274A4FD8004814DB /* LocationInfo.xib in Resources */,
 				FDF1C0FA2748D49E00F08D2D /* LaunchScreen.storyboard in Resources */,
 				FD96C3362748F337007691E6 /* APIKeys.plist in Resources */,
+				FD18F11A274A36DE004814DB /* Map.storyboard in Resources */,
 				FDF1C0F72748D49E00F08D2D /* Assets.xcassets in Resources */,
 				FDF1C0F52748D49A00F08D2D /* Main.storyboard in Resources */,
 			);
@@ -445,9 +475,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD18F123274A4FE5004814DB /* LocationInfoView.swift in Sources */,
 				FDF1C0F22748D49A00F08D2D /* ViewController.swift in Sources */,
 				FD96C3382748F571007691E6 /* DRRLife++Bundle.swift in Sources */,
 				FDF1C0EE2748D49A00F08D2D /* AppDelegate.swift in Sources */,
+				FD18F118274A36CB004814DB /* MapViewController.swift in Sources */,
 				FDF1C0F02748D49A00F08D2D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -631,6 +663,9 @@
 				DEVELOPMENT_TEAM = AVZ9493N69;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DRRLife/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "위치정보 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -661,6 +696,9 @@
 				DEVELOPMENT_TEAM = AVZ9493N69;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DRRLife/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "위치정보 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
