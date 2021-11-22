@@ -6,20 +6,15 @@
 //
 
 import UIKit
+import Then
 
 class RouteInputViewController: UIViewController {
 
+    lazy var bgView = UIView().then {
+        $0.backgroundColor = .white
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let label = UILabel().then {
-            $0.text = "RouteInputView"
-            $0.font = .systemFont(ofSize: 20)
-            $0.textColor = .black
-        }
-        view.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
     }
 }

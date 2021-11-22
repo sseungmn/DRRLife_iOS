@@ -15,7 +15,7 @@ class LocationInfoViewController: UIViewController {
         let label = UILabel().then {
             $0.text = "LocationInfoView"
             $0.font = .systemFont(ofSize: 20)
-            $0.textColor = .black
+            $0.textColor = .white
         }
         view.addSubview(label)
         label.snp.makeConstraints { make in

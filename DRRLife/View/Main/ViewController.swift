@@ -10,65 +10,46 @@ import Then
 import SnapKit
 
 class ViewController: UIViewController {
-    lazy var routeInputContainer = UIView().then {
-        $0.backgroundColor = .white
-        $0.clipsToBounds = true
-    }
-    lazy var mapContainer = UIView().then {
-        $0.backgroundColor = .white
-        $0.clipsToBounds = true
-    }
-    
-    lazy var locationInfoContainer = UIView().then {
-        $0.backgroundColor = .white
-        $0.clipsToBounds = true
-    }
+    lazy var routeInputVC = RouteInputViewController()
+    lazy var mapVC = MapViewController()
+    lazy var locationInfoVC = LocationInfoViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setConstraints()
         setInnerView()
-        routeInputContainer.snp.updateConstraints { make in
-            make.height.equalTo(0)
-        }
-        locationInfoContainer.snp.updateConstraints { make in
+        setConstraints()
+        routeInputVC.view.snp.updateConstraints { make in
             make.height.equalTo(300)
         }
-    }
-    
-    func setConstraints() {
-        view.addSubview(routeInputContainer)
-        view.addSubview(mapContainer)
-        view.addSubview(locationInfoContainer)
-        routeInputContainer.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-            make.bottom.equalTo(mapContainer.snp.top)
-            make.height.equalTo(0)
-        }
-        mapContainer.snp.makeConstraints { make in
-            make.top.equalTo(routeInputContainer.snp.bottom)
-            make.left.right.equalToSuperview()
-            make.bottom.equalTo(locationInfoContainer.snp.top)
-        }
-        locationInfoContainer.snp.makeConstraints { make in
-            make.top.equalTo(mapContainer.snp.bottom)
-            make.left.right.bottom.equalToSuperview()
-            make.height.equalTo(0)
+        locationInfoVC.view.snp.updateConstraints { make in
+            make.height.equalTo(200)
         }
     }
     
     func setInnerView() {
-        let routeInputVC = RouteInputViewController()
-        routeInputContainer.addSubview(routeInputVC.view)
-        routeInputVC.view.frame = routeInputContainer.frame
+        self.add(routeInputVC)
+        self.add(mapVC)
+        self.add(locationInfoVC)
+    }
+    
+    func setConstraints() {
+        routeInputVC.view.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalTo(mapVC.view.snp.top)
+            make.height.equalTo(0)
+        }
         
-        let mapVC = MapViewController()
-        mapContainer.addSubview(mapVC.view)
-        mapVC.view.frame = mapContainer.frame
+        mapVC.view.snp.makeConstraints { make in
+            make.top.equalTo(routeInputVC.view.snp.bottom)
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(locationInfoVC.view.snp.top)
+        }
         
-        let locationInfoVC = LocationInfoViewController()
-        locationInfoContainer.addSubview(locationInfoVC.view)
-        locationInfoVC.view.frame = locationInfoContainer.frame
+        locationInfoVC.view.snp.makeConstraints { make in
+            make.top.equalTo(mapVC.view.snp.bottom)
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(0)
+        }
     }
 }
