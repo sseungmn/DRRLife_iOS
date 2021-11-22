@@ -16,6 +16,11 @@
 		FD84E6A8274B7D6300EC6772 /* UIView+Snapkit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD84E6A7274B7D6300EC6772 /* UIView+Snapkit.swift */; };
 		FD96C3362748F337007691E6 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = FD96C3352748F337007691E6 /* APIKeys.plist */; };
 		FD96C3382748F571007691E6 /* DRRLife++Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD96C3372748F571007691E6 /* DRRLife++Bundle.swift */; };
+		FD99D635274C050B00EB15A2 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D634274C050B00EB15A2 /* UIButton.swift */; };
+		FD99D637274C12D900EB15A2 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D636274C12D900EB15A2 /* UIColor.swift */; };
+		FD99D639274C13F900EB15A2 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D638274C13F900EB15A2 /* UITextField.swift */; };
+		FDAFAF3F274BDEE1002ED04A /* Localizable.strings in Sources */ = {isa = PBXBuildFile; fileRef = FDAFAF41274BDEE1002ED04A /* Localizable.strings */; };
+		FDAFAF45274BE110002ED04A /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAFAF44274BE110002ED04A /* Localize.swift */; };
 		FDDF8F92274BD0F1002FBD1C /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDF8F91274BD0F1002FBD1C /* UIViewController.swift */; };
 		FDF1C0EE2748D49A00F08D2D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C0ED2748D49A00F08D2D /* AppDelegate.swift */; };
 		FDF1C0F02748D49A00F08D2D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF1C0EF2748D49A00F08D2D /* SceneDelegate.swift */; };
@@ -60,6 +65,12 @@
 		FD84E6A7274B7D6300EC6772 /* UIView+Snapkit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Snapkit.swift"; sourceTree = "<group>"; };
 		FD96C3352748F337007691E6 /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		FD96C3372748F571007691E6 /* DRRLife++Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DRRLife++Bundle.swift"; sourceTree = "<group>"; };
+		FD99D634274C050B00EB15A2 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		FD99D636274C12D900EB15A2 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		FD99D638274C13F900EB15A2 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
+		FDAFAF40274BDEE1002ED04A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FDAFAF43274BE053002ED04A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FDAFAF44274BE110002ED04A /* Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
 		FDDF8F91274BD0F1002FBD1C /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		FDF1C0EA2748D49A00F08D2D /* DRRLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DRRLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDF1C0ED2748D49A00F08D2D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -164,8 +175,12 @@
 			isa = PBXGroup;
 			children = (
 				FD96C3372748F571007691E6 /* DRRLife++Bundle.swift */,
+				FDAFAF44274BE110002ED04A /* Localize.swift */,
 				FD84E6A7274B7D6300EC6772 /* UIView+Snapkit.swift */,
 				FDDF8F91274BD0F1002FBD1C /* UIViewController.swift */,
+				FD99D634274C050B00EB15A2 /* UIButton.swift */,
+				FD99D636274C12D900EB15A2 /* UIColor.swift */,
+				FD99D638274C13F900EB15A2 /* UITextField.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -228,6 +243,7 @@
 				FDF1C0F62748D49E00F08D2D /* Assets.xcassets */,
 				FDF1C0FB2748D49E00F08D2D /* Info.plist */,
 				FD96C3352748F337007691E6 /* APIKeys.plist */,
+				FDAFAF41274BDEE1002ED04A /* Localizable.strings */,
 			);
 			path = DRRLife;
 			sourceTree = "<group>";
@@ -340,6 +356,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = FDF1C0E12748D49A00F08D2D;
 			productRefGroup = FDF1C0EB2748D49A00F08D2D /* Products */;
@@ -494,9 +511,14 @@
 				FD96C3382748F571007691E6 /* DRRLife++Bundle.swift in Sources */,
 				FD84E6A5274B6F1800EC6772 /* RouteInputViewController.swift in Sources */,
 				FDF1C0EE2748D49A00F08D2D /* AppDelegate.swift in Sources */,
+				FDAFAF3F274BDEE1002ED04A /* Localizable.strings in Sources */,
 				FD84E6A8274B7D6300EC6772 /* UIView+Snapkit.swift in Sources */,
 				FD18F118274A36CB004814DB /* MapViewController.swift in Sources */,
+				FD99D639274C13F900EB15A2 /* UITextField.swift in Sources */,
+				FD99D637274C12D900EB15A2 /* UIColor.swift in Sources */,
 				FDF1C0F02748D49A00F08D2D /* SceneDelegate.swift in Sources */,
+				FDAFAF45274BE110002ED04A /* Localize.swift in Sources */,
+				FD99D635274C050B00EB15A2 /* UIButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,6 +555,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		FDAFAF41274BDEE1002ED04A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FDAFAF40274BDEE1002ED04A /* en */,
+				FDAFAF43274BE053002ED04A /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		FDF1C0F82748D49E00F08D2D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -548,6 +579,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -609,6 +641,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -676,7 +709,6 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -709,7 +741,6 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "위치정보 권한이 필요합니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

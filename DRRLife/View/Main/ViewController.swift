@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         setInnerView()
         setConstraints()
         routeInputVC.view.snp.updateConstraints { make in
-            make.height.equalTo(300)
+            make.height.equalTo(181)
         }
         locationInfoVC.view.snp.updateConstraints { make in
             make.height.equalTo(200)
@@ -35,7 +35,8 @@ class ViewController: UIViewController {
     
     func setConstraints() {
         routeInputVC.view.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
+            make.top.equalTo(view.safeArea.top)
+            make.left.right.equalToSuperview()
             make.bottom.equalTo(mapVC.view.snp.top)
             make.height.equalTo(0)
         }
@@ -48,7 +49,8 @@ class ViewController: UIViewController {
         
         locationInfoVC.view.snp.makeConstraints { make in
             make.top.equalTo(mapVC.view.snp.bottom)
-            make.left.right.bottom.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(view.safeArea.bottom)
             make.height.equalTo(0)
         }
     }
