@@ -20,22 +20,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         $0.setImage(UIImage(systemName: "scope"), for: .normal)
         $0.addTarget(self, action: #selector(scopeButtonClicked), for: .touchUpInside)
     }
+    
+    @objc
+    func scopeButtonClicked(_ sender: UIButton) {
+        print("모드를 변경했습니다. (.compass)")
+        mapView.positionMode = .compass
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(mapView)
-        view.addSubview(scopeButton)
-        
-        mapView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        scopeButton.snp.makeConstraints { make in
-            make.size.equalTo(40)
-            make.bottom.equalToSuperview().inset(40)
-            make.leading.equalToSuperview().inset(15)
-        }
+        self.setConstraints()
         
         mapView.setLayerGroup(NMF_LAYER_GROUP_BICYCLE, isEnabled: true)
         mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
@@ -52,7 +47,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             print("위치 서비스 OFF")
         }
         
-        
         if traitCollection.userInterfaceStyle == .dark {
             mapView.mapType = .navi
             mapView.isNightModeEnabled = true
@@ -62,10 +56,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    @objc
-    func scopeButtonClicked(_ sender: UIButton) {
-        print("모드를 변경했습니다. (.compass)")
-        mapView.positionMode = .compass
+    func setConstraints() {
+        view.addSubview(mapView)
+        view.addSubview(scopeButton)
+        
+        mapView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        scopeButton.snp.makeConstraints { make in
+            make.size.equalTo(40)
+            make.bottom.equalTo(view.safeArea.bottom).inset(40)
+            make.leading.equalToSuperview().inset(15)
+        }
     }
     
 }

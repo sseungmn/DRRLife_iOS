@@ -1,0 +1,25 @@
+//
+//  RouteInputViewController.swift
+//  DRRLife
+//
+//  Created by OHSEUNGMIN on 2021/11/22.
+//
+
+import UIKit
+
+class RouteInputViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let label = UILabel().then {
+            $0.text = "RouteInputView"
+            $0.font = .systemFont(ofSize: 20)
+            $0.textColor = .black
+        }
+        view.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
+}
