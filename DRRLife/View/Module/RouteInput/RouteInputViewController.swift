@@ -122,19 +122,19 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
     
     func setTextFields() {
         userInputs.forEach { userInput in
-            userInput.backgroundColor = .themeTextFieldBG
+            userInput.backgroundColor = .grayLevel10
             userInput.titleLabel?.font = .systemFont(ofSize: 13)
             userInput.contentHorizontalAlignment = .left
             userInput.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             userInput.layer.cornerRadius = 5
         }
         locationInputs.forEach { userInput in
-            userInput.setTitleColor(.themeTextFieldPlaceholder, for: .normal)
-            userInput.setTitleColor(.themeTextFieldDisabledPlaceholder, for: .highlighted)
+            userInput.setTitleColor(.grayLevel50, for: .normal)
+            userInput.setTitleColor(.grayLevel20, for: .highlighted)
             userInput.addTarget(self, action: #selector(showSearchView), for: .touchUpInside)
         }
         rantalInputs.forEach { userInput in
-            userInput.setTitleColor(.themeTextFieldDisabledPlaceholder, for: .normal)
+            userInput.setTitleColor(.grayLevel20, for: .normal)
             userInput.isEnabled = false
         }
     }

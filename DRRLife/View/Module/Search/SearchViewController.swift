@@ -112,9 +112,12 @@ extension SearchViewController: UISearchBarDelegate {
         navigationItem.leftBarButtonItem = backButton
         searchBar.setImage(UIImage(), for: .search, state: .normal)
         searchBar.searchTextField.backgroundColor = .clear
-        searchBar.layer.addBorder([.bottom], color: .themeGreyscaled, borderWidth: 1.0)
         navigationItem.titleView = searchBar
         searchBar.becomeFirstResponder()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchBar.layer.addBorder([.bottom], color: .grayLevel20, borderWidth: 1.0)
     }
     
     @objc

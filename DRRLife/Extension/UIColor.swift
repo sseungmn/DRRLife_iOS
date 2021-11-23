@@ -21,13 +21,13 @@ extension UIColor {
     static var themeHighlight: UIColor {
         return UIColor(named: "Highlight")!
     }
-    static var themeTextFieldBG: UIColor {
-        return UIColor(named: "TextFieldBG")!
+    static var grayLevel10: UIColor {
+        return UIColor(named: "grayLevel10")!
     }
-    static var themeTextFieldPlaceholder: UIColor {
-        return UIColor(named: "TextFieldPlaceholder")!
+    static var grayLevel20: UIColor {
+        return UIColor(named: "grayLevel20")!
     }
-    static var themeTextFieldDisabledPlaceholder: UIColor {
-        return UIColor(named: "TextFieldDisabledPlaceholder")!
+    static var grayLevel50: UIColor {
+        return UIColor(named: "grayLevel50")!
     }
 }
