@@ -20,7 +20,7 @@ class SearchViewController: UIViewController {
     var callBackTag = -1
     let maxCount = 15
     let locationManager = CLLocationManager()
-    let searchController = UISearchController(searchResultsController: nil)
+    let searchBar = UISearchBar()
     let tableView = UITableView()
     var delegate: PassDataDelegate?
     
@@ -98,58 +98,70 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: - Search
-extension SearchViewController: UISearchBarDelegate, UISearchResultsUpdating {
+extension SearchViewController: UISearchBarDelegate {
     func setSearchBar() {
-        searchController.searchBar.delegate = self
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "검색"
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
+        searchBar.delegate = self
+        searchBar.placeholder = "검색".localized()
+        
+        let backButton = UIBarButtonItem(
+            image: UIImage(systemName: "lessthan"),
+            style: .plain,
+            target: self,
+            action: #selector(backButtonClicked)
+        )
+        navigationItem.leftBarButtonItem = backButton
+        searchBar.setImage(UIImage(), for: .search, state: .normal)
+        searchBar.searchTextField.backgroundColor = .clear
+        searchBar.layer.addBorder([.bottom], color: .themeGreyscaled, borderWidth: 1.0)
+        navigationItem.titleView = searchBar
+        searchBar.becomeFirstResponder()
     }
-    func updateSearchResults(for searchController: UISearchController) {
-        if let text = searchController.searchBar.text {
-            if text.count <= 0 { return }
-            parameters["query"] = text
-            parameters["x"] = currentCoordinate.x
-            parameters["y"] = currentCoordinate.y
-            
-            AF.request("https://dapi.kakao.com/v2/local/search/keyword.json",
-                       method: .get,
-                       parameters: self.parameters, headers: self.headers
-            ).responseJSON(completionHandler: { response in
-                switch response.result {
-                case .success(let jsonData):
-                    print("===== 검색 성공 '\(text)' =====")
-                    do {
-                        let json = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
-                        let result = try JSONDecoder().decode(Response.self, from: json)
-                        self.itemCount = result.meta.total_count
-                        self.places = result.documents
-                        print("===== 검색 결과 '\(self.itemCount)개'")
-                        for place in self.places {
-                            print(place)
-                        }
-                        
-                    } catch(let error) {
-                        print(error.localizedDescription)
+    
+    @objc
+    func backButtonClicked(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: false, completion: nil)
+    }
+        
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.count <= 0 { self.clearResults() }
+        
+        parameters["query"] = searchText
+        parameters["x"] = currentCoordinate.x
+        parameters["y"] = currentCoordinate.y
+        
+        AF.request("https://dapi.kakao.com/v2/local/search/keyword.json",
+                   method: .get,
+                   parameters: self.parameters, headers: self.headers
+        ).responseJSON(completionHandler: { response in
+            switch response.result {
+            case .success(let jsonData):
+                print("===== 검색 성공 '\(searchText)' =====")
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(Response.self, from: json)
+                    self.itemCount = result.meta.total_count
+                    self.places = result.documents
+                    print("===== 검색 결과 '\(self.itemCount)개'")
+                    for place in self.places {
+                        print(place)
                     }
-                    self.tableView.reloadData()
-                case .failure(let error):
+                    
+                } catch(let error) {
                     print(error.localizedDescription)
                 }
-            })
-        }
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
     }
     
-    func searchBarIsEmpty() -> Bool {
-        guard let text = searchController.searchBar.text else { return true }
-        if text.count <= 0 { return true }
-        return false
+    // MARK: Clear
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.clearResults()
     }
-    
-    func isFiltering() -> Bool {
-        return searchController.isActive && !searchBarIsEmpty()
+    func clearResults() {
+        self.places.removeAll()
     }
 }
 
