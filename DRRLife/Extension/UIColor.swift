@@ -9,6 +9,9 @@ import Foundation
 import UIKit
 
 extension UIColor {
+    static var themeMain: UIColor {
+        return UIColor(named: "Main")!
+    }
     static var themeBrighten: UIColor {
         return UIColor(named: "Brighten")!
     }

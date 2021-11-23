@@ -9,26 +9,34 @@ import UIKit
 import SnapKit
 import Then
 
-class RouteInputViewController: UIViewController {
+class RouteInputViewController: UIViewController, PassDataDelegate {
     let height: CGFloat = 500
     let textFieldPadding: CGFloat = 50
     let buttonPointSize: CGFloat = 15
     lazy var buttonWidth: CGFloat = buttonPointSize * 4 / 3
     
     lazy var oriTextField = UITextField().then {
+        $0.tag = 1
         $0.placeholder = "출발지 입력".localized()
     }
     lazy var oriRantalShopTextField = UITextField().then {
+        $0.tag = 2
         $0.placeholder = "출발지 대여소".localized()
         $0.isEnabled = false
     }
     lazy var dstTextField = UITextField().then {
+        $0.tag = 3
         $0.placeholder = "도착지 입력".localized()
     }
     lazy var dstRantalShopTextField = UITextField().then {
+        $0.tag = 4
         $0.placeholder = "도착지 대여소".localized()
         $0.isEnabled = false
     }
+    lazy var textFields = locationTextFields + rantalTextFields
+    lazy var locationTextFields = [oriTextField, dstTextField]
+    lazy var rantalTextFields = [oriRantalShopTextField, dstRantalShopTextField]
+    
     lazy var swapButton = UIButton().then {
         $0.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
         $0.setPointSize(pointSize: 15)
@@ -78,6 +86,7 @@ class RouteInputViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setContstraints()
+        setTextFields()
     }
     
     func setContstraints() {
@@ -87,7 +96,6 @@ class RouteInputViewController: UIViewController {
             make.top.left.right.equalToSuperview()
             make.height.equalTo(181)
         }
-        
         textStackView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview().inset(13)
             make.left.right.equalToSuperview().inset(textFieldPadding)
@@ -105,20 +113,45 @@ class RouteInputViewController: UIViewController {
             make.centerX.equalTo(textStackView.snp.right).offset(textFieldPadding / 2)
             make.centerY.equalTo(dstTextField.snp.centerY)
         }
-        
-        [oriTextField, oriRantalShopTextField, dstTextField, dstRantalShopTextField].forEach { textField in
-            textField.backgroundColor = .themeTextFieldBG
-            textField.layer.cornerRadius = 5
-            textField.addLeftPadding()
+        textFields.forEach { textField in
             textField.snp.makeConstraints { make in
                 make.height.equalTo(34)
             }
         }
-        [oriTextField, dstTextField].forEach { textField in
-            textField.setPlaceholderColor(.themeTextFieldPlaceholder)
+    }
+    
+    func setTextFields() {
+        textFields.forEach { textField in
+            textField.backgroundColor = .themeTextFieldBG
+            textField.layer.cornerRadius = 5
+            textField.addLeftPadding()
         }
-        [oriRantalShopTextField, dstRantalShopTextField].forEach { textField in
+        locationTextFields.forEach { textField in
+            textField.setPlaceholderColor(.themeTextFieldPlaceholder)
+            textField.addTarget(self, action: #selector(showSearchView), for: .edit)
+        }
+        rantalTextFields.forEach { textField in
             textField.setPlaceholderColor(.themeTextFieldDisabledPlaceholder)
         }
+    }
+    
+    // MARK: Delegate
+    func sendPlaceDetails(_: [PlaceDetail]) {
+        print("Delegated")
+    }
+    
+    @objc
+    func showSearchView(_ sender: UITextField) {
+        print(sender)
+        
+        let vc = SearchViewController()
+        
+        vc.delegate = self
+        
+        let nav = UINavigationController(rootViewController: vc)
+        
+        nav.modalPresentationStyle = .fullScreen
+        
+        present(nav, animated: false, completion: nil)
     }
 }

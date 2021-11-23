@@ -11,7 +11,7 @@ import Then
 import SnapKit
 import CoreLocation
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController {
     lazy var locationManager = CLLocationManager()
     lazy var mapView = NMFMapView()
     lazy var scopeButton = UIButton().then {
@@ -30,22 +30,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setConstraints()
+        setDelegate()
+        setMap()
+        setConstraints()
         
+        if checkService() { mapView.positionMode = .compass }
+        else { print("경고 문구 얼럿해야함")}
+    }
+    
+    func setMap() {
         mapView.setLayerGroup(NMF_LAYER_GROUP_BICYCLE, isEnabled: true)
         mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
-        
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            print("위치 서비스 ON")
-            locationManager.startUpdatingLocation()
-            mapView.positionMode = .compass
-        } else {
-            print("위치 서비스 OFF")
-        }
         
         if traitCollection.userInterfaceStyle == .dark {
             mapView.mapType = .navi
@@ -71,6 +66,26 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+}
+
+extension MapViewController: CLLocationManagerDelegate {
+    
+    func setDelegate() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    func checkService() -> Bool {
+        if CLLocationManager.locationServicesEnabled() {
+            print("위치 서비스 ON")
+            locationManager.startUpdatingLocation()
+            return true
+        } else {
+            print("위치 서비스 OFF")
+            return false
+        }
+    }
 }
 
 

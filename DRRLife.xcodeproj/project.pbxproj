@@ -19,6 +19,10 @@
 		FD99D635274C050B00EB15A2 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D634274C050B00EB15A2 /* UIButton.swift */; };
 		FD99D637274C12D900EB15A2 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D636274C12D900EB15A2 /* UIColor.swift */; };
 		FD99D639274C13F900EB15A2 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D638274C13F900EB15A2 /* UITextField.swift */; };
+		FD99D63C274CB93800EB15A2 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D63B274CB93800EB15A2 /* SearchViewController.swift */; };
+		FD99D63E274CD50200EB15A2 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D63D274CD50200EB15A2 /* Model.swift */; };
+		FD99D641274CD73200EB15A2 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD99D63F274CD73200EB15A2 /* SearchTableViewCell.swift */; };
+		FD99D642274CD73200EB15A2 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD99D640274CD73200EB15A2 /* SearchTableViewCell.xib */; };
 		FDAFAF3F274BDEE1002ED04A /* Localizable.strings in Sources */ = {isa = PBXBuildFile; fileRef = FDAFAF41274BDEE1002ED04A /* Localizable.strings */; };
 		FDAFAF45274BE110002ED04A /* Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAFAF44274BE110002ED04A /* Localize.swift */; };
 		FDDF8F92274BD0F1002FBD1C /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDF8F91274BD0F1002FBD1C /* UIViewController.swift */; };
@@ -68,6 +72,10 @@
 		FD99D634274C050B00EB15A2 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		FD99D636274C12D900EB15A2 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		FD99D638274C13F900EB15A2 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
+		FD99D63B274CB93800EB15A2 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		FD99D63D274CD50200EB15A2 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		FD99D63F274CD73200EB15A2 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		FD99D640274CD73200EB15A2 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
 		FDAFAF40274BDEE1002ED04A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FDAFAF43274BE053002ED04A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FDAFAF44274BE110002ED04A /* Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localize.swift; sourceTree = "<group>"; };
@@ -164,6 +172,7 @@
 		FD84E6A6274B6F2900EC6772 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				FD99D63A274CB92300EB15A2 /* Search */,
 				FD18F116274A3647004814DB /* Map */,
 				FD18F11B274A4F50004814DB /* LocationInfo */,
 				FD84E6A3274B6EAA00EC6772 /* RouteInput */,
@@ -209,6 +218,17 @@
 				FDF1C0F82748D49E00F08D2D /* LaunchScreen.storyboard */,
 			);
 			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
+		FD99D63A274CB92300EB15A2 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				FD99D63B274CB93800EB15A2 /* SearchViewController.swift */,
+				FD99D63D274CD50200EB15A2 /* Model.swift */,
+				FD99D63F274CD73200EB15A2 /* SearchTableViewCell.swift */,
+				FD99D640274CD73200EB15A2 /* SearchTableViewCell.xib */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		FDF1C0E12748D49A00F08D2D = {
@@ -376,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDF1C0FA2748D49E00F08D2D /* LaunchScreen.storyboard in Resources */,
+				FD99D642274CD73200EB15A2 /* SearchTableViewCell.xib in Resources */,
 				FD96C3362748F337007691E6 /* APIKeys.plist in Resources */,
 				FDF1C0F72748D49E00F08D2D /* Assets.xcassets in Resources */,
 			);
@@ -505,15 +526,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD99D63C274CB93800EB15A2 /* SearchViewController.swift in Sources */,
 				FDF1C0F22748D49A00F08D2D /* ViewController.swift in Sources */,
 				FD84E6A2274B6B4700EC6772 /* LocationInfoViewController.swift in Sources */,
 				FDDF8F92274BD0F1002FBD1C /* UIViewController.swift in Sources */,
 				FD96C3382748F571007691E6 /* DRRLife++Bundle.swift in Sources */,
 				FD84E6A5274B6F1800EC6772 /* RouteInputViewController.swift in Sources */,
 				FDF1C0EE2748D49A00F08D2D /* AppDelegate.swift in Sources */,
+				FD99D63E274CD50200EB15A2 /* Model.swift in Sources */,
 				FDAFAF3F274BDEE1002ED04A /* Localizable.strings in Sources */,
 				FD84E6A8274B7D6300EC6772 /* UIView+Snapkit.swift in Sources */,
 				FD18F118274A36CB004814DB /* MapViewController.swift in Sources */,
+				FD99D641274CD73200EB15A2 /* SearchTableViewCell.swift in Sources */,
 				FD99D639274C13F900EB15A2 /* UITextField.swift in Sources */,
 				FD99D637274C12D900EB15A2 /* UIColor.swift in Sources */,
 				FDF1C0F02748D49A00F08D2D /* SceneDelegate.swift in Sources */,
