@@ -15,27 +15,27 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
     let buttonPointSize: CGFloat = 15
     lazy var buttonWidth: CGFloat = buttonPointSize * 4 / 3
     
-    lazy var oriTextField = UITextField().then {
+    
+    
+    lazy var oriInput = UIButton().then {
         $0.tag = 1
-        $0.placeholder = "출발지 입력".localized()
+        $0.setTitle("출발지 입력".localized(), for: .normal)
     }
-    lazy var oriRantalShopTextField = UITextField().then {
+    lazy var oriRantalShopInput = UIButton().then {
         $0.tag = 2
-        $0.placeholder = "출발지 대여소".localized()
-        $0.isEnabled = false
+        $0.setTitle("출발지 대여소".localized(), for: .normal)
     }
-    lazy var dstTextField = UITextField().then {
+    lazy var dstInput = UIButton().then {
         $0.tag = 3
-        $0.placeholder = "도착지 입력".localized()
+        $0.setTitle("도착지 입력".localized(), for: .normal)
     }
-    lazy var dstRantalShopTextField = UITextField().then {
+    lazy var dstRantalShopInput = UIButton().then {
         $0.tag = 4
-        $0.placeholder = "도착지 대여소".localized()
-        $0.isEnabled = false
+        $0.setTitle("도착지 대여소".localized(), for: .normal)
     }
-    lazy var textFields = locationTextFields + rantalTextFields
-    lazy var locationTextFields = [oriTextField, dstTextField]
-    lazy var rantalTextFields = [oriRantalShopTextField, dstRantalShopTextField]
+    lazy var userInputs = locationInputs + rantalInputs
+    lazy var locationInputs = [oriInput, dstInput]
+    lazy var rantalInputs = [oriRantalShopInput, dstRantalShopInput]
     
     lazy var swapButton = UIButton().then {
         $0.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
@@ -54,15 +54,15 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
     }
     
     lazy var oriStackView = UIStackView().then {
-        $0.addArrangedSubview(oriTextField)
-        $0.addArrangedSubview(oriRantalShopTextField)
+        $0.addArrangedSubview(oriInput)
+        $0.addArrangedSubview(oriRantalShopInput)
         $0.axis = .vertical
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.spacing = 3
     }
     lazy var dstStackView = UIStackView().then {
-        $0.addArrangedSubview(dstTextField)
-        $0.addArrangedSubview(dstRantalShopTextField)
+        $0.addArrangedSubview(dstInput)
+        $0.addArrangedSubview(dstRantalShopInput)
         $0.axis = .vertical
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.spacing = 3
@@ -107,13 +107,13 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
         
         oriCancelButton.snp.makeConstraints { make in
             make.centerX.equalTo(textStackView.snp.right).offset(textFieldPadding / 2)
-            make.centerY.equalTo(oriTextField.snp.centerY)
+            make.centerY.equalTo(oriInput.snp.centerY)
         }
         dstCancelButton.snp.makeConstraints { make in
             make.centerX.equalTo(textStackView.snp.right).offset(textFieldPadding / 2)
-            make.centerY.equalTo(dstTextField.snp.centerY)
+            make.centerY.equalTo(dstInput.snp.centerY)
         }
-        textFields.forEach { textField in
+        userInputs.forEach { textField in
             textField.snp.makeConstraints { make in
                 make.height.equalTo(34)
             }
@@ -121,32 +121,40 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
     }
     
     func setTextFields() {
-        textFields.forEach { textField in
-            textField.backgroundColor = .themeTextFieldBG
-            textField.layer.cornerRadius = 5
-            textField.addLeftPadding()
+        userInputs.forEach { userInput in
+            userInput.backgroundColor = .themeTextFieldBG
+            userInput.titleLabel?.font = .systemFont(ofSize: 13)
+            userInput.contentHorizontalAlignment = .left
+            userInput.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+            userInput.layer.cornerRadius = 5
         }
-        locationTextFields.forEach { textField in
-            textField.setPlaceholderColor(.themeTextFieldPlaceholder)
-            textField.addTarget(self, action: #selector(showSearchView), for: .edit)
+        locationInputs.forEach { userInput in
+            userInput.setTitleColor(.themeTextFieldPlaceholder, for: .normal)
+            userInput.setTitleColor(.themeTextFieldDisabledPlaceholder, for: .highlighted)
+            userInput.addTarget(self, action: #selector(showSearchView), for: .touchUpInside)
         }
-        rantalTextFields.forEach { textField in
-            textField.setPlaceholderColor(.themeTextFieldDisabledPlaceholder)
+        rantalInputs.forEach { userInput in
+            userInput.setTitleColor(.themeTextFieldDisabledPlaceholder, for: .normal)
+            userInput.isEnabled = false
         }
     }
     
     // MARK: Delegate
-    func sendPlaceDetails(_: [PlaceDetail]) {
-        print("Delegated")
+    func sendPlaceDetails(targetTag tag: Int, _ placeDetails: [PlaceDetail]) {
+        guard let button = locationInputs.filter({ $0.tag == tag }).first else { return }
+        guard let placeDetail = placeDetails.first else { return }
+        button.setTitle(placeDetail.road_address_name, for: .normal)
+        button.setTitleColor(.black, for: .normal)
     }
     
     @objc
-    func showSearchView(_ sender: UITextField) {
+    func showSearchView(_ sender: UIButton) {
         print(sender)
         
         let vc = SearchViewController()
         
         vc.delegate = self
+        vc.callBackTag = sender.tag
         
         let nav = UINavigationController(rootViewController: vc)
         

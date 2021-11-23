@@ -12,11 +12,12 @@ import Then
 import CoreLocation
 
 protocol PassDataDelegate {
-    func sendPlaceDetails(_: [PlaceDetail])
+    func sendPlaceDetails(targetTag tag: Int, _ placeDetails: [PlaceDetail])
 }
 
 class SearchViewController: UIViewController {
     
+    var callBackTag = -1
     let maxCount = 15
     let locationManager = CLLocationManager()
     let searchController = UISearchController(searchResultsController: nil)
@@ -91,7 +92,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = places[indexPath.row]
         let placeDetail = row.makePlaceDetail()
-        delegate?.sendPlaceDetails([placeDetail])
+        delegate?.sendPlaceDetails(targetTag: callBackTag, [placeDetail])
         self.dismiss(animated: false, completion: nil)
     }
 }
