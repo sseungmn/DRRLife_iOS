@@ -34,16 +34,14 @@ class SearchViewController: UIViewController {
         "y": "",
         "page": 1,
         "size": maxCount,
-        "sort": "distance"
+        "sort": "accuracy"
     ]
     
     var currentCoordinate: Coordinate {
         return makeCurrentCoordinate() ?? Coordinate()
     }
-    var itemCount: Int = 0 {
-        didSet(oldValue) {
-            if itemCount > maxCount { itemCount = maxCount }
-        }
+    var itemCount: Int {
+        return places.count > maxCount ? maxCount : places.count
     }
     var places = [Place]()
     
@@ -142,7 +140,6 @@ extension SearchViewController: UISearchBarDelegate {
                 do {
                     let json = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
                     let result = try JSONDecoder().decode(Response.self, from: json)
-                    self.itemCount = result.meta.total_count
                     self.places = result.documents
                     print("===== 검색 결과 '\(self.itemCount)개'")
                     for place in self.places {
@@ -165,6 +162,7 @@ extension SearchViewController: UISearchBarDelegate {
     }
     func clearResults() {
         self.places.removeAll()
+        tableView.reloadData()
     }
 }
 

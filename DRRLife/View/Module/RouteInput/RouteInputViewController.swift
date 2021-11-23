@@ -15,24 +15,26 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
     let buttonPointSize: CGFloat = 15
     lazy var buttonWidth: CGFloat = buttonPointSize * 4 / 3
     
-    
+    var mapView: MapViewController?
     
     lazy var oriInput = UIButton().then {
-        $0.tag = 1
-        $0.setTitle("출발지 입력".localized(), for: .normal)
+        $0.tag = 0
     }
     lazy var oriRantalShopInput = UIButton().then {
-        $0.tag = 2
-        $0.setTitle("출발지 대여소".localized(), for: .normal)
+        $0.tag = 1
     }
     lazy var dstInput = UIButton().then {
-        $0.tag = 3
-        $0.setTitle("도착지 입력".localized(), for: .normal)
+        $0.tag = 2
     }
     lazy var dstRantalShopInput = UIButton().then {
-        $0.tag = 4
-        $0.setTitle("도착지 대여소".localized(), for: .normal)
+        $0.tag = 3
     }
+    let userInputTitles = [
+        "출발지 입력".localized(),
+        "출발지 대여소".localized(),
+        "도착지 입력".localized(),
+        "도착지 대여소".localized()
+    ]
     lazy var userInputs = locationInputs + rantalInputs
     lazy var locationInputs = [oriInput, dstInput]
     lazy var rantalInputs = [oriRantalShopInput, dstRantalShopInput]
@@ -43,14 +45,30 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
         $0.tintColor = .themeGreyscaled
     }
     lazy var oriCancelButton = UIButton().then {
+        $0.tag = 0
         $0.setImage(UIImage(systemName: "xmark"), for: .normal)
         $0.setPointSize(pointSize: 15)
         $0.tintColor = .themeGreyscaled
+        $0.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
     }
     lazy var dstCancelButton = UIButton().then {
+        $0.tag = 1
         $0.setImage(UIImage(systemName: "xmark"), for: .normal)
         $0.setPointSize(pointSize: 15)
         $0.tintColor = .themeGreyscaled
+        $0.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
+    }
+    func setInitailTitle(button: UIButton) {
+        button.setTitle(userInputTitles[button.tag], for: .normal)
+    }
+    
+    @objc
+    func cancelButtonClicked(_ sender: UIButton) {
+        Marker.shared.locationMarker.mapView = nil
+        userInputs.filter({ $0.tag / 2 == sender.tag }).forEach { userInput in
+            setInitailTitle(button: userInput)
+            Marker.shared.allCases[userInput.tag].mapView = nil
+        }
     }
     
     lazy var oriStackView = UIStackView().then {
@@ -123,6 +141,7 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
     func setTextFields() {
         userInputs.forEach { userInput in
             userInput.backgroundColor = .grayLevel10
+            setInitailTitle(button: userInput)
             userInput.titleLabel?.font = .systemFont(ofSize: 13)
             userInput.contentHorizontalAlignment = .left
             userInput.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
@@ -145,6 +164,7 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
         guard let placeDetail = placeDetails.first else { return }
         button.setTitle(placeDetail.road_address_name, for: .normal)
         button.setTitleColor(.black, for: .normal)
+        mapView?.updateMap(to: placeDetail.coordinate)
     }
     
     @objc

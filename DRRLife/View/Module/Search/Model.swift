@@ -6,23 +6,57 @@
 //
 
 import Foundation
+import NMapsMap
+import Then
 
+// MARK: - MAP
+class Marker {
+    static let shared = Marker()
+    
+    lazy var locationMarker = NMFMarker().then {
+        $0.iconImage = NMF_MARKER_IMAGE_BLACK
+        $0.iconTintColor = UIColor.red
+        $0.width = 30
+        $0.height = 40
+    }
+    lazy var allCases = [oriMarker, oriRantalMarker, dstMarker, dstRantalMarker]
+    let oriMarker = NMFMarker()
+    let oriRantalMarker = NMFMarker()
+    let dstMarker = NMFMarker()
+    let dstRantalMarker = NMFMarker()
+}
+
+// MARK: - MAP, RouteInput
 struct Coordinate {
     var x: String
     var y: String
+    var lat: Double
+    var lng: Double
     
     // 서울시청 좌표
     init() {
         self.x = "126.584063"
         self.y = "37.335887"
+        self.lat = 37.335887
+        self.lng = 126.584063
     }
     
     init(x: String, y: String) {
         self.x = x
         self.y = y
+        self.lat = (y as NSString).doubleValue
+        self.lng = (x as NSString).doubleValue
+    }
+    
+    init(lat: Double, lng: Double) {
+        self.x = String(lng)
+        self.y = String(lat)
+        self.lat = lat
+        self.lng = lng
     }
 }
 
+// MARK: - RouteInput
 struct PlaceDetail {
     var place_name: String
     var category_name: String

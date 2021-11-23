@@ -51,6 +51,31 @@ class MapViewController: UIViewController {
         }
     }
     
+    func updateMap(to coor: Coordinate) {
+        setCamera(to: coor)
+        setMarker(to: coor)
+    }
+    
+    func setCamera(to coor: Coordinate) {
+        let camPosition = NMGLatLng(lat: coor.lat, lng: coor.lng)
+        let cameraUpdate = NMFCameraUpdate(scrollTo: camPosition)
+        mapView.moveCamera(cameraUpdate)
+    }
+    
+    func setMarker(to coor: Coordinate) {
+        Marker.shared.locationMarker.position = NMGLatLng(lat: coor.lat, lng: coor.lng)
+        Marker.shared.locationMarker.mapView = mapView
+        
+        // 정보창 생성
+//        let infoWindow = NMFInfoWindow()
+//        let dataSource = NMFInfoWindowDefaultTextSource.data()
+//        dataSource.title = "서울특별시청"
+//        infoWindow.dataSource = dataSource
+        
+        // 마커에 달아주기
+//        infoWindow.open(with: marker)
+    }
+    
     func setConstraints() {
         view.addSubview(mapView)
         view.addSubview(scopeButton)
@@ -87,24 +112,3 @@ extension MapViewController: CLLocationManagerDelegate {
         }
     }
 }
-
-
-#if canImport(SwiftUI) && DEBUG
-import SwiftUI
-@available(iOS 13.0, *)
-struct presentable: UIViewRepresentable {
-    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<presentable>) {
-    }
-    
-    func makeUIView(context: Context) -> UIView {
-        MapViewController().view
-    }
-    
-}
-@available(iOS 13.0, *)
-struct MapViewController_Previews: PreviewProvider {
-    static var previews: some View {
-        presentable()
-    }
-}
-#endif

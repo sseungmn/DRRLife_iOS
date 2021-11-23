@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     
     func setInnerView() {
         self.add(routeInputVC)
+        routeInputVC.mapView = mapVC
         self.add(mapVC)
         self.add(locationInfoVC)
     }
