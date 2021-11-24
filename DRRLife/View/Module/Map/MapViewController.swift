@@ -10,6 +10,7 @@ import NMapsMap
 import Then
 import SnapKit
 import CoreLocation
+import Alamofire
 
 class MapViewController: UIViewController {
     var isRouteInputViewHidden: Bool = true
@@ -21,16 +22,34 @@ class MapViewController: UIViewController {
         $0.setImage(UIImage(systemName: "scope"), for: .normal)
         $0.addTarget(self, action: #selector(scopeButtonClicked), for: .touchUpInside)
     }
+    lazy var stationToggleButton = UIButton().then {
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 3
+        $0.setImage(UIImage(systemName: "bicycle.circle"), for: .normal)
+        $0.setImage(UIImage(systemName: "bicycle.circle.fill"), for: .selected)
+        $0.addTarget(self, action: #selector(stationButtonToggled), for: .touchUpInside)
+    }
+    var stations = [StationDetail]()
     
     @objc
     func scopeButtonClicked(_ sender: UIButton) {
         print("모드를 변경했습니다. (.compass)")
         mapView.positionMode = .compass
     }
+    
+    @objc
+    func stationButtonToggled(_ sender: UIButton) {
+        if !sender.isSelected {
+            sender.isSelected.toggle()
+            Marker.shared.showStationMarkers(mapView: mapView)
+        } else {
+            sender.isSelected.toggle()
+            Marker.shared.hideStationMarkers()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setDelegate()
         setMap()
         setConstraints()
@@ -54,6 +73,7 @@ class MapViewController: UIViewController {
             mapView.mapType = .basic
             mapView.isNightModeEnabled = false
         }
+        self.setStaionListAndSetStationMarkers(count: 3000)
     }
     
     func updateMap(to coor: Coordinate) {
@@ -86,9 +106,16 @@ class MapViewController: UIViewController {
     func setConstraints() {
         view.addSubview(mapView)
         view.addSubview(scopeButton)
+        view.addSubview(stationToggleButton)
         
         mapView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        stationToggleButton.snp.makeConstraints { make in
+            make.size.equalTo(40)
+            make.bottom.equalTo(view.safeArea.bottom).inset(90)
+            make.leading.equalToSuperview().inset(15)
         }
         
         scopeButton.snp.makeConstraints { make in
@@ -117,5 +144,72 @@ extension MapViewController: CLLocationManagerDelegate {
             print("위치 서비스 OFF")
             return false
         }
+    }
+}
+
+// MARK: 공공자전거 실시간 대여정보 API
+extension MapViewController {
+    /// API를 사용해서 실시간 대여정보를 받아오고, 대여소 Marker을 생성한다.
+    func setStaionListAndSetStationMarkers(count: Int) {
+        self.stations.removeAll()
+        Marker.shared.stationMarkers.removeAll()
+        
+        var start = 1
+        var end = count > 1000 ? 1000 : count
+        
+        while start <= end {
+            requestRantalStationList(start, end)
+            start += 1000
+            end = end + 1000 <= count ? end + 1000 : count
+        }
+    }
+    
+    func requestRantalStationList(_ start: Int, _ end: Int) {
+        RequestURL.parameters["START_INDEX"] = start
+        RequestURL.parameters["END_INDEX"] = end
+        print("\(start)~\(end)")
+        
+        AF.request(RequestURL.requestURL,
+                   method: .get,
+                   parameters: nil,
+                   headers: nil
+        ).responseJSON(completionHandler: { response in
+            switch response.result {
+            case .success(let jsonData):
+                print("===== 검색 성공 =====")
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(SODResponse.self, from: json)
+                    print("===== 검색 결과 '\(result.rentBikeStatus.row.count)개'")
+                    for stationInfo in result.rentBikeStatus.row {
+                        let tmpStationDetail = stationInfo.makeStationDetail()
+                        self.stations.append(tmpStationDetail)
+                        self.makeStationMarker(station: tmpStationDetail)
+                    }
+                } catch(let error) {
+                    print(error.localizedDescription)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
+    }
+    
+    func makeStationMarker(station: StationDetail) {
+        print("\(station.stationName) 마커 추가하는중")
+        
+        let tmpMarker = NMFMarker(position: NMGLatLng(lat: station.coordinate.lat,
+                                                      lng: station.coordinate.lng))
+        tmpMarker.mapView = mapView
+        
+        // 정보창 생성
+        let infoWindow = NMFInfoWindow()
+        let dataSource = NMFInfoWindowDefaultTextSource.data()
+        dataSource.title = station.stationName
+        infoWindow.dataSource = dataSource
+        
+        // 마커에 달아주기
+        infoWindow.open(with: tmpMarker)
+        Marker.shared.stationMarkers.append(tmpMarker)
     }
 }

@@ -127,8 +127,8 @@ extension SearchViewController: UISearchBarDelegate {
         if searchText.count <= 0 { self.clearResults() }
         
         parameters["query"] = searchText
-        parameters["x"] = currentCoordinate.x
-        parameters["y"] = currentCoordinate.y
+        parameters["x"] = currentCoordinate.lng
+        parameters["y"] = currentCoordinate.lat
         
         AF.request("https://dapi.kakao.com/v2/local/search/keyword.json",
                    method: .get,
@@ -188,6 +188,6 @@ extension SearchViewController: CLLocationManagerDelegate {
     
     func makeCurrentCoordinate() -> Coordinate? {
         guard let coor = locationManager.location?.coordinate else { return nil }
-        return Coordinate(x: String(coor.longitude), y: String(coor.latitude))
+        return Coordinate(lat: coor.latitude, lng: coor.longitude)
     }
 }

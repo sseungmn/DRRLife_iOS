@@ -24,6 +24,12 @@ struct RequestURL {
 }
 
 // SeoulOpenData Response
+struct StationDetail {
+    var stationName: String
+    var rackTotCnt: Int
+    var parkingBikeTotCnt: Int
+    var coordinate: Coordinate
+}
 
 struct SODResponse: Codable {
     var rentBikeStatus: RentBikeStatus
@@ -46,8 +52,16 @@ struct SODResponse: Codable {
             var stationLatitude: String
             var stationLongitude: String
             var stationName: String
+            
+            func makeStationDetail() -> StationDetail {
+                return StationDetail(stationName: self.stationName,
+                                     rackTotCnt: self.rackTotCnt.toInt(),
+                                     parkingBikeTotCnt: self.parkingBikeTotCnt.toInt(),
+                                     coordinate: Coordinate(lat: self.stationLatitude, lng: self.stationLongitude))
+            }
         }
     }
+    
 }
 
 typealias StationInfo = SODResponse.RentBikeStatus.RantalStationInfo
@@ -67,35 +81,48 @@ class Marker {
     let oriRantalMarker = NMFMarker()
     let dstMarker = NMFMarker()
     let dstRantalMarker = NMFMarker()
+    
+    var stationMarkers = [NMFMarker]()
+    
+    func showStationMarkers(mapView: NMFMapView) {
+        print("showStationMarkers for \(stationMarkers.count)개")
+        self.stationMarkers.forEach { marker in
+            marker.mapView = mapView
+        }
+    }
+    func hideStationMarkers() {
+        print("hideStationMarkers")
+        self.stationMarkers.forEach { marker in
+            marker.mapView = nil
+        }
+    }
 }
 
 // MARK: - MAP, RouteInput
+
+/// Contain variables for using coordinate
 struct Coordinate {
-    var x: String
-    var y: String
+    /// *latitude*, and also can be *y*
     var lat: Double
+    
+    /// *longitude*, and also can be *x*
     var lng: Double
     
-    // 서울시청 좌표
+    /// 서울시청의 좌표로 초기화한다.
     init() {
-        self.x = "126.584063"
-        self.y = "37.335887"
         self.lat = 37.335887
         self.lng = 126.584063
     }
     
-    init(x: String, y: String) {
-        self.x = x
-        self.y = y
-        self.lat = (y as NSString).doubleValue
-        self.lng = (x as NSString).doubleValue
-    }
-    
+    /// `Double Type`으로 받으면 그대로 저장한다.
     init(lat: Double, lng: Double) {
-        self.x = String(lng)
-        self.y = String(lat)
         self.lat = lat
         self.lng = lng
+    }
+    /// `String Type`으로 받으면 `Double`로 변환해서 저장한다.
+    init(lat: String, lng: String) {
+        self.lat = lat.toDouble()
+        self.lng = lng.toDouble()
     }
 }
 
@@ -139,9 +166,9 @@ struct KLResponse: Codable {
         
         func makePlaceDetail() -> PlaceDetail {
             return PlaceDetail(place_name: self.place_name,
-                                category_name: self.category_name,
-                                road_address_name: self.road_address_name,
-                                coordinate: Coordinate(x: self.x, y: self.y))
+                               category_name: self.category_name,
+                               road_address_name: self.road_address_name,
+                               coordinate: Coordinate(lat: self.y, lng: self.x))
         }
     }
 }
