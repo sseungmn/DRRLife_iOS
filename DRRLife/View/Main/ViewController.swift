@@ -8,6 +8,7 @@
 import UIKit
 import Then
 import SnapKit
+import Alamofire
 
 class ViewController: UIViewController {
     lazy var routeInputVC = RouteInputViewController()
@@ -16,43 +17,58 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setInnerView()
         setConstraints()
-        routeInputVC.view.snp.updateConstraints { make in
-            make.height.equalTo(181)
-        }
-        locationInfoVC.view.snp.updateConstraints { make in
-            make.height.equalTo(200)
-        }
+        routeInputVC.view.isHidden = false
+        
+        showLocationInfo()
+    }
+    
+    func requestRantalShopList() {
+        RequestURL.parameters["START_INDEX"] = 1
+        RequestURL.parameters["END_INDEX"] = 1000
+        AF.request(RequestURL.requestURL,
+                   method: .get,
+                   parameters: nil,
+                   headers: nil
+        ).responseJSON(completionHandler: { response in
+            switch response.result {
+            case .success(let jsonData):
+                print(jsonData)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        })
     }
     
     func setInnerView() {
-        self.add(routeInputVC)
-        routeInputVC.mapView = mapVC
         self.add(mapVC)
         self.add(locationInfoVC)
+        self.add(routeInputVC)
+        routeInputVC.mapView = mapVC
     }
     
     func setConstraints() {
         routeInputVC.view.snp.makeConstraints { make in
             make.top.equalTo(view.safeArea.top)
-            make.left.right.equalToSuperview()
-            make.bottom.equalTo(mapVC.view.snp.top)
-            make.height.equalTo(0)
+            make.left.right.equalToSuperview().inset(20)
+            make.height.equalTo(200)
         }
         
         mapVC.view.snp.makeConstraints { make in
-            make.top.equalTo(routeInputVC.view.snp.bottom)
-            make.left.right.equalToSuperview()
-            make.bottom.equalTo(locationInfoVC.view.snp.top)
+            make.top.left.right.bottom.equalToSuperview()
         }
-        
         locationInfoVC.view.snp.makeConstraints { make in
-            make.top.equalTo(mapVC.view.snp.bottom)
-            make.left.right.equalToSuperview()
-            make.bottom.equalTo(view.safeArea.bottom)
-            make.height.equalTo(0)
+            make.left.right.bottom.equalToSuperview()
+        }
+    }
+    
+    func showLocationInfo() {
+        mapVC.view.snp.updateConstraints { make in
+            make.bottom.equalToSuperview().inset(200)
+        }
+        locationInfoVC.view.snp.makeConstraints { make in
+            make.height.equalTo(200)
         }
     }
 }

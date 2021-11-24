@@ -10,8 +10,8 @@ import SnapKit
 import Then
 
 class RouteInputViewController: UIViewController, PassDataDelegate {
-    let height: CGFloat = 500
-    let textFieldPadding: CGFloat = 50
+    let viewHeight: CGFloat = 187
+    let textFieldPadding: CGFloat = 16
     let buttonPointSize: CGFloat = 15
     lazy var buttonWidth: CGFloat = buttonPointSize * 4 / 3
     
@@ -41,8 +41,11 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
     
     lazy var swapButton = UIButton().then {
         $0.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
+        $0.backgroundColor = .white
         $0.setPointSize(pointSize: 15)
         $0.tintColor = .themeGreyscaled
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius = 20
     }
     lazy var oriCancelButton = UIButton().then {
         $0.tag = 0
@@ -93,8 +96,10 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
         $0.spacing = 13
     }
 
-    lazy var bgView = UIView().then {
+    lazy var contentView = UIView().then {
         $0.backgroundColor = .white
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius = 5
         $0.addSubview(textStackView)
         $0.addSubview(swapButton)
         $0.addSubview(oriCancelButton)
@@ -105,30 +110,35 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
         super.viewDidLoad()
         setContstraints()
         setTextFields()
+        view.clipsToBounds = false
+        view.layer.shadowRadius = 5
+        view.layer.shadowColor = UIColor.black.cgColor
+//        view.layer.shadowOffset = CGSize(width: 10, height: 10)
+        view.layer.shadowOpacity = 0.3
     }
     
     func setContstraints() {
-        view.addSubview(bgView)
+        view.addSubview(contentView)
         
-        bgView.snp.makeConstraints { make in
+        contentView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
-            make.height.equalTo(181)
+            make.height.equalTo(viewHeight)
         }
         textStackView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(13)
+            make.top.bottom.equalToSuperview().inset(16)
             make.left.right.equalToSuperview().inset(textFieldPadding)
         }
         swapButton.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset((textFieldPadding - buttonWidth) / 2)
-            make.centerY.equalToSuperview()
+            make.center.equalToSuperview()
+            make.size.equalTo(40)
         }
         
         oriCancelButton.snp.makeConstraints { make in
-            make.centerX.equalTo(textStackView.snp.right).offset(textFieldPadding / 2)
+            make.centerX.equalTo(textStackView.snp.right).inset(20)
             make.centerY.equalTo(oriInput.snp.centerY)
         }
         dstCancelButton.snp.makeConstraints { make in
-            make.centerX.equalTo(textStackView.snp.right).offset(textFieldPadding / 2)
+            make.centerX.equalTo(textStackView.snp.right).inset(20)
             make.centerY.equalTo(dstInput.snp.centerY)
         }
         userInputs.forEach { textField in

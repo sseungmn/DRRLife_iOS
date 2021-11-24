@@ -20,6 +20,9 @@ extension Bundle {
     var Openroute: String {
         return getKey(of: "Openroute")
     }
+    var SeoulOpenData: String {
+        return getKey(of: "SeoulOpenData")
+    }
     
     private func getKey(of name: String)-> String {
         guard let file = path(forResource: "APIKeys", ofType: "plist") else { fatalError("APIKeys.plist 파일이 존재하지 않습니다.") }
