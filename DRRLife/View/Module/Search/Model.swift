@@ -23,8 +23,25 @@ struct RequestURL {
     }
 }
 
+// StationInformation File
+struct StationInformation {
+    var stationNumber: String
+    var stationName: String
+    /// 자치구
+    var region: String
+    var address: String
+    var stationLatitude: String
+    var stationLongitude: String
+    /// LCD Type 자전거 대수
+    var LCDNumber: String
+    /// QR Type 자전거 대수
+    var QRNumber: String
+    /// 대여 방법
+    var rantalType: String
+}
+
 // SeoulOpenData Response
-struct StationDetail {
+struct StationStatusDetail {
     var stationName: String
     var rackTotCnt: Int
     var parkingBikeTotCnt: Int
@@ -37,14 +54,14 @@ struct SODResponse: Codable {
     struct RentBikeStatus: Codable {
         var RESULT: Result
         var list_total_count: Int
-        var row: [RantalStationInfo]
+        var row: [RantalStationStatus]
         
         struct Result: Codable {
             var CODE: String
             var MESSAGE: String
         }
         
-        struct RantalStationInfo: Codable {
+        struct RantalStationStatus: Codable {
             var parkingBikeTotCnt: String
             var rackTotCnt: String
             var shared: String
@@ -53,8 +70,8 @@ struct SODResponse: Codable {
             var stationLongitude: String
             var stationName: String
             
-            func makeStationDetail() -> StationDetail {
-                return StationDetail(stationName: self.stationName,
+            func makeStationDetail() -> StationStatusDetail {
+                return StationStatusDetail(stationName: self.stationName,
                                      rackTotCnt: self.rackTotCnt.toInt(),
                                      parkingBikeTotCnt: self.parkingBikeTotCnt.toInt(),
                                      coordinate: Coordinate(lat: self.stationLatitude, lng: self.stationLongitude))
@@ -64,7 +81,7 @@ struct SODResponse: Codable {
     
 }
 
-typealias StationInfo = SODResponse.RentBikeStatus.RantalStationInfo
+typealias StationInfo = SODResponse.RentBikeStatus.RantalStationStatus
 
 // MARK: - MAP
 class Marker {

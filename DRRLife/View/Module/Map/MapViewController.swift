@@ -29,7 +29,13 @@ class MapViewController: UIViewController {
         $0.setImage(UIImage(systemName: "bicycle.circle.fill"), for: .selected)
         $0.addTarget(self, action: #selector(stationButtonToggled), for: .touchUpInside)
     }
-    var stations = [StationDetail]()
+    lazy var updateButton = UIButton().then {
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 3
+        $0.setImage(UIImage(systemName: "arrow.triangle.2.circlepath"), for: .normal)
+        $0.addTarget(self, action: #selector(updateButtonClicked), for: .touchUpInside)
+    }
+    var stations = [StationStatusDetail]()
     
     @objc
     func scopeButtonClicked(_ sender: UIButton) {
@@ -46,6 +52,10 @@ class MapViewController: UIViewController {
             sender.isSelected.toggle()
             Marker.shared.hideStationMarkers()
         }
+    }
+    @objc
+    func updateButtonClicked(_ sender: UIButton) {
+        print("Update Button Clicked")
     }
 
     override func viewDidLoad() {
@@ -107,9 +117,16 @@ class MapViewController: UIViewController {
         view.addSubview(mapView)
         view.addSubview(scopeButton)
         view.addSubview(stationToggleButton)
+        view.addSubview(updateButton)
         
         mapView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        
+        updateButton.snp.makeConstraints { make in
+            make.size.equalTo(40)
+            make.bottom.equalTo(view.safeArea.bottom).inset(140)
+            make.leading.equalToSuperview().inset(15)
         }
         
         stationToggleButton.snp.makeConstraints { make in
@@ -195,21 +212,13 @@ extension MapViewController {
         })
     }
     
-    func makeStationMarker(station: StationDetail) {
+    func makeStationMarker(station: StationStatusDetail) {
         print("\(station.stationName) 마커 추가하는중")
         
         let tmpMarker = NMFMarker(position: NMGLatLng(lat: station.coordinate.lat,
                                                       lng: station.coordinate.lng))
         tmpMarker.mapView = mapView
         
-        // 정보창 생성
-        let infoWindow = NMFInfoWindow()
-        let dataSource = NMFInfoWindowDefaultTextSource.data()
-        dataSource.title = station.stationName
-        infoWindow.dataSource = dataSource
-        
-        // 마커에 달아주기
-        infoWindow.open(with: tmpMarker)
         Marker.shared.stationMarkers.append(tmpMarker)
     }
 }
