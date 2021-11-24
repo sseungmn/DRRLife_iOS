@@ -43,7 +43,7 @@ class SearchViewController: UIViewController {
     var itemCount: Int {
         return places.count > maxCount ? maxCount : places.count
     }
-    var places = [Place]()
+    var places = [KLResponse.Place]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,10 +136,11 @@ extension SearchViewController: UISearchBarDelegate {
         ).responseJSON(completionHandler: { response in
             switch response.result {
             case .success(let jsonData):
+                print(jsonData)
                 print("===== 검색 성공 '\(searchText)' =====")
                 do {
                     let json = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
-                    let result = try JSONDecoder().decode(Response.self, from: json)
+                    let result = try JSONDecoder().decode(KLResponse.self, from: json)
                     self.places = result.documents
                     print("===== 검색 결과 '\(self.itemCount)개'")
                     for place in self.places {

@@ -12,6 +12,7 @@ import SnapKit
 import CoreLocation
 
 class MapViewController: UIViewController {
+    var isRouteInputViewHidden: Bool = true
     lazy var locationManager = CLLocationManager()
     lazy var mapView = NMFMapView()
     lazy var scopeButton = UIButton().then {
@@ -42,6 +43,10 @@ class MapViewController: UIViewController {
         mapView.setLayerGroup(NMF_LAYER_GROUP_BICYCLE, isEnabled: true)
         mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
         
+        if !isRouteInputViewHidden {
+            mapView.moveCamera(NMFCameraUpdate(scrollBy: CGPoint(x: 0, y: 100)))
+        }
+        
         if traitCollection.userInterfaceStyle == .dark {
             mapView.mapType = .navi
             mapView.isNightModeEnabled = true
@@ -58,8 +63,10 @@ class MapViewController: UIViewController {
     
     func setCamera(to coor: Coordinate) {
         let camPosition = NMGLatLng(lat: coor.lat, lng: coor.lng)
-        let cameraUpdate = NMFCameraUpdate(scrollTo: camPosition)
-        mapView.moveCamera(cameraUpdate)
+        mapView.moveCamera(NMFCameraUpdate(scrollTo: camPosition))
+        if !isRouteInputViewHidden {
+            mapView.moveCamera(NMFCameraUpdate(scrollBy: CGPoint(x: 0, y: 100)))
+        }
     }
     
     func setMarker(to coor: Coordinate) {

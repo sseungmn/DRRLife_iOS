@@ -19,7 +19,7 @@ class SearchTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    func setData(row: Place) {
+    func setData(row: KLResponse.Place) {
         nameLabel.text = row.place_name
         addressLabel.text = row.road_address_name
         categoryLabel.text = row.category_name.components(separatedBy: ">").last

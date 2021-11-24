@@ -20,13 +20,13 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
     lazy var oriInput = UIButton().then {
         $0.tag = 0
     }
-    lazy var oriRantalShopInput = UIButton().then {
+    lazy var oriRantalStationInput = UIButton().then {
         $0.tag = 1
     }
     lazy var dstInput = UIButton().then {
         $0.tag = 2
     }
-    lazy var dstRantalShopInput = UIButton().then {
+    lazy var dstRantalStationInput = UIButton().then {
         $0.tag = 3
     }
     let userInputTitles = [
@@ -37,7 +37,7 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
     ]
     lazy var userInputs = locationInputs + rantalInputs
     lazy var locationInputs = [oriInput, dstInput]
-    lazy var rantalInputs = [oriRantalShopInput, dstRantalShopInput]
+    lazy var rantalInputs = [oriRantalStationInput, dstRantalStationInput]
     
     lazy var swapButton = UIButton().then {
         $0.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
@@ -76,14 +76,14 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
     
     lazy var oriStackView = UIStackView().then {
         $0.addArrangedSubview(oriInput)
-        $0.addArrangedSubview(oriRantalShopInput)
+        $0.addArrangedSubview(oriRantalStationInput)
         $0.axis = .vertical
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.spacing = 3
     }
     lazy var dstStackView = UIStackView().then {
         $0.addArrangedSubview(dstInput)
-        $0.addArrangedSubview(dstRantalShopInput)
+        $0.addArrangedSubview(dstRantalStationInput)
         $0.axis = .vertical
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.spacing = 3
@@ -99,7 +99,7 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
     lazy var contentView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.masksToBounds = true
-        $0.layer.cornerRadius = 5
+        $0.layer.cornerRadius = 15
         $0.addSubview(textStackView)
         $0.addSubview(swapButton)
         $0.addSubview(oriCancelButton)
@@ -113,7 +113,6 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
         view.clipsToBounds = false
         view.layer.shadowRadius = 5
         view.layer.shadowColor = UIColor.black.cgColor
-//        view.layer.shadowOffset = CGSize(width: 10, height: 10)
         view.layer.shadowOpacity = 0.3
     }
     
