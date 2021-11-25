@@ -13,6 +13,11 @@
 		FD0948B9274E9BB3009A4A12 /* TypeConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0948B8274E9BB2009A4A12 /* TypeConvert.swift */; };
 		FD18F118274A36CB004814DB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD18F117274A36CA004814DB /* MapViewController.swift */; };
 		FD1F438E274F5BA400C926D3 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1F438D274F5BA400C926D3 /* UILabel.swift */; };
+		FD1F4396274F5ED600C926D3 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1F4395274F5ED600C926D3 /* UIFont.swift */; };
+		FD1F43A2274F6EFE00C926D3 /* NanumSquareB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD1F439F274F6EFD00C926D3 /* NanumSquareB.ttf */; };
+		FD1F43A3274F6EFE00C926D3 /* NanumSquareL.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD1F43A0274F6EFE00C926D3 /* NanumSquareL.ttf */; };
+		FD1F43A4274F6EFE00C926D3 /* NanumSquareR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD1F43A1274F6EFE00C926D3 /* NanumSquareR.ttf */; };
+		FD1F43A6274F704E00C926D3 /* NanumSquareEB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FD1F43A5274F704E00C926D3 /* NanumSquareEB.ttf */; };
 		FD84E6A2274B6B4700EC6772 /* LocationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD84E6A1274B6B4700EC6772 /* LocationInfoViewController.swift */; };
 		FD84E6A5274B6F1800EC6772 /* RouteInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD84E6A4274B6F1800EC6772 /* RouteInputViewController.swift */; };
 		FD84E6A8274B7D6300EC6772 /* UIView+Snapkit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD84E6A7274B7D6300EC6772 /* UIView+Snapkit.swift */; };
@@ -69,6 +74,11 @@
 		FD0948B8274E9BB2009A4A12 /* TypeConvert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TypeConvert.swift; path = ../../../../TypeConvert.swift; sourceTree = "<group>"; };
 		FD18F117274A36CA004814DB /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FD1F438D274F5BA400C926D3 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
+		FD1F4395274F5ED600C926D3 /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
+		FD1F439F274F6EFD00C926D3 /* NanumSquareB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareB.ttf; sourceTree = "<group>"; };
+		FD1F43A0274F6EFE00C926D3 /* NanumSquareL.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareL.ttf; sourceTree = "<group>"; };
+		FD1F43A1274F6EFE00C926D3 /* NanumSquareR.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareR.ttf; sourceTree = "<group>"; };
+		FD1F43A5274F704E00C926D3 /* NanumSquareEB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NanumSquareEB.ttf; sourceTree = "<group>"; };
 		FD84E6A1274B6B4700EC6772 /* LocationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfoViewController.swift; sourceTree = "<group>"; };
 		FD84E6A4274B6F1800EC6772 /* RouteInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInputViewController.swift; sourceTree = "<group>"; };
 		FD84E6A7274B7D6300EC6772 /* UIView+Snapkit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Snapkit.swift"; sourceTree = "<group>"; };
@@ -167,6 +177,27 @@
 			path = LocationInfo;
 			sourceTree = "<group>";
 		};
+		FD1F438F274F5E6900C926D3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				FD1F43A5274F704E00C926D3 /* NanumSquareEB.ttf */,
+				FD1F439F274F6EFD00C926D3 /* NanumSquareB.ttf */,
+				FD1F43A1274F6EFE00C926D3 /* NanumSquareR.ttf */,
+				FD1F43A0274F6EFE00C926D3 /* NanumSquareL.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		FD1F4390274F5E8100C926D3 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				FDF1C0F62748D49E00F08D2D /* Assets.xcassets */,
+				FD96C3352748F337007691E6 /* APIKeys.plist */,
+				FD1F438F274F5E6900C926D3 /* Fonts */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		FD84E6A3274B6EAA00EC6772 /* RouteInput */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +230,7 @@
 				FD99D643274D4B7400EB15A2 /* CALayer.swift */,
 				FD0948B8274E9BB2009A4A12 /* TypeConvert.swift */,
 				FD1F438D274F5BA400C926D3 /* UILabel.swift */,
+				FD1F4395274F5ED600C926D3 /* UIFont.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -267,11 +299,10 @@
 			children = (
 				FD96C33B2748FADA007691E6 /* View */,
 				FD96C3392748FABA007691E6 /* Extension */,
+				FD1F4390274F5E8100C926D3 /* Source */,
+				FDF1C0FB2748D49E00F08D2D /* Info.plist */,
 				FDF1C0ED2748D49A00F08D2D /* AppDelegate.swift */,
 				FDF1C0EF2748D49A00F08D2D /* SceneDelegate.swift */,
-				FDF1C0F62748D49E00F08D2D /* Assets.xcassets */,
-				FDF1C0FB2748D49E00F08D2D /* Info.plist */,
-				FD96C3352748F337007691E6 /* APIKeys.plist */,
 				FDAFAF41274BDEE1002ED04A /* Localizable.strings */,
 			);
 			path = DRRLife;
@@ -404,9 +435,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD1F43A6274F704E00C926D3 /* NanumSquareEB.ttf in Resources */,
 				FDF1C0FA2748D49E00F08D2D /* LaunchScreen.storyboard in Resources */,
 				FD99D642274CD73200EB15A2 /* SearchTableViewCell.xib in Resources */,
+				FD1F43A3274F6EFE00C926D3 /* NanumSquareL.ttf in Resources */,
+				FD1F43A4274F6EFE00C926D3 /* NanumSquareR.ttf in Resources */,
 				FD96C3362748F337007691E6 /* APIKeys.plist in Resources */,
+				FD1F43A2274F6EFE00C926D3 /* NanumSquareB.ttf in Resources */,
 				FDF1C0F72748D49E00F08D2D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -552,6 +587,7 @@
 				FD99D639274C13F900EB15A2 /* UITextField.swift in Sources */,
 				FD99D637274C12D900EB15A2 /* UIColor.swift in Sources */,
 				FDF1C0F02748D49A00F08D2D /* SceneDelegate.swift in Sources */,
+				FD1F4396274F5ED600C926D3 /* UIFont.swift in Sources */,
 				FD99D644274D4B7400EB15A2 /* CALayer.swift in Sources */,
 				FDAFAF45274BE110002ED04A /* Localize.swift in Sources */,
 				FD99D635274C050B00EB15A2 /* UIButton.swift in Sources */,

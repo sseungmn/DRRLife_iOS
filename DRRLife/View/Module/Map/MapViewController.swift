@@ -12,6 +12,10 @@ import SnapKit
 import CoreLocation
 import Alamofire
 
+protocol LocationInfoDelegate {
+    func send(stationStatus: StationStatus)
+}
+
 class MapViewController: UIViewController {
     var isRouteInputViewHidden: Bool = true
     lazy var locationManager = CLLocationManager()
@@ -60,6 +64,11 @@ class MapViewController: UIViewController {
     func updateButtonClicked(_ sender: UIButton) {
         print("Update Button Clicked")
     }
+    
+    var delegate: LocationInfoDelegate?
+    func showLocationInfo(stationStatus: StationStatus) {
+        delegate?.send(stationStatus: stationStatus)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,19 +76,13 @@ class MapViewController: UIViewController {
         setMap()
         setConstraints()
         
-        if checkService() {
-            mapView.positionMode = .compass
-            mapView.moveCamera(NMFCameraUpdate(scrollBy: CGPoint(x: 0, y: 100)))
-        }
+        if checkService() { mapView.positionMode = .compass }
         else { print("경고 문구 얼럿해야함")}
     }
     
     func setMap() {
         mapView.setLayerGroup(NMF_LAYER_GROUP_BICYCLE, isEnabled: true)
         mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
-        
-//        if !isRouteInputViewHidden {
-//        }
         
         if traitCollection.userInterfaceStyle == .dark {
             mapView.mapType = .navi
@@ -146,7 +149,6 @@ class MapViewController: UIViewController {
             make.leading.equalToSuperview().inset(15)
         }
     }
-    
 }
 
 extension MapViewController: CLLocationManagerDelegate {

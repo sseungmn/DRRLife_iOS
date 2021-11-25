@@ -11,7 +11,7 @@ import SnapKit
 import Then
 import CoreLocation
 
-protocol PassDataDelegate {
+protocol PlaceDetailDelegate {
     func sendPlaceDetails(targetTag tag: Int, _ placeDetails: [PlaceDetail])
 }
 
@@ -22,7 +22,7 @@ class SearchViewController: UIViewController {
     let locationManager = CLLocationManager()
     let searchBar = UISearchBar()
     let tableView = UITableView()
-    var delegate: PassDataDelegate?
+    var delegate: PlaceDetailDelegate?
     
     let headers: HTTPHeaders = [
         "Authorization": "KakaoAK \(Bundle.main.KakaoLocal)"

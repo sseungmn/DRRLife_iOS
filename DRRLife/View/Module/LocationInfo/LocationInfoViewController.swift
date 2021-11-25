@@ -13,7 +13,7 @@ class LocationInfoViewController: UIViewController {
     var stationStatus : StationStatus?
     
     lazy var stationNameLabel = UILabel().then {
-        $0.font = .boldSystemFont(ofSize: 24)
+        $0.font = .extraboldThemeFont(ofSize: 26)
         $0.text = stationStatus?.stationName ?? "가락시장역 3번 출구 대여소"
         $0.textColor = .themeMain
         $0.highlight(searchText: "대여소")
@@ -32,7 +32,7 @@ class LocationInfoViewController: UIViewController {
         $0.layer.borderColor = UIColor.themeMain.cgColor
         
         $0.setTitle("출발 대여소".localized(), for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 13)
+        $0.titleLabel?.font = .themeFont(ofSize: 13)
         $0.setTitleColor(.themeMain, for: .normal)
     }
     lazy var dstButton = UIButton().then {
@@ -42,7 +42,7 @@ class LocationInfoViewController: UIViewController {
         $0.layer.cornerRadius = 15
         
         $0.setTitle("도착 대여소".localized(), for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 13)
+        $0.titleLabel?.font = .themeFont(ofSize: 13)
         $0.setTitleColor(.white, for: .normal)
     }
     lazy var contentView = UIView().then {

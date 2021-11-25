@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class RouteInputViewController: UIViewController, PassDataDelegate {
+class RouteInputViewController: UIViewController, PlaceDetailDelegate {
     let viewHeight: CGFloat = 187
     let textFieldPadding: CGFloat = 16
     let buttonPointSize: CGFloat = 15
@@ -151,7 +151,7 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
         userInputs.forEach { userInput in
             userInput.backgroundColor = .grayLevel10
             setInitailTitle(button: userInput)
-            userInput.titleLabel?.font = .systemFont(ofSize: 13)
+            userInput.titleLabel?.font = .themeFont(ofSize: 13)
             userInput.contentHorizontalAlignment = .left
             userInput.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             userInput.layer.cornerRadius = 5
