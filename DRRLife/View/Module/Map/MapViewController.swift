@@ -14,18 +14,30 @@ import Alamofire
 
 protocol LocationInfoDelegate {
     func showLocationInfo(with stationStatus: StationStatus)
+    func hideLocationInfo()
 }
 
 class MapViewController: UIViewController {
     var isRouteInputViewHidden: Bool = true
+    var stations = [StationStatus]()
     lazy var locationManager = CLLocationManager()
     lazy var mapView = NMFMapView()
+    
+    // MARK: ScopeButton
     lazy var scopeButton = UIButton().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 3
         $0.setImage(UIImage(systemName: "scope"), for: .normal)
         $0.addTarget(self, action: #selector(scopeButtonClicked), for: .touchUpInside)
     }
+    @objc
+    func scopeButtonClicked(_ sender: UIButton) {
+        print("모드를 변경했습니다. (.compass)")
+        mapView.positionMode = .compass
+        mapView.moveCamera(NMFCameraUpdate(scrollBy: CGPoint(x: 0, y: 100))) // 검색창이 차지하는 부분만큼 중앙좌표를 내려준다.
+    }
+    
+    // MARK: StationToggleButton
     lazy var stationToggleButton = UIButton().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 3
@@ -35,21 +47,6 @@ class MapViewController: UIViewController {
         $0.setPointSize(pointSize: 22)
         $0.addTarget(self, action: #selector(stationButtonToggled), for: .touchUpInside)
     }
-    lazy var updateButton = UIButton().then {
-        $0.backgroundColor = .white
-        $0.layer.cornerRadius = 3
-        $0.setImage(UIImage(systemName: "arrow.triangle.2.circlepath"), for: .normal)
-        $0.addTarget(self, action: #selector(updateButtonClicked), for: .touchUpInside)
-    }
-    var stations = [StationStatus]()
-    
-    @objc
-    func scopeButtonClicked(_ sender: UIButton) {
-        print("모드를 변경했습니다. (.compass)")
-        mapView.positionMode = .compass
-        mapView.moveCamera(NMFCameraUpdate(scrollBy: CGPoint(x: 0, y: 100))) // 검색창이 차지하는 부분만큼 중앙좌표를 내려준다.
-    }
-    
     @objc
     func stationButtonToggled(_ sender: UIButton) {
         if !sender.isSelected {
@@ -60,6 +57,14 @@ class MapViewController: UIViewController {
             Marker.shared.hideStationMarkers()
         }
     }
+    
+    // MARK: UpdateButton
+    lazy var updateButton = UIButton().then {
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 3
+        $0.setImage(UIImage(systemName: "arrow.triangle.2.circlepath"), for: .normal)
+        $0.addTarget(self, action: #selector(updateButtonClicked), for: .touchUpInside)
+    }
     @objc
     func updateButtonClicked(_ sender: UIButton) {
         print("Update Button Clicked")
@@ -69,57 +74,20 @@ class MapViewController: UIViewController {
     func showLocationInfo(stationStatus: StationStatus) {
         delegate?.showLocationInfo(with: stationStatus)
     }
-    
+}
 
+// MARK: Init
+extension MapViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setDelegate()
-        setMap()
-        setConstraints()
+        self.setLocationManagerDelegate()
+        self.setMapDelegate()
+        self.setMap()
+        self.setConstraints()
         
-        if checkService() { mapView.positionMode = .compass }
+        if self.checkService() { mapView.positionMode = .compass }
         else { print("경고 문구 얼럿해야함")}
-    }
-    
-    func setMap() {
-        mapView.setLayerGroup(NMF_LAYER_GROUP_BICYCLE, isEnabled: true)
-        mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
-        
-        if traitCollection.userInterfaceStyle == .dark {
-            mapView.mapType = .navi
-            mapView.isNightModeEnabled = true
-        } else {
-            mapView.mapType = .basic
-            mapView.isNightModeEnabled = false
-        }
-        self.setStaionListAndSetStationMarkers(count: 3000)
-    }
-    
-    func updateMap(to coor: Coordinate) {
-        setCamera(to: coor)
-        setMarker(to: coor)
-    }
-    
-    func setCamera(to coor: Coordinate) {
-        let camPosition = NMGLatLng(lat: coor.lat, lng: coor.lng)
-        mapView.moveCamera(NMFCameraUpdate(scrollTo: camPosition))
-        if !isRouteInputViewHidden {
-            mapView.moveCamera(NMFCameraUpdate(scrollBy: CGPoint(x: 0, y: 100)))
-        }
-    }
-    
-    func setMarker(to coor: Coordinate) {
-        Marker.shared.locationMarker.position = NMGLatLng(lat: coor.lat, lng: coor.lng)
-        Marker.shared.locationMarker.mapView = mapView
-        
-        // 정보창 생성
-//        let infoWindow = NMFInfoWindow()
-//        let dataSource = NMFInfoWindowDefaultTextSource.data()
-//        dataSource.title = "서울특별시청"
-//        infoWindow.dataSource = dataSource
-        
-        // 마커에 달아주기
-//        infoWindow.open(with: marker)
     }
     
     func setConstraints() {
@@ -151,11 +119,55 @@ class MapViewController: UIViewController {
         }
     }
     
+    func setMap() {
+        mapView.setLayerGroup(NMF_LAYER_GROUP_BICYCLE, isEnabled: true)
+        mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
+        
+        if traitCollection.userInterfaceStyle == .dark {
+            mapView.mapType = .navi
+            mapView.isNightModeEnabled = true
+        } else {
+            mapView.mapType = .basic
+            mapView.isNightModeEnabled = false
+        }
+        self.setStaionListAndSetStationMarkers(count: 3000)
+    }
 }
+
+// MARK: Manipulate Map
+extension MapViewController: NMFMapViewTouchDelegate {
+    
+    func setMapDelegate() {
+        mapView.touchDelegate = self
+    }
+    
+    func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
+        delegate?.hideLocationInfo()
+    }
+    
+    func updateMap(to coor: Coordinate) {
+        setCamera(to: coor)
+        setMarker(to: coor)
+    }
+    
+    func setCamera(to coor: Coordinate) {
+        let camPosition = NMGLatLng(lat: coor.lat, lng: coor.lng)
+        mapView.moveCamera(NMFCameraUpdate(scrollTo: camPosition))
+        if !isRouteInputViewHidden {
+            mapView.moveCamera(NMFCameraUpdate(scrollBy: CGPoint(x: 0, y: 100)))
+        }
+    }
+    
+    func setMarker(to coor: Coordinate) {
+        Marker.shared.locationMarker.position = NMGLatLng(lat: coor.lat, lng: coor.lng)
+        Marker.shared.locationMarker.mapView = mapView
+    }
+}
+    
 
 extension MapViewController: CLLocationManagerDelegate {
     
-    func setDelegate() {
+    func setLocationManagerDelegate() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -222,8 +234,6 @@ extension MapViewController {
     }
     
     func makeStationMarker(station: StationStatus) {
-        print("\(station.stationName) 마커 추가하는중")
-        
         let tmpMarker = NMFMarker(position: NMGLatLng(lat: station.coordinate.lat,
                                                       lng: station.coordinate.lng))
         let userInfo: [AnyHashable : Any] = ["mapVC" : self,
@@ -245,10 +255,9 @@ extension MapViewController {
             return true
         }
         
-        tmpMarker.width = 20
-        tmpMarker.height = 30
-        tmpMarker.iconImage = NMF_MARKER_IMAGE_BLACK
-        tmpMarker.iconTintColor = calcMarkerColor(by: station.parkingBikeTotCnt)
+        tmpMarker.width = 50
+        tmpMarker.height = 50
+        tmpMarker.iconImage = calcMarkerIcon(by: station.parkingBikeTotCnt)
         tmpMarker.captionText = station.stationName
         
         tmpMarker.isHideCollidedSymbols = true
@@ -259,15 +268,15 @@ extension MapViewController {
         Marker.shared.stationMarkers.append(tmpMarker)
     }
     
-    func calcMarkerColor(by parkingBikeTotCnt: Int) -> UIColor {
+    func calcMarkerIcon(by parkingBikeTotCnt: Int) -> NMFOverlayImage {
         if parkingBikeTotCnt == 0 {
-            return .gray
+            return NMFOverlayImage(name: "grayMarker")
         } else if parkingBikeTotCnt <= 5 {
-            return .red
+            return NMFOverlayImage(name: "redMarker")
         } else if parkingBikeTotCnt <= 10 {
-            return .orange
+            return NMFOverlayImage(name: "orangeMarker")
         } else {
-            return .green
+            return NMFOverlayImage(name: "greenMarker")
         }
     }
     

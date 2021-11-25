@@ -50,6 +50,7 @@ class ViewController: UIViewController, LocationInfoDelegate {
         }
         locationInfoVC.view.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(0)
         }
     }
     
@@ -57,18 +58,35 @@ class ViewController: UIViewController, LocationInfoDelegate {
         print("프로토콜 실행중...")
         locationInfoVC.stationStatus = stationStatus
         locationInfoVC.updateData()
-        showLocationInfoUI()
-        
+        if mapVC.isRouteInputViewHidden {
+            mapVC.isRouteInputViewHidden = false
+            showLocationInfoUI()
+        }
     }
     
     func showLocationInfoUI() {
         mapVC.view.snp.updateConstraints { make in
             make.bottom.equalToSuperview().inset(250)
         }
-        locationInfoVC.view.snp.makeConstraints { make in
+        locationInfoVC.view.snp.updateConstraints { make in
             make.height.equalTo(260)
         }
     }
     
+    func hideLocationInfo() {
+        if !mapVC.isRouteInputViewHidden {
+            hideLocationInfoUI()
+            mapVC.isRouteInputViewHidden = true
+        }
+    }
+    
+    func hideLocationInfoUI() {
+        mapVC.view.snp.updateConstraints { make in
+            make.bottom.equalToSuperview()
+        }
+        locationInfoVC.view.snp.updateConstraints { make in
+            make.height.equalTo(0)
+        }
+    }
 }
 
