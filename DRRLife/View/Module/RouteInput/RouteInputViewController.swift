@@ -9,7 +9,8 @@ import UIKit
 import SnapKit
 import Then
 
-class RouteInputViewController: UIViewController, PlaceDetailDelegate {
+class RouteInputViewController: UIViewController, SearchViewDelegate, LocationInfoDataDelegate {
+    
     var routeParams = RouteParams()
     
     let viewHeight: CGFloat = 187
@@ -17,7 +18,7 @@ class RouteInputViewController: UIViewController, PlaceDetailDelegate {
     let buttonPointSize: CGFloat = 15
     lazy var buttonWidth: CGFloat = buttonPointSize * 4 / 3
     
-    var mapView: MapViewController?
+    weak var mapVC: MapViewController?
     
     lazy var oriInput = UIButton().then {
         $0.tag = 0
@@ -62,8 +63,8 @@ class RouteInputViewController: UIViewController, PlaceDetailDelegate {
             }
         }
         for tag in [1, 3] {
-            if let tmp = routeParams.allCases[tag] as? Station {
-                setTitle(of: userInputs[tag], with: tmp.station_name)
+            if let tmp = routeParams.allCases[tag] as? StationStatus {
+                setTitle(of: userInputs[tag], with: tmp.stationName)
             } else {
                 setInitailTitle(of: userInputs[tag])
             }
@@ -99,6 +100,16 @@ class RouteInputViewController: UIViewController, PlaceDetailDelegate {
             }
             setInitailTitle(of: userInput)
             Marker.shared.allCases[userInput.tag].mapView = nil
+        }
+    }
+    
+    func getStationStatus(stationStatus: StationStatus, tag: Int) {
+        if tag  == 1 {
+            setTitle(of: oriRantalStationInput, with: stationStatus.stationName)
+            routeParams.originStation = stationStatus
+        } else {
+            setTitle(of: dstRantalStationInput, with: stationStatus.stationName)
+            routeParams.destinationStation = stationStatus
         }
     }
 
@@ -213,7 +224,7 @@ class RouteInputViewController: UIViewController, PlaceDetailDelegate {
         } else {
             routeParams.destination = placeDetail
         }
-        mapView?.updateMap(to: placeDetail.coordinate)
+        mapVC?.updateMap(to: placeDetail.coordinate)
     }
     
     @objc

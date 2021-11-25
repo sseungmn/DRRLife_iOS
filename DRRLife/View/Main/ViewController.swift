@@ -11,6 +11,7 @@ import SnapKit
 import Alamofire
 
 class ViewController: UIViewController, LocationInfoDelegate {
+    
     var isRouteInputViewHidden: Bool {
         get {
             return mapVC.isRouteInputViewHidden
@@ -59,8 +60,11 @@ class ViewController: UIViewController, LocationInfoDelegate {
         locationInfoVC.view.layer.masksToBounds = true
         locationInfoVC.view.layer.cornerRadius = 5
         
+        locationInfoVC.delegate = routeInputVC
+        locationInfoVC.mapVC = mapVC
+        
         self.add(routeInputVC)
-        routeInputVC.mapView = mapVC
+        routeInputVC.mapVC = mapVC
     }
     
     func setConstraints() {
@@ -80,6 +84,16 @@ class ViewController: UIViewController, LocationInfoDelegate {
         locationInfoVC.view.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
             make.height.equalTo(0)
+        }
+    }
+    
+    func getStationStatus(stationStatus: StationStatus, tag: Int) {
+        if tag == 1 {
+            routeInputVC.setTitle(of: routeInputVC.oriRantalStationInput, with: stationStatus.stationName)
+            routeInputVC.routeParams.originStation = stationStatus
+        } else {
+            routeInputVC.setTitle(of: routeInputVC.dstRantalStationInput, with: stationStatus.stationName)
+            routeInputVC.routeParams.destinationStation = stationStatus
         }
     }
     

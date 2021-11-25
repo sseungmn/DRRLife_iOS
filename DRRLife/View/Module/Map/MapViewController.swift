@@ -233,7 +233,7 @@ extension MapViewController {
         })
     }
     
-    func makeStationMarker(station: StationStatus) {
+    func makeStationMarker(station: StationStatus, for type: RouteInput? = nil) {
         let tmpMarker = NMFMarker(position: NMGLatLng(lat: station.coordinate.lat,
                                                       lng: station.coordinate.lng))
         let userInfo: [AnyHashable : Any] = ["mapVC" : self,
@@ -257,15 +257,33 @@ extension MapViewController {
         
         tmpMarker.width = 50
         tmpMarker.height = 50
-        tmpMarker.iconImage = calcMarkerIcon(by: station.parkingBikeTotCnt)
         tmpMarker.captionText = station.stationName
         
-        tmpMarker.isHideCollidedSymbols = true
-        tmpMarker.isHideCollidedCaptions = true
-        tmpMarker.minZoom = calcMinZoomLevel(by: station.rackTotCnt)
         
-        
-        Marker.shared.stationMarkers.append(tmpMarker)
+        switch type {
+        case .origin:
+            tmpMarker.iconImage = NMF_MARKER_IMAGE_RED
+            tmpMarker.subCaptionText = "출발지".localized()
+            Marker.shared.oriMarker = tmpMarker
+        case .originRantalStation:
+            tmpMarker.iconImage = NMF_MARKER_IMAGE_PINK
+            tmpMarker.subCaptionText = "출발 대여소".localized()
+            Marker.shared.oriRantalMarker = tmpMarker
+        case .destination:
+            tmpMarker.iconImage = NMF_MARKER_IMAGE_BLUE
+            tmpMarker.subCaptionText = "도착지".localized()
+            Marker.shared.dstMarker = tmpMarker
+        case .destinationRantalStation:
+            tmpMarker.iconImage = NMF_MARKER_IMAGE_GREEN
+            tmpMarker.subCaptionText = "도착 대여소".localized()
+            Marker.shared.dstRantalMarker = tmpMarker
+        default:
+            tmpMarker.iconImage = calcMarkerIcon(by: station.parkingBikeTotCnt)
+            tmpMarker.isHideCollidedSymbols = true
+            tmpMarker.isHideCollidedCaptions = true
+            tmpMarker.minZoom = calcMinZoomLevel(by: station.rackTotCnt)
+            Marker.shared.stationMarkers.append(tmpMarker)
+        }
     }
     
     func calcMarkerIcon(by parkingBikeTotCnt: Int) -> NMFOverlayImage {

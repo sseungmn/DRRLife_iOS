@@ -7,10 +7,16 @@
 
 import UIKit
 import Then
+import NMapsMap
 import SnapKit
+
+protocol LocationInfoDataDelegate {
+    func getStationStatus(stationStatus: StationStatus, tag: Int)
+}
 
 class LocationInfoViewController: UIViewController {
     var stationStatus : StationStatus?
+    weak var mapVC: MapViewController?
     
     lazy var stationNameLabel = UILabel().then {
         $0.font = .extraboldThemeFont(ofSize: 26)
@@ -32,6 +38,7 @@ class LocationInfoViewController: UIViewController {
         $0.setTitle("출발 대여소".localized(), for: .normal)
         $0.titleLabel?.font = .themeFont(ofSize: 13)
         $0.setTitleColor(.themeMain, for: .normal)
+        $0.addTarget(self, action: #selector(setLocationButtonClicked), for: .touchUpInside)
     }
     lazy var dstButton = UIButton().then {
         print("dstButton Setting")
@@ -42,6 +49,7 @@ class LocationInfoViewController: UIViewController {
         $0.setTitle("도착 대여소".localized(), for: .normal)
         $0.titleLabel?.font = .themeFont(ofSize: 13)
         $0.setTitleColor(.white, for: .normal)
+        $0.addTarget(self, action: #selector(setLocationButtonClicked), for: .touchUpInside)
     }
     lazy var contentView = UIView().then {
         print("ContentView Setting")
@@ -53,6 +61,20 @@ class LocationInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setContraints()
+    }
+    
+    var delegate: LocationInfoDataDelegate?
+    @objc
+    func setLocationButtonClicked(_ sender: UIButton) {
+        if sender == self.oriButton {
+            delegate?.getStationStatus(stationStatus: stationStatus!, tag: 1)
+            Marker.shared.oriRantalMarker.mapView = nil
+            mapVC?.makeStationMarker(station: stationStatus!, for: .originRantalStation)
+        } else {
+            delegate?.getStationStatus(stationStatus: stationStatus!, tag: 3)
+            Marker.shared.dstRantalMarker.mapView = nil
+            mapVC?.makeStationMarker(station: stationStatus!, for: .destinationRantalStation)
+        }
     }
     
     func updateData() {

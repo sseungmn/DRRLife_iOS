@@ -9,6 +9,13 @@ import Foundation
 import NMapsMap
 import Then
 
+enum RouteInput {
+    case origin
+    case originRantalStation
+    case destination
+    case destinationRantalStation
+}
+
 struct SODRequestURL {
     static private let url = "http://openapi.seoul.go.kr:8088"
     static var parameters: [String : Any] = [
@@ -94,10 +101,10 @@ class Marker {
         $0.height = 40
     }
     lazy var allCases = [oriMarker, oriRantalMarker, dstMarker, dstRantalMarker]
-    let oriMarker = NMFMarker()
-    let oriRantalMarker = NMFMarker()
-    let dstMarker = NMFMarker()
-    let dstRantalMarker = NMFMarker()
+    var oriMarker = NMFMarker()
+    var oriRantalMarker = NMFMarker()
+    var dstMarker = NMFMarker()
+    var dstRantalMarker = NMFMarker()
     
     var stationMarkers = [NMFMarker]()
     
@@ -208,9 +215,9 @@ struct KLResponse: Codable {
 
 class RouteParams {
     var origin: PlaceDetail?
-    var originStation: Station?
+    var originStation: StationStatus?
     var destination: PlaceDetail?
-    var destinationStation: Station?
+    var destinationStation: StationStatus?
     
     var allCases: [Any?] {
        return [origin, originStation, destination, destinationStation]
@@ -231,21 +238,4 @@ class RouteParams {
     }
 }
 
-class Station {
-    var station_name: String
-    var coordinate: Coordinate
-    var marker: NMFMarker
-    
-    init(station_name: String, coordinate: Coordinate, marker: NMFMarker) {
-        self.station_name = station_name
-        self.coordinate = coordinate
-        self.marker = marker
-    }
-    
-    init() {
-        self.station_name = ""
-        self.coordinate = Coordinate()
-        self.marker = NMFMarker()
-    }
-}
 

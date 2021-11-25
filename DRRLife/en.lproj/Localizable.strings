@@ -2,5 +2,9 @@
 "출발 대여소 지도에서 선택" = "Select rental station at origin on the Map";
 "도착지 입력" = "Enter destination";
 "도착 대여소 지도에서 선택" = "Select rental station at destination on the Map";
+"출발지" = "origin";
+"출발 대여소" = "Departure Station";
+"도착지" = "destination";
+"도착 대여소" = "Arrival Station";
 
 "검색" = "Search";
