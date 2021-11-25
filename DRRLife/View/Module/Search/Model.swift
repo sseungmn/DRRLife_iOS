@@ -71,7 +71,7 @@ struct SODResponse: Codable {
             var stationName: String
             
             func makeStationDetail() -> StationStatus {
-                return StationStatus(stationName: self.stationName,
+                return StationStatus(stationName: self.stationName.components(separatedBy: ["."]).last!,
                                      rackTotCnt: self.rackTotCnt.toInt(),
                                      parkingBikeTotCnt: self.parkingBikeTotCnt.toInt(),
                                      coordinate: Coordinate(lat: self.stationLatitude, lng: self.stationLongitude))

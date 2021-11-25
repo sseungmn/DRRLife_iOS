@@ -14,9 +14,7 @@ class LocationInfoViewController: UIViewController {
     
     lazy var stationNameLabel = UILabel().then {
         $0.font = .extraboldThemeFont(ofSize: 26)
-        $0.text = stationStatus?.stationName ?? "가락시장역 3번 출구 대여소"
         $0.textColor = .themeMain
-        $0.highlight(searchText: "대여소")
     }
     
     lazy var sepView = UIView().then {
@@ -56,6 +54,11 @@ class LocationInfoViewController: UIViewController {
         super.viewDidLoad()
         setContraints()
     }
+    
+    func updateData() {
+        stationNameLabel.text = stationStatus?.stationName
+    }
+    
     func setContraints() {
         view.addSubview(contentView)
         contentView.snp.makeConstraints { make in

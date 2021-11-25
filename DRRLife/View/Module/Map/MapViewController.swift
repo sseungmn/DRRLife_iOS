@@ -13,7 +13,7 @@ import CoreLocation
 import Alamofire
 
 protocol LocationInfoDelegate {
-    func send(stationStatus: StationStatus)
+    func showLocationInfo(with stationStatus: StationStatus)
 }
 
 class MapViewController: UIViewController {
@@ -67,8 +67,9 @@ class MapViewController: UIViewController {
     
     var delegate: LocationInfoDelegate?
     func showLocationInfo(stationStatus: StationStatus) {
-        delegate?.send(stationStatus: stationStatus)
+        delegate?.showLocationInfo(with: stationStatus)
     }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,6 +150,7 @@ class MapViewController: UIViewController {
             make.leading.equalToSuperview().inset(15)
         }
     }
+    
 }
 
 extension MapViewController: CLLocationManagerDelegate {
@@ -224,8 +226,62 @@ extension MapViewController {
         
         let tmpMarker = NMFMarker(position: NMGLatLng(lat: station.coordinate.lat,
                                                       lng: station.coordinate.lng))
+        let userInfo: [AnyHashable : Any] = ["mapVC" : self,
+                                             "stationStatus" : station]
+        tmpMarker.userInfo = userInfo
         tmpMarker.mapView = mapView
+        tmpMarker.touchHandler = { (overlay: NMFOverlay) -> Bool in
+            guard let mapVC = userInfo["mapVC"] as? MapViewController else {
+                print("해당 MapView가 존재하지 않습니다.")
+                return true
+            }
+            guard let stationStatus = userInfo["stationStatus"] as? StationStatus else {
+                print("해당 stationStatus가 존재하지 않습니다.")
+                return true
+            }
+            print("\(stationStatus.stationName)에서 touchEvent 발생")
+            mapVC.setCamera(to: stationStatus.coordinate)
+            mapVC.showLocationInfo(stationStatus: stationStatus)
+            return true
+        }
+        
+        tmpMarker.width = 20
+        tmpMarker.height = 30
+        tmpMarker.iconImage = NMF_MARKER_IMAGE_BLACK
+        tmpMarker.iconTintColor = calcMarkerColor(by: station.parkingBikeTotCnt)
+        tmpMarker.captionText = station.stationName
+        
+        tmpMarker.isHideCollidedSymbols = true
+        tmpMarker.isHideCollidedCaptions = true
+        tmpMarker.minZoom = calcMinZoomLevel(by: station.rackTotCnt)
+        
         
         Marker.shared.stationMarkers.append(tmpMarker)
+    }
+    
+    func calcMarkerColor(by parkingBikeTotCnt: Int) -> UIColor {
+        if parkingBikeTotCnt == 0 {
+            return .gray
+        } else if parkingBikeTotCnt <= 5 {
+            return .red
+        } else if parkingBikeTotCnt <= 10 {
+            return .orange
+        } else {
+            return .green
+        }
+    }
+    
+    func calcMinZoomLevel(by rackTotCnt: Int) -> Double {
+        if rackTotCnt < 10 {
+            return NMF_MIN_ZOOM + 14
+        } else if rackTotCnt < 15 {
+            return NMF_MIN_ZOOM + 12
+        } else if rackTotCnt < 20 {
+            return NMF_MIN_ZOOM + 10
+        } else if rackTotCnt < 30 {
+            return NMF_MIN_ZOOM + 8
+        } else {
+            return NMF_MIN_ZOOM + 6
+        }
     }
 }

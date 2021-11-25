@@ -10,7 +10,8 @@ import Then
 import SnapKit
 import Alamofire
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, LocationInfoDelegate {
+    
     lazy var routeInputVC = RouteInputViewController()
     lazy var mapVC = MapViewController()
     lazy var locationInfoVC = LocationInfoViewController()
@@ -20,13 +21,13 @@ class ViewController: UIViewController {
         setInnerView()
         setConstraints()
         
-//        routeInputVC.view.isHidden = false
-        mapVC.isRouteInputViewHidden = false
-        showLocationInfo()
+        routeInputVC.view.isHidden = true
+        mapVC.isRouteInputViewHidden = true
     }
     
     func setInnerView() {
         self.add(mapVC)
+        mapVC.delegate = self
         
         self.add(locationInfoVC)
         locationInfoVC.view.layer.masksToBounds = true
@@ -52,7 +53,15 @@ class ViewController: UIViewController {
         }
     }
     
-    func showLocationInfo() {
+    func showLocationInfo(with stationStatus: StationStatus) {
+        print("프로토콜 실행중...")
+        locationInfoVC.stationStatus = stationStatus
+        locationInfoVC.updateData()
+        showLocationInfoUI()
+        
+    }
+    
+    func showLocationInfoUI() {
         mapVC.view.snp.updateConstraints { make in
             make.bottom.equalToSuperview().inset(250)
         }
