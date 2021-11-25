@@ -9,7 +9,7 @@ import Foundation
 import NMapsMap
 import Then
 
-struct RequestURL {
+struct SODRequestURL {
     static private let url = "http://openapi.seoul.go.kr:8088"
     static var parameters: [String : Any] = [
         "KEY": Bundle.main.SeoulOpenData,
@@ -24,7 +24,7 @@ struct RequestURL {
 }
 
 // StationInformation File
-struct StationInformation {
+struct SODStationInformation {
     var stationNumber: String
     var stationName: String
     /// 자치구
@@ -49,19 +49,19 @@ struct StationStatus {
 }
 
 struct SODResponse: Codable {
-    var rentBikeStatus: RentBikeStatus
+    var rentBikeStatus: SODRentBikeStatus
     
-    struct RentBikeStatus: Codable {
-        var RESULT: Result
+    struct SODRentBikeStatus: Codable {
+        var RESULT: SODResult
         var list_total_count: Int
-        var row: [RantalStationStatus]
+        var row: [SODRantalStationStatus]
         
-        struct Result: Codable {
+        struct SODResult: Codable {
             var CODE: String
             var MESSAGE: String
         }
         
-        struct RantalStationStatus: Codable {
+        struct SODRantalStationStatus: Codable {
             var parkingBikeTotCnt: String
             var rackTotCnt: String
             var shared: String
@@ -81,7 +81,7 @@ struct SODResponse: Codable {
     
 }
 
-typealias StationInfo = SODResponse.RentBikeStatus.RantalStationStatus
+typealias StationInfo = SODResponse.SODRentBikeStatus.SODRantalStationStatus
 
 // MARK: - MAP
 class Marker {
@@ -115,7 +115,7 @@ class Marker {
     }
 }
 
-// MARK: - MAP, RouteInput
+// MARK: - MAP, Search
 
 /// Contain variables for using coordinate
 struct Coordinate {
@@ -143,31 +143,45 @@ struct Coordinate {
     }
 }
 
-// MARK: - RouteInput
-struct PlaceDetail {
+// MARK: - Search
+class PlaceDetail {
     var place_name: String
     var category_name: String
     var road_address_name: String
     var coordinate: Coordinate
+    
+    init(place_name: String, category_name: String, road_address_name: String, coordinate: Coordinate) {
+        self.place_name = place_name
+        self.category_name = category_name
+        self.road_address_name = road_address_name
+        self.coordinate = coordinate
+    }
+    
+    init() {
+        self.place_name = ""
+        self.category_name = ""
+        self.road_address_name = ""
+        self.coordinate = Coordinate()
+    }
 }
 
 struct KLResponse: Codable {
-    var meta: PlaceMeta
-    var documents: [Place]
+    var meta: KLPlaceMeta
+    var documents: [KLPlace]
     
-    struct PlaceMeta: Codable {
+    struct KLPlaceMeta: Codable {
         var total_count: Int
         var pageable_count: Int
         var is_end: Bool
-        var same_name: ReginInfo
+        var same_name: KLReginInfo
         
-        struct ReginInfo: Codable {
+        struct KLReginInfo: Codable {
             var region: [String]
             var keyword: String
             var selected_region: String
         }
     }
-    struct Place: Codable {
+    struct KLPlace: Codable {
         var id: String
         var place_name: String
         var category_name: String
@@ -190,5 +204,48 @@ struct KLResponse: Codable {
     }
 }
 
+// MARK: - RouteInput
 
+class RouteParams {
+    var origin: PlaceDetail?
+    var originStation: Station?
+    var destination: PlaceDetail?
+    var destinationStation: Station?
+    
+    var allCases: [Any?] {
+       return [origin, originStation, destination, destinationStation]
+    }
+    
+    var didCompleteFilling: Bool {
+        return (
+            origin != nil &&
+            originStation != nil &&
+            destination != nil &&
+            destinationStation != nil
+        )
+    }
+    
+    func swap() {
+        Swift.swap(&origin, &destination)
+        Swift.swap(&originStation, &destinationStation)
+    }
+}
+
+class Station {
+    var station_name: String
+    var coordinate: Coordinate
+    var marker: NMFMarker
+    
+    init(station_name: String, coordinate: Coordinate, marker: NMFMarker) {
+        self.station_name = station_name
+        self.coordinate = coordinate
+        self.marker = marker
+    }
+    
+    init() {
+        self.station_name = ""
+        self.coordinate = Coordinate()
+        self.marker = NMFMarker()
+    }
+}
 

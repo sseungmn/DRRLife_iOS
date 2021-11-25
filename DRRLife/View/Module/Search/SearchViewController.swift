@@ -12,7 +12,7 @@ import Then
 import CoreLocation
 
 protocol PlaceDetailDelegate {
-    func sendPlaceDetails(targetTag tag: Int, _ placeDetails: [PlaceDetail])
+    func sendPlaceDetails(targetTag tag: Int, _ placeDetail: PlaceDetail)
 }
 
 class SearchViewController: UIViewController {
@@ -43,7 +43,7 @@ class SearchViewController: UIViewController {
     var itemCount: Int {
         return places.count > maxCount ? maxCount : places.count
     }
-    var places = [KLResponse.Place]()
+    var places = [KLResponse.KLPlace]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,7 +90,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let row = places[indexPath.row]
         let placeDetail = row.makePlaceDetail()
-        delegate?.sendPlaceDetails(targetTag: callBackTag, [placeDetail])
+        delegate?.sendPlaceDetails(targetTag: callBackTag, placeDetail)
         self.dismiss(animated: false, completion: nil)
     }
 }

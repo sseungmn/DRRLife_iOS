@@ -203,11 +203,11 @@ extension MapViewController {
     }
     
     func requestRantalStationList(_ start: Int, _ end: Int) {
-        RequestURL.parameters["START_INDEX"] = start
-        RequestURL.parameters["END_INDEX"] = end
+        SODRequestURL.parameters["START_INDEX"] = start
+        SODRequestURL.parameters["END_INDEX"] = end
         print("\(start)~\(end)")
         
-        AF.request(RequestURL.requestURL,
+        AF.request(SODRequestURL.requestURL,
                    method: .get,
                    parameters: nil,
                    headers: nil

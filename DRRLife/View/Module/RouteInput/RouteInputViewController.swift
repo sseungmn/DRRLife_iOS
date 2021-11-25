@@ -10,6 +10,8 @@ import SnapKit
 import Then
 
 class RouteInputViewController: UIViewController, PlaceDetailDelegate {
+    var routeParams = RouteParams()
+    
     let viewHeight: CGFloat = 187
     let textFieldPadding: CGFloat = 16
     let buttonPointSize: CGFloat = 15
@@ -31,11 +33,11 @@ class RouteInputViewController: UIViewController, PlaceDetailDelegate {
     }
     let userInputTitles = [
         "출발지 입력".localized(),
-        "출발 대여소".localized(),
+        "출발 대여소 지도에서 선택".localized(),
         "도착지 입력".localized(),
-        "도착 대여소".localized()
+        "도착 대여소 지도에서 선택".localized()
     ]
-    lazy var userInputs = locationInputs + rantalInputs
+    lazy var userInputs = [oriInput, oriRantalStationInput, dstInput, dstRantalStationInput]
     lazy var locationInputs = [oriInput, dstInput]
     lazy var rantalInputs = [oriRantalStationInput, dstRantalStationInput]
     
@@ -46,7 +48,28 @@ class RouteInputViewController: UIViewController, PlaceDetailDelegate {
         $0.tintColor = .themeGreyscaled
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 20
+        $0.addTarget(self, action: #selector(swapButtonClicked), for: .touchUpInside)
     }
+    @objc
+    func swapButtonClicked() {
+        print(#function)
+        routeParams.swap()
+        for tag in [0, 2] {
+            if let tmp = routeParams.allCases[tag] as? PlaceDetail {
+                setTitle(of: userInputs[tag], with: tmp.road_address_name)
+            } else {
+                setInitailTitle(of: userInputs[tag])
+            }
+        }
+        for tag in [1, 3] {
+            if let tmp = routeParams.allCases[tag] as? Station {
+                setTitle(of: userInputs[tag], with: tmp.station_name)
+            } else {
+                setInitailTitle(of: userInputs[tag])
+            }
+        }
+    }
+
     lazy var oriCancelButton = UIButton().then {
         $0.tag = 0
         $0.setImage(UIImage(systemName: "xmark"), for: .normal)
@@ -61,17 +84,31 @@ class RouteInputViewController: UIViewController, PlaceDetailDelegate {
         $0.tintColor = .themeGreyscaled
         $0.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
     }
-    func setInitailTitle(button: UIButton) {
-        button.setTitle(userInputTitles[button.tag], for: .normal)
-    }
-    
     @objc
     func cancelButtonClicked(_ sender: UIButton) {
         Marker.shared.locationMarker.mapView = nil
         userInputs.filter({ $0.tag / 2 == sender.tag }).forEach { userInput in
-            setInitailTitle(button: userInput)
+            if userInput.tag == 0 {
+                routeParams.origin = nil
+            } else if userInput.tag == 1 {
+                routeParams.originStation = nil
+            } else if userInput.tag == 2 {
+                routeParams.destination = nil
+            } else if userInput.tag == 3 {
+                routeParams.destinationStation = nil
+            }
+            setInitailTitle(of: userInput)
             Marker.shared.allCases[userInput.tag].mapView = nil
         }
+    }
+
+    // MARK: Set UserInput Title
+    func setInitailTitle(of button: UIButton) {
+        button.setTitle(userInputTitles[button.tag], for: .normal)
+    }
+    func setTitle(of button: UIButton, with title: String) {
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.black, for: .normal)
     }
     
     lazy var oriStackView = UIStackView().then {
@@ -150,7 +187,7 @@ class RouteInputViewController: UIViewController, PlaceDetailDelegate {
     func setTextFields() {
         userInputs.forEach { userInput in
             userInput.backgroundColor = .grayLevel10
-            setInitailTitle(button: userInput)
+            setInitailTitle(of: userInput)
             userInput.titleLabel?.font = .themeFont(ofSize: 13)
             userInput.contentHorizontalAlignment = .left
             userInput.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
@@ -168,11 +205,14 @@ class RouteInputViewController: UIViewController, PlaceDetailDelegate {
     }
     
     // MARK: Delegate
-    func sendPlaceDetails(targetTag tag: Int, _ placeDetails: [PlaceDetail]) {
+    func sendPlaceDetails(targetTag tag: Int, _ placeDetail: PlaceDetail) {
         guard let button = locationInputs.filter({ $0.tag == tag }).first else { return }
-        guard let placeDetail = placeDetails.first else { return }
-        button.setTitle(placeDetail.road_address_name, for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        setTitle(of: button, with: placeDetail.road_address_name)
+        if tag == 0 {
+            routeParams.origin = placeDetail
+        } else {
+            routeParams.destination = placeDetail
+        }
         mapView?.updateMap(to: placeDetail.coordinate)
     }
     

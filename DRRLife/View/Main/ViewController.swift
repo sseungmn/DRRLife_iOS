@@ -11,10 +11,34 @@ import SnapKit
 import Alamofire
 
 class ViewController: UIViewController, LocationInfoDelegate {
+    var isRouteInputViewHidden: Bool {
+        get {
+            return mapVC.isRouteInputViewHidden
+        }
+        set(value) {
+            mapVC.isRouteInputViewHidden = value
+        }
+    }
+    var isLocationInfoViewHidden = true
     
     lazy var routeInputVC = RouteInputViewController()
     lazy var mapVC = MapViewController()
     lazy var locationInfoVC = LocationInfoViewController()
+    lazy var routeButton = UIButton().then {
+        $0.setTitle("길찾기", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.titleLabel?.font = .boldThemeFont(ofSize: 20)
+        
+        $0.backgroundColor = .themeMain
+        $0.layer.cornerRadius = 15
+        
+        $0.addTarget(self, action: #selector(routeButtonClicked), for: .touchUpInside)
+    }
+    @objc
+    func routeButtonClicked() {
+        routeInputVC.view.isHidden = false
+        isRouteInputViewHidden = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,16 +53,21 @@ class ViewController: UIViewController, LocationInfoDelegate {
         self.add(mapVC)
         mapVC.delegate = self
         
+        view.addSubview(routeButton)
+        
         self.add(locationInfoVC)
         locationInfoVC.view.layer.masksToBounds = true
         locationInfoVC.view.layer.cornerRadius = 5
         
         self.add(routeInputVC)
         routeInputVC.mapView = mapVC
-        
     }
     
     func setConstraints() {
+        routeButton.snp.makeConstraints { make in
+            make.top.equalTo(view.safeArea.top).inset(20)
+            make.left.right.equalToSuperview().inset(20)
+        }
         routeInputVC.view.snp.makeConstraints { make in
             make.top.equalTo(view.safeArea.top)
             make.left.right.equalToSuperview().inset(20)
@@ -58,8 +87,8 @@ class ViewController: UIViewController, LocationInfoDelegate {
         print("프로토콜 실행중...")
         locationInfoVC.stationStatus = stationStatus
         locationInfoVC.updateData()
-        if mapVC.isRouteInputViewHidden {
-            mapVC.isRouteInputViewHidden = false
+        if isLocationInfoViewHidden {
+            isLocationInfoViewHidden = false
             showLocationInfoUI()
         }
     }
@@ -74,9 +103,9 @@ class ViewController: UIViewController, LocationInfoDelegate {
     }
     
     func hideLocationInfo() {
-        if !mapVC.isRouteInputViewHidden {
+        if !isLocationInfoViewHidden {
             hideLocationInfoUI()
-            mapVC.isRouteInputViewHidden = true
+            isLocationInfoViewHidden = true
         }
     }
     
