@@ -31,9 +31,9 @@ class RouteInputViewController: UIViewController, PassDataDelegate {
     }
     let userInputTitles = [
         "출발지 입력".localized(),
-        "출발지 대여소".localized(),
+        "출발 대여소".localized(),
         "도착지 입력".localized(),
-        "도착지 대여소".localized()
+        "도착 대여소".localized()
     ]
     lazy var userInputs = locationInputs + rantalInputs
     lazy var locationInputs = [oriInput, dstInput]

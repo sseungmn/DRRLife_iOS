@@ -27,6 +27,8 @@ class MapViewController: UIViewController {
         $0.layer.cornerRadius = 3
         $0.setImage(UIImage(systemName: "bicycle.circle"), for: .normal)
         $0.setImage(UIImage(systemName: "bicycle.circle.fill"), for: .selected)
+        $0.isSelected = true
+        $0.setPointSize(pointSize: 22)
         $0.addTarget(self, action: #selector(stationButtonToggled), for: .touchUpInside)
     }
     lazy var updateButton = UIButton().then {
@@ -35,12 +37,13 @@ class MapViewController: UIViewController {
         $0.setImage(UIImage(systemName: "arrow.triangle.2.circlepath"), for: .normal)
         $0.addTarget(self, action: #selector(updateButtonClicked), for: .touchUpInside)
     }
-    var stations = [StationStatusDetail]()
+    var stations = [StationStatus]()
     
     @objc
     func scopeButtonClicked(_ sender: UIButton) {
         print("모드를 변경했습니다. (.compass)")
         mapView.positionMode = .compass
+        mapView.moveCamera(NMFCameraUpdate(scrollBy: CGPoint(x: 0, y: 100))) // 검색창이 차지하는 부분만큼 중앙좌표를 내려준다.
     }
     
     @objc
@@ -64,7 +67,10 @@ class MapViewController: UIViewController {
         setMap()
         setConstraints()
         
-        if checkService() { mapView.positionMode = .compass }
+        if checkService() {
+            mapView.positionMode = .compass
+            mapView.moveCamera(NMFCameraUpdate(scrollBy: CGPoint(x: 0, y: 100)))
+        }
         else { print("경고 문구 얼럿해야함")}
     }
     
@@ -72,9 +78,8 @@ class MapViewController: UIViewController {
         mapView.setLayerGroup(NMF_LAYER_GROUP_BICYCLE, isEnabled: true)
         mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
         
-        if !isRouteInputViewHidden {
-            mapView.moveCamera(NMFCameraUpdate(scrollBy: CGPoint(x: 0, y: 100)))
-        }
+//        if !isRouteInputViewHidden {
+//        }
         
         if traitCollection.userInterfaceStyle == .dark {
             mapView.mapType = .navi
@@ -212,7 +217,7 @@ extension MapViewController {
         })
     }
     
-    func makeStationMarker(station: StationStatusDetail) {
+    func makeStationMarker(station: StationStatus) {
         print("\(station.stationName) 마커 추가하는중")
         
         let tmpMarker = NMFMarker(position: NMGLatLng(lat: station.coordinate.lat,

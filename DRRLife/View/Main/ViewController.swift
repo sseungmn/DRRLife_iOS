@@ -21,7 +21,8 @@ class ViewController: UIViewController {
         setConstraints()
         
 //        routeInputVC.view.isHidden = false
-//        showLocationInfo()
+        mapVC.isRouteInputViewHidden = false
+        showLocationInfo()
     }
     
     func setInnerView() {

@@ -1,6 +1,6 @@
 "출발지 입력" = "Enter origin";
-"출발지 대여소" = "rental station at origin";
+"출발 대여소" = "rental station at origin";
 "도착지 입력" = "Enter destination";
-"도착지 대여소" = "rental station at destination";
+"도착 대여소" = "rental station at destination";
 
 "검색" = "Search";

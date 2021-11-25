@@ -12,6 +12,7 @@
 		E905885DCF7515815F2821A4 /* Pods_DRRLifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC157479CE1164BC01D6909 /* Pods_DRRLifeTests.framework */; };
 		FD0948B9274E9BB3009A4A12 /* TypeConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0948B8274E9BB2009A4A12 /* TypeConvert.swift */; };
 		FD18F118274A36CB004814DB /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD18F117274A36CA004814DB /* MapViewController.swift */; };
+		FD1F438E274F5BA400C926D3 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1F438D274F5BA400C926D3 /* UILabel.swift */; };
 		FD84E6A2274B6B4700EC6772 /* LocationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD84E6A1274B6B4700EC6772 /* LocationInfoViewController.swift */; };
 		FD84E6A5274B6F1800EC6772 /* RouteInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD84E6A4274B6F1800EC6772 /* RouteInputViewController.swift */; };
 		FD84E6A8274B7D6300EC6772 /* UIView+Snapkit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD84E6A7274B7D6300EC6772 /* UIView+Snapkit.swift */; };
@@ -67,6 +68,7 @@
 		E90EF2A2197C0C49AAB37C1D /* Pods-DRRLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife/Pods-DRRLife.debug.xcconfig"; sourceTree = "<group>"; };
 		FD0948B8274E9BB2009A4A12 /* TypeConvert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TypeConvert.swift; path = ../../../../TypeConvert.swift; sourceTree = "<group>"; };
 		FD18F117274A36CA004814DB /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FD1F438D274F5BA400C926D3 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		FD84E6A1274B6B4700EC6772 /* LocationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfoViewController.swift; sourceTree = "<group>"; };
 		FD84E6A4274B6F1800EC6772 /* RouteInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInputViewController.swift; sourceTree = "<group>"; };
 		FD84E6A7274B7D6300EC6772 /* UIView+Snapkit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Snapkit.swift"; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				FD99D638274C13F900EB15A2 /* UITextField.swift */,
 				FD99D643274D4B7400EB15A2 /* CALayer.swift */,
 				FD0948B8274E9BB2009A4A12 /* TypeConvert.swift */,
+				FD1F438D274F5BA400C926D3 /* UILabel.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				FDF1C0EE2748D49A00F08D2D /* AppDelegate.swift in Sources */,
 				FD99D63E274CD50200EB15A2 /* Model.swift in Sources */,
 				FDAFAF3F274BDEE1002ED04A /* Localizable.strings in Sources */,
+				FD1F438E274F5BA400C926D3 /* UILabel.swift in Sources */,
 				FD84E6A8274B7D6300EC6772 /* UIView+Snapkit.swift in Sources */,
 				FD18F118274A36CB004814DB /* MapViewController.swift in Sources */,
 				FD99D641274CD73200EB15A2 /* SearchTableViewCell.swift in Sources */,

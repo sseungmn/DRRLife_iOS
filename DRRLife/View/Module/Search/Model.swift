@@ -41,7 +41,7 @@ struct StationInformation {
 }
 
 // SeoulOpenData Response
-struct StationStatusDetail {
+struct StationStatus {
     var stationName: String
     var rackTotCnt: Int
     var parkingBikeTotCnt: Int
@@ -70,8 +70,8 @@ struct SODResponse: Codable {
             var stationLongitude: String
             var stationName: String
             
-            func makeStationDetail() -> StationStatusDetail {
-                return StationStatusDetail(stationName: self.stationName,
+            func makeStationDetail() -> StationStatus {
+                return StationStatus(stationName: self.stationName,
                                      rackTotCnt: self.rackTotCnt.toInt(),
                                      parkingBikeTotCnt: self.parkingBikeTotCnt.toInt(),
                                      coordinate: Coordinate(lat: self.stationLatitude, lng: self.stationLongitude))
