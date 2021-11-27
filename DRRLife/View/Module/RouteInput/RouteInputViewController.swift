@@ -8,18 +8,31 @@
 import UIKit
 import SnapKit
 import Then
+import Alamofire
 
 class RouteInputViewController: UIViewController, SearchViewDelegate, LocationInfoDataDelegate {
     
     var routeParams = RouteParams()
     
-    let viewHeight: CGFloat = 187
-    let textFieldPadding: CGFloat = 16
+    let viewHeight: CGFloat = 222
+    let contentViewPadding: CGFloat = 16
     let buttonPointSize: CGFloat = 15
     lazy var buttonWidth: CGFloat = buttonPointSize * 4 / 3
     
+    let userInputTitles = [
+        "출발지 입력".localized(),
+        "출발 대여소 지도에서 선택".localized(),
+        "도착지 입력".localized(),
+        "도착 대여소 지도에서 선택".localized()
+    ]
+    lazy var userInputs = [oriInput, oriRantalStationInput, dstInput, dstRantalStationInput]
+    lazy var locationInputs = [oriInput, dstInput]
+    lazy var rantalInputs = [oriRantalStationInput, dstRantalStationInput]
+
+    
     weak var mapVC: MapViewController?
     
+    // MARK: UI
     lazy var oriInput = UIButton().then {
         $0.tag = 0
     }
@@ -32,16 +45,6 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     lazy var dstRantalStationInput = UIButton().then {
         $0.tag = 3
     }
-    let userInputTitles = [
-        "출발지 입력".localized(),
-        "출발 대여소 지도에서 선택".localized(),
-        "도착지 입력".localized(),
-        "도착 대여소 지도에서 선택".localized()
-    ]
-    lazy var userInputs = [oriInput, oriRantalStationInput, dstInput, dstRantalStationInput]
-    lazy var locationInputs = [oriInput, dstInput]
-    lazy var rantalInputs = [oriRantalStationInput, dstRantalStationInput]
-    
     lazy var swapButton = UIButton().then {
         $0.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
         $0.backgroundColor = .white
@@ -51,6 +54,30 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         $0.layer.cornerRadius = 20
         $0.addTarget(self, action: #selector(swapButtonClicked), for: .touchUpInside)
     }
+    lazy var oriCancelButton = UIButton().then {
+        $0.tag = 0
+        $0.setImage(UIImage(systemName: "xmark"), for: .normal)
+        $0.setPointSize(pointSize: 15)
+        $0.tintColor = .themeGreyscaled
+        $0.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
+    }
+    lazy var dstCancelButton = UIButton().then {
+        $0.tag = 1
+        $0.setImage(UIImage(systemName: "xmark"), for: .normal)
+        $0.setPointSize(pointSize: 15)
+        $0.tintColor = .themeGreyscaled
+        $0.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
+    }
+    lazy var findButton = UIButton().then {
+        $0.setTitle("길찾기".localized(), for: .normal)
+        $0.titleLabel?.font = .boldThemeFont(ofSize: 15)
+        
+        $0.backgroundColor = .themeMain
+        $0.layer.cornerRadius = 15
+        $0.addTarget(self, action: #selector(findButtonClicked), for: .touchUpInside)
+    }
+
+    // MARK: Events
     @objc
     func swapButtonClicked() {
         print(#function)
@@ -71,20 +98,6 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         }
     }
 
-    lazy var oriCancelButton = UIButton().then {
-        $0.tag = 0
-        $0.setImage(UIImage(systemName: "xmark"), for: .normal)
-        $0.setPointSize(pointSize: 15)
-        $0.tintColor = .themeGreyscaled
-        $0.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
-    }
-    lazy var dstCancelButton = UIButton().then {
-        $0.tag = 1
-        $0.setImage(UIImage(systemName: "xmark"), for: .normal)
-        $0.setPointSize(pointSize: 15)
-        $0.tintColor = .themeGreyscaled
-        $0.addTarget(self, action: #selector(cancelButtonClicked), for: .touchUpInside)
-    }
     @objc
     func cancelButtonClicked(_ sender: UIButton) {
         Marker.shared.locationMarker.mapView = nil
@@ -100,6 +113,37 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
             }
             setInitailTitle(of: userInput)
             Marker.shared.allCases[userInput.tag].mapView = nil
+        }
+    }
+    
+    @objc
+    func findButtonClicked(_ sender: UIButton) {
+        print(routeParams.origin,"\n",
+              routeParams.originStation, "\n",
+              routeParams.destination, "\n",
+              routeParams.destinationStation
+        )
+        findRoute()
+    }
+    
+    func findRoute() {
+        let params = ORRequset.Parameter(
+            start: routeParams.origin!.coordinate,
+            end: routeParams.destination!.coordinate,
+            profile: .cycling_road
+        )
+        let queryURL = ORRequset.makeQueryURL(params: params)
+        AF.request(queryURL,
+                   method: .get,
+                   parameters: nil,
+                   headers: nil
+        ).responseJSON { response in
+            switch response.result {
+            case .success(let jsonData):
+                print(jsonData)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -152,6 +196,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         $0.addSubview(swapButton)
         $0.addSubview(oriCancelButton)
         $0.addSubview(dstCancelButton)
+        $0.addSubview(findButton)
     }
     
     override func viewDidLoad() {
@@ -172,11 +217,11 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
             make.height.equalTo(viewHeight)
         }
         textStackView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview().inset(16)
-            make.left.right.equalToSuperview().inset(textFieldPadding)
+            make.top.equalToSuperview().inset(16)
+            make.left.right.equalToSuperview().inset(contentViewPadding)
         }
         swapButton.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.center.equalTo(textStackView.center)
             make.size.equalTo(40)
         }
         
@@ -192,6 +237,12 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
             textField.snp.makeConstraints { make in
                 make.height.equalTo(34)
             }
+        }
+        findButton.snp.makeConstraints { make in
+            make.top.equalTo(textStackView.snp.bottom).offset(8)
+            make.left.right.equalToSuperview().inset(contentViewPadding)
+            make.bottom.equalTo(contentView.snp.bottom).inset(8)
+            make.height.equalTo(34)
         }
     }
     

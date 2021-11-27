@@ -16,6 +16,37 @@ enum RouteInput {
     case destinationRantalStation
 }
 
+struct ORRequset {
+    static func makeQueryURL(params: ORRequset.Parameter) -> String {
+        let endpoint = "https://api.openrouteservice.org/v2/directions"
+        return "\(endpoint)/\(params.toString)"
+    }
+    
+    struct Parameter {
+        let api_key = Bundle.main.Openroute
+        var start: Coordinate
+        var end: Coordinate
+        var profile: Profile
+        
+        enum Profile: String {
+            case cycling_regular = "cycling-regular"
+            case cycling_road = "cycling-road"
+            case foot_walking = "foot-walking"
+        }
+        
+        var toString: String {
+            return "\(profile.rawValue)?api_key=\(api_key)&start=\(start.toString)&end=\(end.toString)"
+        }
+    }
+}
+
+struct ORResponse {
+    typealias Bbox = [Double]
+    
+    var bbox: Bbox
+    
+}
+
 struct SODRequestURL {
     static private let url = "http://openapi.seoul.go.kr:8088"
     static var parameters: [String : Any] = [
@@ -131,6 +162,9 @@ struct Coordinate {
     
     /// *longitude*, and also can be *x*
     var lng: Double
+    var toString: String {
+        return "\(lng),\(lat)"
+    }
     
     /// 서울시청의 좌표로 초기화한다.
     init() {
@@ -151,7 +185,7 @@ struct Coordinate {
 }
 
 // MARK: - Search
-class PlaceDetail {
+struct PlaceDetail {
     var place_name: String
     var category_name: String
     var road_address_name: String
