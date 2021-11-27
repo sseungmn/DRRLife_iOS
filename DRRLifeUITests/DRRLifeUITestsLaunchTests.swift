@@ -2,7 +2,7 @@
 //  DRRLifeUITestsLaunchTests.swift
 //  DRRLifeUITests
 //
-//  Created by OHSEUNGMIN on 2021/11/20.
+//  Created by 오승민 on .
 //
 
 import XCTest

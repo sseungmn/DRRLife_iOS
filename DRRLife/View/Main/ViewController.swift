@@ -6,9 +6,9 @@
 //
 
 import UIKit
+import Alamofire
 import Then
 import SnapKit
-import Alamofire
 
 class ViewController: UIViewController, LocationInfoDelegate {
     

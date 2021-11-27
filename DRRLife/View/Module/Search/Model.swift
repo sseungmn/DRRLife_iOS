@@ -4,7 +4,6 @@
 //
 //  Created by OHSEUNGMIN on 2021/11/23.
 //
-
 import Foundation
 import NMapsMap
 import Then
@@ -110,8 +109,8 @@ struct SODResponse: Codable {
             
             func makeStationDetail() -> StationStatus {
                 return StationStatus(stationName: self.stationName.components(separatedBy: ["."]).last!,
-                                     rackTotCnt: self.rackTotCnt.toInt(),
-                                     parkingBikeTotCnt: self.parkingBikeTotCnt.toInt(),
+                                     rackTotCnt: self.rackTotCnt.toInt,
+                                     parkingBikeTotCnt: self.parkingBikeTotCnt.toInt,
                                      coordinate: Coordinate(lat: self.stationLatitude, lng: self.stationLongitude))
             }
         }
@@ -154,7 +153,6 @@ class Marker {
 }
 
 // MARK: - MAP, Search
-
 /// Contain variables for using coordinate
 struct Coordinate {
     /// *latitude*, and also can be *y*
@@ -179,8 +177,8 @@ struct Coordinate {
     }
     /// `String Type`으로 받으면 `Double`로 변환해서 저장한다.
     init(lat: String, lng: String) {
-        self.lat = lat.toDouble()
-        self.lng = lng.toDouble()
+        self.lat = lat.toDouble
+        self.lng = lng.toDouble
     }
 }
 
@@ -246,7 +244,6 @@ struct KLResponse: Codable {
 }
 
 // MARK: - RouteInput
-
 class RouteParams {
     var origin: PlaceDetail?
     var originStation: StationStatus?
@@ -271,5 +268,3 @@ class RouteParams {
         Swift.swap(&originStation, &destinationStation)
     }
 }
-
-

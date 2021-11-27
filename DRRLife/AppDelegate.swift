@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  DRRLife
 //
-//  Created by OHSEUNGMIN on 2021/11/20.
+//  Created by 오승민 on .
 //
 
 import UIKit
@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         NMFAuthManager.shared().clientId = Bundle.main.NMFClientId
-            
+        
         return true
     }
 
