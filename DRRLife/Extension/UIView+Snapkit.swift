@@ -9,7 +9,6 @@ import Foundation
 import SnapKit
 
 extension UIView {
-    var safeArea: ConstraintLayoutGuideDSL {
-        return safeAreaLayoutGuide.snp
-    }
+    var safeArea: UILayoutGuide {
+        return safeAreaLayoutGuide}
 }

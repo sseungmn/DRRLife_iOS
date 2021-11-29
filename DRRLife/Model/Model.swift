@@ -16,7 +16,7 @@ enum RouteInput {
 }
 
 struct ORRequset {
-    static func makeQueryURL(params: ORRequset.Parameter) -> String {
+    static func makeRequestURL(params: ORRequset.Parameter) -> String {
         let endpoint = "https://api.openrouteservice.org/v2/directions"
         return "\(endpoint)/\(params.toString)"
     }
@@ -37,13 +37,6 @@ struct ORRequset {
             return "\(profile.rawValue)?api_key=\(api_key)&start=\(start.toString)&end=\(end.toString)"
         }
     }
-}
-
-struct ORResponse {
-    typealias Bbox = [Double]
-    
-    var bbox: Bbox
-    
 }
 
 struct SODRequestURL {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NMapsMap
 
 extension String {
     var toInt: Int {
@@ -25,5 +26,13 @@ extension Double {
 extension Int {
     var toString: String {
         return String(self)
+    }
+}
+
+extension Array where Element == [Double]  {
+    func toNMGLatLngArray() -> [NMGLatLng] {
+        return self.map { coor in
+            return NMGLatLng(lat: coor.last!, lng: coor.first!)
+        }
     }
 }

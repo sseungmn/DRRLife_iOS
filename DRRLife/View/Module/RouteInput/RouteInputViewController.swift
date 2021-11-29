@@ -8,6 +8,7 @@ import UIKit
 import SnapKit
 import Then
 import Alamofire
+import NMapsMap
 
 class RouteInputViewController: UIViewController, SearchViewDelegate, LocationInfoDataDelegate {
     
@@ -114,7 +115,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
             Marker.shared.allCases[userInput.tag].mapView = nil
         }
     }
-    
+   
     @objc
     func findButtonClicked(_ sender: UIButton) {
         print(routeParams.origin,"\n",
@@ -122,28 +123,50 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
               routeParams.destination, "\n",
               routeParams.destinationStation
         )
-        findRoute()
+        
+        showRouteArray()
     }
     
-    func findRoute() {
+    func showRouteArray() {
         let params = ORRequset.Parameter(
             start: routeParams.origin!.coordinate,
             end: routeParams.destination!.coordinate,
-            profile: .cycling_road
+            profile: .cycling_regular
         )
-        let queryURL = ORRequset.makeQueryURL(params: params)
-        AF.request(queryURL,
+        let requestURL = ORRequset.makeRequestURL(params: params)
+        print("Request URL : ", requestURL)
+        AF.request(requestURL,
                    method: .get,
                    parameters: nil,
                    headers: nil
         ).responseJSON { response in
             switch response.result {
             case .success(let jsonData):
-                print(jsonData)
+                do {
+                    let json = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
+                    let result = try JSONDecoder().decode(ORResponse.self, from: json)
+                    print("총 거리 :  \(result.distance)")
+                    print("총 시간 :  \(result.duration)")
+                    print("경로 \(result.coordinates.count)")
+                    self.drawRoute(with: result.coordinates)
+                } catch(let error) {
+                    print(error.localizedDescription)
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func drawRoute(with doublepoints: [[Double]]) {
+        let points = doublepoints.toNMGLatLngArray()
+        print("계산된 Points : \(points)")
+        let pathOverlay = NMFPath()
+        pathOverlay.path = NMGLineString(points: points)
+        pathOverlay.width = 5
+        pathOverlay.color = .blue
+        self.mapVC?.pathOverlay = pathOverlay
+        self.mapVC?.pathOverlay?.mapView = self.mapVC?.mapView
     }
     
     func getStationStatus(stationStatus: StationStatus, tag: Int) {

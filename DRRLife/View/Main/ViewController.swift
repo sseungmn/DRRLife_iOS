@@ -6,9 +6,9 @@
 //
 
 import UIKit
-import Alamofire
 import Then
 import SnapKit
+import Alamofire
 
 class ViewController: UIViewController, LocationInfoDelegate {
     
@@ -43,6 +43,9 @@ class ViewController: UIViewController, LocationInfoDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = .white
+        
         setInnerView()
         setConstraints()
         
@@ -69,11 +72,11 @@ class ViewController: UIViewController, LocationInfoDelegate {
     
     func setConstraints() {
         routeButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeArea.top).inset(20)
+            make.top.equalTo(view.safeArea).inset(20)
             make.left.right.equalToSuperview().inset(20)
         }
         routeInputVC.view.snp.makeConstraints { make in
-            make.top.equalTo(view.safeArea.top)
+            make.top.equalTo(view.safeArea)
             make.left.right.equalToSuperview().inset(20)
             make.height.equalTo(200)
         }
@@ -82,7 +85,8 @@ class ViewController: UIViewController, LocationInfoDelegate {
             make.top.left.right.bottom.equalToSuperview()
         }
         locationInfoVC.view.snp.makeConstraints { make in
-            make.left.right.bottom.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(view.safeArea)
             make.height.equalTo(0)
         }
     }
@@ -108,11 +112,13 @@ class ViewController: UIViewController, LocationInfoDelegate {
     }
     
     func showLocationInfoUI() {
-        mapVC.view.snp.updateConstraints { make in
-            make.bottom.equalToSuperview().inset(250)
-        }
-        locationInfoVC.view.snp.updateConstraints { make in
-            make.height.equalTo(260)
+        UIView.animate(withDuration: 0.5) {
+            self.locationInfoVC.view.snp.updateConstraints { make in
+                make.height.equalTo(160)
+            }
+            self.mapVC.view.snp.makeConstraints { make in
+                make.bottom.equalTo(self.view.safeArea).inset(155)
+            }
         }
     }
     

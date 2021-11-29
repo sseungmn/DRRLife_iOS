@@ -19,8 +19,18 @@ class LocationInfoViewController: UIViewController {
     weak var mapVC: MapViewController?
     
     lazy var stationNameLabel = UILabel().then {
-        $0.font = .extraboldThemeFont(ofSize: 26)
+        $0.font = .extraboldThemeFont(ofSize: 22)
         $0.textColor = .themeMain
+    }
+    
+    lazy var rackTotCntLabel = UILabel().then {
+        $0.font = .boldThemeFont(ofSize: 16)
+        $0.textColor = .black
+    }
+    
+    lazy var parkingBikeTotCntLabel = UILabel().then {
+        $0.font = .boldThemeFont(ofSize: 16)
+        $0.textColor = .themeHighlight
     }
     
     lazy var sepView = UIView().then {
@@ -36,7 +46,7 @@ class LocationInfoViewController: UIViewController {
         $0.layer.borderColor = UIColor.themeMain.cgColor
         
         $0.setTitle("출발 대여소".localized(), for: .normal)
-        $0.titleLabel?.font = .themeFont(ofSize: 13)
+        $0.titleLabel?.font = .themeFont(ofSize: 10)
         $0.setTitleColor(.themeMain, for: .normal)
         $0.addTarget(self, action: #selector(setLocationButtonClicked), for: .touchUpInside)
     }
@@ -47,7 +57,7 @@ class LocationInfoViewController: UIViewController {
         $0.layer.cornerRadius = 15
         
         $0.setTitle("도착 대여소".localized(), for: .normal)
-        $0.titleLabel?.font = .themeFont(ofSize: 13)
+        $0.titleLabel?.font = .themeFont(ofSize: 10)
         $0.setTitleColor(.white, for: .normal)
         $0.addTarget(self, action: #selector(setLocationButtonClicked), for: .touchUpInside)
     }
@@ -56,6 +66,13 @@ class LocationInfoViewController: UIViewController {
         $0.backgroundColor = .white
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 15
+        
+        $0.addSubview(stationNameLabel)
+        $0.addSubview(rackTotCntLabel)
+        $0.addSubview(parkingBikeTotCntLabel)
+        $0.addSubview(sepView)
+        $0.addSubview(oriButton)
+        $0.addSubview(dstButton)
     }
     
     override func viewDidLoad() {
@@ -79,6 +96,8 @@ class LocationInfoViewController: UIViewController {
     
     func updateData() {
         stationNameLabel.text = stationStatus?.stationName
+        rackTotCntLabel.text = stationStatus?.rackTotCnt.toString
+        parkingBikeTotCntLabel.text = stationStatus?.parkingBikeTotCnt.toString
     }
     
     func setContraints() {
@@ -86,30 +105,36 @@ class LocationInfoViewController: UIViewController {
         contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        contentView.addSubview(stationNameLabel)
         stationNameLabel.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().inset(20)
+            make.top.left.equalToSuperview().inset(12)
+//            make.left.equalToSuperview().inset(20)
         }
         
-        contentView.addSubview(sepView)
+        parkingBikeTotCntLabel.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(80)
+            make.left.equalToSuperview().inset(view.frame.width / 2 - 35)
+        }
+        rackTotCntLabel.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(80)
+            make.right.equalToSuperview().inset(view.frame.width / 2 - 35)
+        }
+        
         sepView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(76)
+            make.bottom.equalToSuperview().inset(56)
             make.height.equalTo(1)
             make.left.right.equalToSuperview()
         }
         
-        contentView.addSubview(oriButton)
         oriButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(28)
-            make.right.equalToSuperview().inset(128)
+            make.bottom.equalToSuperview().inset(8)
+            make.right.equalToSuperview().inset(110)
             make.width.equalTo(100)
             make.height.equalTo(40)
         }
-        contentView.addSubview(dstButton)
         dstButton.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(28)
-            make.right.equalToSuperview().inset(20)
-            make.width.equalTo(100)
+            make.bottom.equalToSuperview().inset(8)
+            make.right.equalToSuperview().inset(12)
+            make.width.equalTo(90)
             make.height.equalTo(40)
         }
     }

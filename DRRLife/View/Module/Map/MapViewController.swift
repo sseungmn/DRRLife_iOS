@@ -22,6 +22,7 @@ class MapViewController: UIViewController {
     var stations = [StationStatus]()
     lazy var locationManager = CLLocationManager()
     lazy var mapView = NMFMapView()
+    var pathOverlay: NMFPath?
     
     // MARK: ScopeButton
     lazy var scopeButton = UIButton().then {
@@ -102,19 +103,19 @@ extension MapViewController {
         
         updateButton.snp.makeConstraints { make in
             make.size.equalTo(40)
-            make.bottom.equalTo(view.safeArea.bottom).inset(140)
+            make.bottom.equalTo(view.safeArea).inset(140)
             make.leading.equalToSuperview().inset(15)
         }
         
         stationToggleButton.snp.makeConstraints { make in
             make.size.equalTo(40)
-            make.bottom.equalTo(view.safeArea.bottom).inset(90)
+            make.bottom.equalTo(view.safeArea).inset(90)
             make.leading.equalToSuperview().inset(15)
         }
         
         scopeButton.snp.makeConstraints { make in
             make.size.equalTo(40)
-            make.bottom.equalTo(view.safeArea.bottom).inset(40)
+            make.bottom.equalTo(view.safeArea).inset(40)
             make.leading.equalToSuperview().inset(15)
         }
     }
@@ -123,13 +124,14 @@ extension MapViewController {
         mapView.setLayerGroup(NMF_LAYER_GROUP_BICYCLE, isEnabled: true)
         mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
         
-        if traitCollection.userInterfaceStyle == .dark {
-            mapView.mapType = .navi
-            mapView.isNightModeEnabled = true
-        } else {
-            mapView.mapType = .basic
-            mapView.isNightModeEnabled = false
-        }
+        // 다크모드 대응
+//        if traitCollection.userInterfaceStyle == .dark {
+//            mapView.mapType = .navi
+//            mapView.isNightModeEnabled = true
+//        } else {
+//            mapView.mapType = .basic
+//            mapView.isNightModeEnabled = false
+//        }
         self.setStaionListAndSetStationMarkers(count: 3000)
     }
 }
