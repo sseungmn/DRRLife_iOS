@@ -22,7 +22,6 @@ class MapViewController: UIViewController {
     var stations = [StationStatus]()
     lazy var locationManager = CLLocationManager()
     lazy var mapView = NMFMapView()
-    var pathOverlay: NMFPath?
     
     // MARK: ScopeButton
     lazy var scopeButton = UIButton().then {

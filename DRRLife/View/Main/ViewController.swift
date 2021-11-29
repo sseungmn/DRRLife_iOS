@@ -82,7 +82,8 @@ class ViewController: UIViewController, LocationInfoDelegate {
         }
         
         mapVC.view.snp.makeConstraints { make in
-            make.top.left.right.bottom.equalToSuperview()
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalTo(view)
         }
         locationInfoVC.view.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
@@ -130,10 +131,13 @@ class ViewController: UIViewController, LocationInfoDelegate {
     }
     
     func hideLocationInfoUI() {
-        mapVC.view.snp.updateConstraints { make in
-            make.bottom.equalToSuperview()
+        mapVC.view.snp.removeConstraints()
+        mapVC.view.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalTo(view)
         }
         locationInfoVC.view.snp.updateConstraints { make in
+            make.bottom.equalTo(view.safeArea)
             make.height.equalTo(0)
         }
     }

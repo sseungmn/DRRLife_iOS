@@ -15,8 +15,8 @@ enum RouteInput {
     case destinationRantalStation
 }
 
-struct ORRequset {
-    static func makeRequestURL(params: ORRequset.Parameter) -> String {
+struct ORRequest {
+    static func makeRequestURL(params: ORRequest.Parameter) -> String {
         let endpoint = "https://api.openrouteservice.org/v2/directions"
         return "\(endpoint)/\(params.toString)"
     }

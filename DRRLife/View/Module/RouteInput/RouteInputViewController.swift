@@ -28,7 +28,6 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     lazy var userInputs = [oriInput, oriRantalStationInput, dstInput, dstRantalStationInput]
     lazy var locationInputs = [oriInput, dstInput]
     lazy var rantalInputs = [oriRantalStationInput, dstRantalStationInput]
-
     
     weak var mapVC: MapViewController?
     
@@ -45,6 +44,20 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     lazy var dstRantalStationInput = UIButton().then {
         $0.tag = 3
     }
+    lazy var path0 = NMFPath().then {
+        $0.color = .gray
+        $0.width = 8
+    }
+    lazy var path1 = NMFPath().then {
+        $0.color = .blue
+        $0.width = 3
+    }
+    lazy var path2 = NMFPath().then {
+        $0.color = .gray
+        $0.width = 8
+    }
+    lazy var pathes = [path0, path1, path2]
+    
     lazy var swapButton = UIButton().then {
         $0.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
         $0.backgroundColor = .white
@@ -118,23 +131,45 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
    
     @objc
     func findButtonClicked(_ sender: UIButton) {
-        print(routeParams.origin,"\n",
-              routeParams.originStation, "\n",
-              routeParams.destination, "\n",
-              routeParams.destinationStation
-        )
-        
-        showRouteArray()
+        if !routeParams.didCompleteFilling {
+            let alert = UIAlertController(title: "실패", message: "모든 정보를 설정해주세요.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "돌아가기", style: .cancel)
+            alert.addAction(okAction)
+            present(alert, animated: false, completion: nil)
+            return
+        }
+        for phase in 0...2 {
+            pathes[phase].mapView = nil
+            showRouteArray(phase: phase)
+        }
     }
     
-    func showRouteArray() {
-        let params = ORRequset.Parameter(
-            start: routeParams.origin!.coordinate,
-            end: routeParams.destination!.coordinate,
-            profile: .cycling_regular
-        )
-        let requestURL = ORRequset.makeRequestURL(params: params)
+    func makeRequestURL(phase: Int) -> String {
+        var params: ORRequest.Parameter
+        if phase == 0 {
+            params = ORRequest.Parameter(start: routeParams.origin!.coordinate,
+                                         end: routeParams.originStation!.coordinate,
+                                         profile: .foot_walking)
+        } else if phase == 1 {
+            params = ORRequest.Parameter(start: routeParams.originStation!.coordinate,
+                                         end: routeParams.destinationStation!.coordinate,
+                                         profile: .cycling_regular)
+        } else if phase == 2 {
+            params = ORRequest.Parameter(start: routeParams.destinationStation!.coordinate,
+                                         end: routeParams.destination!.coordinate,
+                                         profile: .foot_walking)
+        } else {
+            return ""
+        }
+        return ORRequest.makeRequestURL(params: params)
+    }
+    
+    func showRouteArray(phase: Int) {
+        let requestURL = self.makeRequestURL(phase: phase)
+        let profile: ORRequest.Parameter.Profile = (phase % 2 == 0)  ? .foot_walking : .cycling_regular
+        
         print("Request URL : ", requestURL)
+        
         AF.request(requestURL,
                    method: .get,
                    parameters: nil,
@@ -145,10 +180,10 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
                 do {
                     let json = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
                     let result = try JSONDecoder().decode(ORResponse.self, from: json)
+                    print("===PHASE \(phase) ===")
                     print("총 거리 :  \(result.distance)")
                     print("총 시간 :  \(result.duration)")
-                    print("경로 \(result.coordinates.count)")
-                    self.drawRoute(with: result.coordinates)
+                    self.drawRoute(with: result.coordinates, phase: phase)
                 } catch(let error) {
                     print(error.localizedDescription)
                 }
@@ -158,15 +193,10 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         }
     }
     
-    func drawRoute(with doublepoints: [[Double]]) {
+    func drawRoute(with doublepoints: [[Double]], phase: Int) {
         let points = doublepoints.toNMGLatLngArray()
-        print("계산된 Points : \(points)")
-        let pathOverlay = NMFPath()
-        pathOverlay.path = NMGLineString(points: points)
-        pathOverlay.width = 5
-        pathOverlay.color = .blue
-        self.mapVC?.pathOverlay = pathOverlay
-        self.mapVC?.pathOverlay?.mapView = self.mapVC?.mapView
+        self.pathes[phase].path = NMGLineString(points: points)
+        self.pathes[phase].mapView = self.mapVC?.mapView
     }
     
     func getStationStatus(stationStatus: StationStatus, tag: Int) {
