@@ -42,6 +42,7 @@
 		B5B03AB827527D60008DB5C9 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5B03AB727527D60008DB5C9 /* APIKeys.plist */; };
 		B5B03ABA27527E0D008DB5C9 /* ConverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B03AB927527E0D008DB5C9 /* ConverType.swift */; };
 		B5BBCCDA2754BD630009C0EA /* ORResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BBCCD92754BD630009C0EA /* ORResponse.swift */; };
+		B5BBCCDC2754CC680009C0EA /* launchImage.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B5BBCCDB2754CC680009C0EA /* launchImage.jpeg */; };
 		C6A3F33113FB58A7D25BF47F /* Pods_DRRLifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 492F05532B77F3124BBBAF2D /* Pods_DRRLifeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +109,7 @@
 		B5B03AB727527D60008DB5C9 /* APIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		B5B03AB927527E0D008DB5C9 /* ConverType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverType.swift; sourceTree = "<group>"; };
 		B5BBCCD92754BD630009C0EA /* ORResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORResponse.swift; sourceTree = "<group>"; };
+		B5BBCCDB2754CC680009C0EA /* launchImage.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launchImage.jpeg; sourceTree = "<group>"; };
 		BDC950A4A3948B7D2D3D1061 /* Pods-DRRLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife/Pods-DRRLife.debug.xcconfig"; sourceTree = "<group>"; };
 		CF32F3E62971C9DCE6BB9883 /* Pods-DRRLife-DRRLifeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife-DRRLifeUITests.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife-DRRLifeUITests/Pods-DRRLife-DRRLifeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DEBBA80BE57F86CA49270660 /* Pods-DRRLife-DRRLifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife-DRRLifeUITests.release.xcconfig"; path = "Target Support Files/Pods-DRRLife-DRRLifeUITests/Pods-DRRLife-DRRLifeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 		B56A32AD2752752300843975 /* DRRLife */ = {
 			isa = PBXGroup;
 			children = (
+				B5BBCCDB2754CC680009C0EA /* launchImage.jpeg */,
 				B5BBCCD82754BD440009C0EA /* Model */,
 				B56A33002752770600843975 /* Extension */,
 				B56A32AE2752752300843975 /* AppDelegate.swift */,
@@ -447,6 +450,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5BBCCDC2754CC680009C0EA /* launchImage.jpeg in Resources */,
 				B56A32E92752763200843975 /* NanumSquareEB.ttf in Resources */,
 				B56A32FC275276D800843975 /* SearchTableViewCell.xib in Resources */,
 				B56A32E72752763200843975 /* NanumSquareL.ttf in Resources */,

@@ -2,8 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>UIUserInterfaceStyle</key>
-        <string>Light</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>사용자의 위치를 기준으로 지도를 보여드리기 위해서, 위치 정보 권한이 필요합니다.</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

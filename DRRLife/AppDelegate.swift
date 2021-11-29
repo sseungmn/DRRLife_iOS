@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NMFAuthManager.shared().clientId = Bundle.main.NMFClientId
         
+        sleep(1)
         return true
     }
 

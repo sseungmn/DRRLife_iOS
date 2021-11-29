@@ -10,5 +10,6 @@ import SnapKit
 
 extension UIView {
     var safeArea: UILayoutGuide {
-        return safeAreaLayoutGuide}
+        return safeAreaLayoutGuide
+    }
 }
