@@ -69,6 +69,7 @@ class MapViewController: UIViewController {
     @objc
     func updateButtonClicked(_ sender: UIButton) {
         print("Update Button Clicked")
+        self.setStaionListAndSetStationMarkers(count: 3000)
     }
     
     var delegate: ContainerDelegate?

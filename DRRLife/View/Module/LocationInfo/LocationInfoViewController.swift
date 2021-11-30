@@ -21,15 +21,17 @@ class LocationInfoViewController: UIViewController {
     lazy var stationNameLabel = UILabel().then {
         $0.font = .extraboldThemeFont(ofSize: 22)
         $0.textColor = .themeMain
+        $0.textAlignment = .left
     }
     
-    lazy var rackTotCntLabel = UILabel().then {
-        $0.font = .boldThemeFont(ofSize: 16)
+    lazy var descriptionLabel = UILabel().then {
+        $0.text = "현재 거치되어 있는 따릉이 대수".localized()
+        $0.font = .themeFont(ofSize: 16)
         $0.textColor = .black
+        $0.textAlignment = .left
     }
-    
     lazy var parkingBikeTotCntLabel = UILabel().then {
-        $0.font = .boldThemeFont(ofSize: 16)
+        $0.font = .extraboldThemeFont(ofSize: 18)
         $0.textColor = .themeHighlight
     }
     
@@ -68,7 +70,7 @@ class LocationInfoViewController: UIViewController {
         $0.layer.cornerRadius = 15
         
         $0.addSubview(stationNameLabel)
-        $0.addSubview(rackTotCntLabel)
+        $0.addSubview(descriptionLabel)
         $0.addSubview(parkingBikeTotCntLabel)
         $0.addSubview(sepView)
         $0.addSubview(oriButton)
@@ -96,7 +98,6 @@ class LocationInfoViewController: UIViewController {
     
     func updateData() {
         stationNameLabel.text = stationStatus?.stationName
-        rackTotCntLabel.text = stationStatus?.rackTotCnt.toString
         parkingBikeTotCntLabel.text = stationStatus?.parkingBikeTotCnt.toString
     }
     
@@ -106,17 +107,18 @@ class LocationInfoViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         stationNameLabel.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().inset(12)
-//            make.left.equalToSuperview().inset(20)
+            make.top.left.equalToSuperview().inset(20)
+            make.right.lessThanOrEqualToSuperview().inset(20)
+        }
+        
+        descriptionLabel.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().inset(85)
+            make.left.equalToSuperview().inset(20)
         }
         
         parkingBikeTotCntLabel.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(80)
-            make.left.equalToSuperview().inset(view.frame.width / 2 - 35)
-        }
-        rackTotCntLabel.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().inset(80)
-            make.right.equalToSuperview().inset(view.frame.width / 2 - 35)
+            make.bottom.equalToSuperview().inset(85)
+            make.left.equalTo(descriptionLabel.snp.right).offset(8)
         }
         
         sepView.snp.makeConstraints { make in

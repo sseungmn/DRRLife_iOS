@@ -61,7 +61,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
         
         self.add(locationInfoVC)
         locationInfoVC.view.layer.masksToBounds = true
-        locationInfoVC.view.layer.cornerRadius = 5
+        locationInfoVC.view.layer.cornerRadius = 15
         
         locationInfoVC.delegate = routeInputVC
         locationInfoVC.mapVC = mapVC
@@ -73,7 +73,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
         
         self.add(routeInfoVC)
         routeInfoVC.view.layer.masksToBounds = true
-        routeInfoVC.view.layer.cornerRadius = 5
+        routeInfoVC.view.layer.cornerRadius = 15
     }
     
     func setConstraints() {
@@ -176,11 +176,11 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
     func showRouteInfoUI() {
         UIView.animate(withDuration: 0.5, delay: 0.5) {
             self.routeInfoVC.view.snp.updateConstraints { make in
-                make.height.equalTo(254)
+                make.height.equalTo(264)
             }
             self.mapVC.view.snp.remakeConstraints { make in
                 make.top.left.right.equalToSuperview()
-                make.bottom.equalTo(self.view.safeArea).inset(249)
+                make.bottom.equalTo(self.view.safeArea).inset(259)
             }
         }
     }

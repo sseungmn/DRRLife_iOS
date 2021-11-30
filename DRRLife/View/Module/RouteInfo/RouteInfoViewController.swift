@@ -20,11 +20,11 @@ class RouteInfoViewController: UIViewController {
         $0.addSubview(totDuraLbl)
         totDistLbl.snp.makeConstraints { make in
             make.right.equalTo(totDuraLbl.snp.left).offset(-8)
-            make.bottom.equalToSuperview().inset(3)
+            make.centerY.equalToSuperview()
         }
         totDuraLbl.snp.makeConstraints { make in
             make.right.equalToSuperview().inset(8)
-            make.bottom.equalToSuperview().inset(3)
+            make.centerY.equalToSuperview()
         }
     }
     var count: Int = 0
@@ -102,7 +102,7 @@ class RouteInfoViewController: UIViewController {
         
         totContainerView.snp.makeConstraints { make in
             make.left.right.equalToSuperview().inset(20)
-            make.height.equalTo(30)
+            make.height.equalTo(40)
         }
         ph0ContainerView.snp.makeConstraints { make in
             make.top.equalTo(totContainerView.snp.bottom).offset(4)
@@ -188,6 +188,7 @@ struct Container {
         fromLabel.textAlignment = .left
         fromLabel.numberOfLines = 2
         icon.contentMode = .scaleAspectFit
+        icon.tintColor = .white
         toLabel.font = .themeFont(ofSize: 13)
         toLabel.textAlignment = .left
         toLabel.numberOfLines = 2
@@ -238,7 +239,8 @@ struct Container {
     }
     
     private func makeFormattedDistance(_ distance: Double) -> String {
-        let km: String = String(format: "%.1d", distance / 1000)
+        let km: String = String(format: "%.1f", distance / 1000)
+        print("distance : \(distance), km : \(km)")
         let m = distance
         if distance >= 1000 {
             return "\(km)km"
