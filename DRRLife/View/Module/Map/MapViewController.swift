@@ -12,9 +12,10 @@ import SnapKit
 import CoreLocation
 import Alamofire
 
-protocol LocationInfoDelegate {
+protocol ContainerDelegate {
     func showLocationInfo(with stationStatus: StationStatus)
     func hideLocationInfo()
+    func hideRouteInput()
 }
 
 class MapViewController: UIViewController {
@@ -41,8 +42,8 @@ class MapViewController: UIViewController {
     lazy var stationToggleButton = UIButton().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 3
-        $0.setImage(UIImage(systemName: "bicycle.circle"), for: .normal)
-        $0.setImage(UIImage(systemName: "bicycle.circle.fill"), for: .selected)
+        $0.setImage(UIImage(named: "bicycle.circle"), for: .normal)
+        $0.setImage(UIImage(named: "bicycle.circle.fill"), for: .selected)
         $0.isSelected = true
         $0.setPointSize(pointSize: 22)
         $0.addTarget(self, action: #selector(stationButtonToggled), for: .touchUpInside)
@@ -62,7 +63,7 @@ class MapViewController: UIViewController {
     lazy var updateButton = UIButton().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 3
-        $0.setImage(UIImage(systemName: "arrow.triangle.2.circlepath"), for: .normal)
+        $0.setImage(UIImage(named: "arrow.triangle.2.circlepath"), for: .normal)
         $0.addTarget(self, action: #selector(updateButtonClicked), for: .touchUpInside)
     }
     @objc
@@ -70,7 +71,7 @@ class MapViewController: UIViewController {
         print("Update Button Clicked")
     }
     
-    var delegate: LocationInfoDelegate?
+    var delegate: ContainerDelegate?
     func showLocationInfo(stationStatus: StationStatus) {
         delegate?.showLocationInfo(with: stationStatus)
     }
@@ -144,6 +145,7 @@ extension MapViewController: NMFMapViewTouchDelegate {
     
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         delegate?.hideLocationInfo()
+        delegate?.hideRouteInput()
     }
     
     func updateMap(to coor: Coordinate) {

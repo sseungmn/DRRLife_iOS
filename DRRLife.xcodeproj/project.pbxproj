@@ -43,6 +43,8 @@
 		B5B03ABA27527E0D008DB5C9 /* ConverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B03AB927527E0D008DB5C9 /* ConverType.swift */; };
 		B5BBCCDA2754BD630009C0EA /* ORResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BBCCD92754BD630009C0EA /* ORResponse.swift */; };
 		B5BBCCDC2754CC680009C0EA /* launchImage.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B5BBCCDB2754CC680009C0EA /* launchImage.jpeg */; };
+		B5BBCCDF275610B70009C0EA /* RouteInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BBCCDE275610B70009C0EA /* RouteInfoViewController.swift */; };
+		B5BBCCE12756315E0009C0EA /* RouteInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BBCCE02756315E0009C0EA /* RouteInfo.storyboard */; };
 		C6A3F33113FB58A7D25BF47F /* Pods_DRRLifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 492F05532B77F3124BBBAF2D /* Pods_DRRLifeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +112,8 @@
 		B5B03AB927527E0D008DB5C9 /* ConverType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverType.swift; sourceTree = "<group>"; };
 		B5BBCCD92754BD630009C0EA /* ORResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORResponse.swift; sourceTree = "<group>"; };
 		B5BBCCDB2754CC680009C0EA /* launchImage.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launchImage.jpeg; sourceTree = "<group>"; };
+		B5BBCCDE275610B70009C0EA /* RouteInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInfoViewController.swift; sourceTree = "<group>"; };
+		B5BBCCE02756315E0009C0EA /* RouteInfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RouteInfo.storyboard; sourceTree = "<group>"; };
 		BDC950A4A3948B7D2D3D1061 /* Pods-DRRLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife/Pods-DRRLife.debug.xcconfig"; sourceTree = "<group>"; };
 		CF32F3E62971C9DCE6BB9883 /* Pods-DRRLife-DRRLifeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife-DRRLifeUITests.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife-DRRLifeUITests/Pods-DRRLife-DRRLifeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DEBBA80BE57F86CA49270660 /* Pods-DRRLife-DRRLifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife-DRRLifeUITests.release.xcconfig"; path = "Target Support Files/Pods-DRRLife-DRRLifeUITests/Pods-DRRLife-DRRLifeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -255,6 +259,7 @@
 		B56A32EB2752768D00843975 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				B5BBCCDD275610720009C0EA /* RouteInfo */,
 				B56A32ED275276A400843975 /* Map */,
 				B56A32EE275276AA00843975 /* RouteInput */,
 				B56A32EF275276B000843975 /* Search */,
@@ -338,6 +343,15 @@
 				B5BBCCD92754BD630009C0EA /* ORResponse.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B5BBCCDD275610720009C0EA /* RouteInfo */ = {
+			isa = PBXGroup;
+			children = (
+				B5BBCCDE275610B70009C0EA /* RouteInfoViewController.swift */,
+				B5BBCCE02756315E0009C0EA /* RouteInfo.storyboard */,
+			);
+			path = RouteInfo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -455,6 +469,7 @@
 				B56A32FC275276D800843975 /* SearchTableViewCell.xib in Resources */,
 				B56A32E72752763200843975 /* NanumSquareL.ttf in Resources */,
 				B56A32BB2752752300843975 /* LaunchScreen.storyboard in Resources */,
+				B5BBCCE12756315E0009C0EA /* RouteInfo.storyboard in Resources */,
 				B56A32E82752763200843975 /* NanumSquareB.ttf in Resources */,
 				B52297FB27528C3F00BCEB89 /* Localizable.strings in Resources */,
 				B56A32B82752752300843975 /* Assets.xcassets in Resources */,
@@ -607,6 +622,7 @@
 				B56A330E2752771400843975 /* UIColor.swift in Sources */,
 				B56A32F3275276C800843975 /* RouteInputViewController.swift in Sources */,
 				B56A32FA275276D800843975 /* SearchTableViewCell.swift in Sources */,
+				B5BBCCDF275610B70009C0EA /* RouteInfoViewController.swift in Sources */,
 				B56A32FB275276D800843975 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -800,8 +816,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -829,8 +846,9 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

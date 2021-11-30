@@ -10,9 +10,16 @@ import Then
 import Alamofire
 import NMapsMap
 
+protocol RouteInfoDelegate {
+    func showRouteInfo()
+    func hideRouteInfo()
+}
+
 class RouteInputViewController: UIViewController, SearchViewDelegate, LocationInfoDataDelegate {
     
     var routeParams = RouteParams()
+    var routeInfoVC: RouteInfoViewController?
+    var delegate: RouteInfoDelegate?
     
     let viewHeight: CGFloat = 222
     let contentViewPadding: CGFloat = 16
@@ -61,7 +68,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     lazy var swapButton = UIButton().then {
         $0.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
         $0.backgroundColor = .white
-        $0.setPointSize(pointSize: 15)
+        $0.setPointSize(pointSize: 12)
         $0.tintColor = .themeGreyscaled
         $0.layer.masksToBounds = true
         $0.layer.cornerRadius = 20
@@ -114,6 +121,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     @objc
     func cancelButtonClicked(_ sender: UIButton) {
         Marker.shared.locationMarker.mapView = nil
+        self.clearRoute()
         userInputs.filter({ $0.tag / 2 == sender.tag }).forEach { userInput in
             if userInput.tag == 0 {
                 routeParams.origin = nil
@@ -132,16 +140,24 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     @objc
     func findButtonClicked(_ sender: UIButton) {
         if !routeParams.didCompleteFilling {
-            let alert = UIAlertController(title: "실패", message: "모든 정보를 설정해주세요.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "돌아가기", style: .cancel)
-            alert.addAction(okAction)
-            present(alert, animated: false, completion: nil)
-            return
+            presentAlert(title: "검색 실패", message: "모든 정보를 입력해주세요.", okTitle: "돌아가기")
+        } else {
+            clearRoute()
+            for phase in 0...2 {
+                showRouteArray(phase: phase)
+            }
         }
-        for phase in 0...2 {
-            pathes[phase].mapView = nil
-            showRouteArray(phase: phase)
-        }
+    }
+    
+    func presentAlert(title: String, message: String, okTitle: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: okTitle, style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: false)
+    }
+    
+    func clearRoute() {
+        pathes.forEach({ $0.mapView = nil })
     }
     
     func makeRequestURL(phase: Int) -> String {
@@ -166,7 +182,6 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     
     func showRouteArray(phase: Int) {
         let requestURL = self.makeRequestURL(phase: phase)
-        let profile: ORRequest.Parameter.Profile = (phase % 2 == 0)  ? .foot_walking : .cycling_regular
         
         print("Request URL : ", requestURL)
         
@@ -184,6 +199,8 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
                     print("총 거리 :  \(result.distance)")
                     print("총 시간 :  \(result.duration)")
                     self.drawRoute(with: result.coordinates, phase: phase)
+                    self.routeInfoVC!.setData(phase: phase, response: result)
+                    self.delegate?.showRouteInfo()
                 } catch(let error) {
                     print(error.localizedDescription)
                 }
@@ -263,18 +280,19 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     
     func setContstraints() {
         view.addSubview(contentView)
-        
         contentView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
-            make.height.equalTo(viewHeight)
+            make.height.equalTo(222)
         }
         textStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(16)
+            make.height.equalTo(155)
             make.left.right.equalToSuperview().inset(contentViewPadding)
         }
         swapButton.snp.makeConstraints { make in
-            make.center.equalTo(textStackView.center)
-            make.size.equalTo(40)
+            make.centerX.equalToSuperview()
+            make.centerY.equalTo(textStackView)
+            make.size.equalTo(32)
         }
         
         oriCancelButton.snp.makeConstraints { make in
@@ -294,7 +312,6 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
             make.top.equalTo(textStackView.snp.bottom).offset(8)
             make.left.right.equalToSuperview().inset(contentViewPadding)
             make.bottom.equalTo(contentView.snp.bottom).inset(8)
-            make.height.equalTo(34)
         }
     }
     

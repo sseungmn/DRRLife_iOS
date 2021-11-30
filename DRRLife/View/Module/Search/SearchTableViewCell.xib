@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -18,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2X 휘트니스 봉천점" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HYC-Xa-ZQg">
-                        <rect key="frame" x="20" y="13" width="157" height="24"/>
+                        <rect key="frame" x="13" y="8" width="157" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="qk6-Ac-ZuX"/>
                         </constraints>
@@ -26,8 +27,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="헬스클럽" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6C-TM-aNM">
-                        <rect key="frame" x="336" y="17" width="45" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="헬스클럽" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6C-TM-aNM">
+                        <rect key="frame" x="343" y="8" width="45" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="fCS-TX-HSO"/>
                         </constraints>
@@ -36,7 +37,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="경기 성남시 분당구 정자일로 177 분당인텔리지2 3F" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V17-CS-FCA">
-                        <rect key="frame" x="20" y="41" width="268" height="24"/>
+                        <rect key="frame" x="13" y="46" width="268" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="ILU-IK-ul7"/>
                         </constraints>
@@ -46,12 +47,14 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="V17-CS-FCA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="FFA-us-UJ0"/>
-                    <constraint firstAttribute="trailing" secondItem="a6C-TM-aNM" secondAttribute="trailing" constant="20" symbolic="YES" id="J1J-4H-50j"/>
-                    <constraint firstItem="a6C-TM-aNM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="17" id="VI6-q1-r9S"/>
-                    <constraint firstItem="HYC-Xa-ZQg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" symbolic="YES" id="aMc-oN-yVo"/>
-                    <constraint firstAttribute="bottom" secondItem="V17-CS-FCA" secondAttribute="bottom" constant="13" id="jO7-oE-WEl"/>
-                    <constraint firstItem="HYC-Xa-ZQg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="zZ9-gj-f9V"/>
+                    <constraint firstItem="HYC-Xa-ZQg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="5wA-uf-FTo"/>
+                    <constraint firstItem="V17-CS-FCA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="DRc-KG-veV"/>
+                    <constraint firstAttribute="trailing" secondItem="a6C-TM-aNM" secondAttribute="trailing" constant="13" id="VgE-hG-AWe"/>
+                    <constraint firstItem="V17-CS-FCA" firstAttribute="top" relation="greaterThanOrEqual" secondItem="HYC-Xa-ZQg" secondAttribute="bottom" constant="3" id="YT0-0g-sub"/>
+                    <constraint firstItem="a6C-TM-aNM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HYC-Xa-ZQg" secondAttribute="trailing" constant="3" id="YkP-z7-bOP"/>
+                    <constraint firstAttribute="bottom" secondItem="V17-CS-FCA" secondAttribute="bottom" priority="750" constant="8" id="jO7-oE-WEl"/>
+                    <constraint firstItem="a6C-TM-aNM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="pDo-0J-JjP"/>
+                    <constraint firstItem="HYC-Xa-ZQg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="zZ9-gj-f9V"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

@@ -10,7 +10,7 @@ import Then
 import SnapKit
 import Alamofire
 
-class ViewController: UIViewController, LocationInfoDelegate {
+class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
     
     var isRouteInputViewHidden: Bool {
         get {
@@ -25,6 +25,7 @@ class ViewController: UIViewController, LocationInfoDelegate {
     lazy var routeInputVC = RouteInputViewController()
     lazy var mapVC = MapViewController()
     lazy var locationInfoVC = LocationInfoViewController()
+    lazy var routeInfoVC = RouteInfoViewController()
     lazy var routeButton = UIButton().then {
         $0.setTitle("길찾기", for: .normal)
         $0.setTitleColor(.white, for: .normal)
@@ -37,8 +38,7 @@ class ViewController: UIViewController, LocationInfoDelegate {
     }
     @objc
     func routeButtonClicked() {
-        routeInputVC.view.isHidden = false
-        isRouteInputViewHidden = false
+        showRouteInput()
     }
     
     override func viewDidLoad() {
@@ -68,6 +68,12 @@ class ViewController: UIViewController, LocationInfoDelegate {
         
         self.add(routeInputVC)
         routeInputVC.mapVC = mapVC
+        routeInputVC.routeInfoVC = routeInfoVC
+        routeInputVC.delegate = self
+        
+        self.add(routeInfoVC)
+        routeInfoVC.view.layer.masksToBounds = true
+        routeInfoVC.view.layer.cornerRadius = 5
     }
     
     func setConstraints() {
@@ -82,10 +88,14 @@ class ViewController: UIViewController, LocationInfoDelegate {
         }
         
         mapVC.view.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-            make.bottom.equalTo(view)
+            make.top.left.right.bottom.equalToSuperview()
         }
         locationInfoVC.view.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(view.safeArea)
+            make.height.equalTo(0)
+        }
+        routeInfoVC.view.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.bottom.equalTo(view.safeArea)
             make.height.equalTo(0)
@@ -102,6 +112,8 @@ class ViewController: UIViewController, LocationInfoDelegate {
         }
     }
     
+    // MARK: Manipulate locationInfo
+    
     func showLocationInfo(with stationStatus: StationStatus) {
         print("프로토콜 실행중...")
         locationInfoVC.stationStatus = stationStatus
@@ -113,11 +125,12 @@ class ViewController: UIViewController, LocationInfoDelegate {
     }
     
     func showLocationInfoUI() {
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.5, delay: 0.5) {
             self.locationInfoVC.view.snp.updateConstraints { make in
                 make.height.equalTo(160)
             }
-            self.mapVC.view.snp.makeConstraints { make in
+            self.mapVC.view.snp.remakeConstraints { make in
+                make.top.left.right.equalToSuperview()
                 make.bottom.equalTo(self.view.safeArea).inset(155)
             }
         }
@@ -131,12 +144,53 @@ class ViewController: UIViewController, LocationInfoDelegate {
     }
     
     func hideLocationInfoUI() {
-        mapVC.view.snp.removeConstraints()
-        mapVC.view.snp.makeConstraints { make in
+        mapVC.view.snp.remakeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.bottom.equalTo(view)
         }
         locationInfoVC.view.snp.updateConstraints { make in
+            make.bottom.equalTo(view.safeArea)
+            make.height.equalTo(0)
+        }
+    }
+    
+    // MARK: Manipulate RouteInput
+    
+    func showRouteInput() {
+        routeInputVC.view.isHidden = false
+        isRouteInputViewHidden = false
+    }
+    
+    func hideRouteInput() {
+        routeInputVC.view.isHidden = true
+        isRouteInputViewHidden = true
+    }
+    
+    // MARK: Manipulate RouteInfo
+    
+    func showRouteInfo() {
+        hideLocationInfo()
+        showRouteInfoUI()
+    }
+    
+    func showRouteInfoUI() {
+        UIView.animate(withDuration: 0.5, delay: 0.5) {
+            self.routeInfoVC.view.snp.updateConstraints { make in
+                make.height.equalTo(254)
+            }
+            self.mapVC.view.snp.remakeConstraints { make in
+                make.top.left.right.equalToSuperview()
+                make.bottom.equalTo(self.view.safeArea).inset(249)
+            }
+        }
+    }
+    
+    func hideRouteInfo() {
+        mapVC.view.snp.remakeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalTo(view)
+        }
+        routeInfoVC.view.snp.updateConstraints { make in
             make.bottom.equalTo(view.safeArea)
             make.height.equalTo(0)
         }
