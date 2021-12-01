@@ -9,9 +9,9 @@ import UIKit
 import Then
 import SnapKit
 import Alamofire
+import MBProgressHUD
 
-class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
-    
+class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, ProgressHUDDelegate {
     
     var isRouteInputViewHidden: Bool {
         get {
@@ -22,6 +22,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
         }
     }
     var isLocationInfoViewHidden = true
+    
     
     lazy var routeInputVC = RouteInputViewController()
     lazy var mapVC = MapViewController()
@@ -74,7 +75,8 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
     
     func setInnerView() {
         self.add(mapVC)
-        mapVC.delegate = self
+        mapVC.containerDelegate = self
+        mapVC.progressDelegate = self
         
         view.addSubview(routeButton)
         view.addSubview(routeInfoButton)
@@ -89,7 +91,8 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
         self.add(routeInputVC)
         routeInputVC.mapVC = mapVC
         routeInputVC.routeInfoVC = routeInfoVC
-        routeInputVC.delegate = self
+        routeInputVC.progressDelegate = self
+        routeInputVC.routeInfodelegate = self
         routeInputVC.view.clipsToBounds = false
         
         self.add(routeInfoVC)
@@ -220,6 +223,18 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
         routeInfoVC.view.snp.updateConstraints { make in
             make.bottom.equalTo(view.safeArea)
             make.height.equalTo(0)
+        }
+    }
+    
+    // MARK: ProgressHUD
+    var progress: MBProgressHUD?
+    func startProgress() {
+        progress = MBProgressHUD.showAdded(to: self.view, animated: true)
+    }
+    
+    func stopProgress() {
+        if progress != nil {
+            progress!.hide(animated: true)
         }
     }
 }

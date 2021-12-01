@@ -26,6 +26,9 @@ class MapViewController: UIViewController {
     lazy var locationManager = CLLocationManager()
     lazy var mapView = NMFMapView()
     
+    var containerDelegate: ContainerDelegate?
+    var progressDelegate: ProgressHUDDelegate?
+    
     // MARK: ScopeButton
     lazy var scopeButton = UIButton().then {
         $0.backgroundColor = .white
@@ -76,9 +79,8 @@ class MapViewController: UIViewController {
         self.setStaionListAndSetStationMarkers(count: 3000)
     }
     
-    var delegate: ContainerDelegate?
     func showLocationInfo(stationStatus: StationStatus) {
-        delegate?.showLocationInfo(with: stationStatus)
+        containerDelegate?.showLocationInfo(with: stationStatus)
     }
 }
 
@@ -149,9 +151,9 @@ extension MapViewController: NMFMapViewTouchDelegate {
     }
     
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
-        delegate?.hideLocationInfo()
-        delegate?.hideRouteInput()
-        delegate?.hideRouteInfo()
+        containerDelegate?.hideLocationInfo()
+        containerDelegate?.hideRouteInput()
+        containerDelegate?.hideRouteInfo()
     }
     
     func updateMap(to coor: Coordinate) {
@@ -206,6 +208,7 @@ extension MapViewController {
         self.stations.removeAll()
         Marker.shared.hideStationMarkers() // 기존의 마커들을 맵에서 제거한다.
         Marker.shared.stationMarkers.removeAll()
+        progressDelegate?.startProgress()
         var start = 1
         var end = count > 1000 ? 1000 : count
         
@@ -246,6 +249,9 @@ extension MapViewController {
                 print(error.localizedDescription)
             }
             self.countUpdatingStationQuene -= 1
+            if self.countUpdatingStationQuene == 0 {
+                self.progressDelegate?.stopProgress()
+            }
         })
     }
     func makeRouteparamMarker(coor: Coordinate, for type: RouteInput) {

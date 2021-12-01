@@ -17,11 +17,19 @@ protocol RouteInfoDelegate {
     func hideRouteInfoButton()
 }
 
+protocol ProgressHUDDelegate {
+    func startProgress()
+    func stopProgress()
+}
+
 class RouteInputViewController: UIViewController, SearchViewDelegate, LocationInfoDataDelegate {
     
     var routeParams = RouteParams()
     var routeInfoVC: RouteInfoViewController?
-    var delegate: RouteInfoDelegate?
+    var routeInfodelegate: RouteInfoDelegate?
+    var progressDelegate: ProgressHUDDelegate?
+    
+    var countQueue = 0
     
     let viewHeight: CGFloat = 222
     let contentViewPadding: CGFloat = 16
@@ -124,7 +132,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     @objc
     func cancelButtonClicked(_ sender: UIButton) {
         self.clearRoute()
-        delegate?.hideRouteInfoButton()
+        routeInfodelegate?.hideRouteInfoButton()
         userInputs.filter({ $0.tag / 2 == sender.tag }).forEach { userInput in
             if userInput.tag == 0 {
                 routeParams.origin = nil
@@ -145,10 +153,13 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         if !routeParams.didCompleteFilling {
             presentAlert(title: "검색 실패", message: "모든 정보를 입력해주세요.", okTitle: "돌아가기")
         } else {
+            if countQueue != 0 { return }
+            progressDelegate?.startProgress()
             clearRoute()
             for phase in 0...2 {
                 showRouteArray(phase: phase)
             }
+            mapVC!.stationButtonToggled(mapVC!.stationToggleButton)
         }
     }
     
@@ -159,6 +170,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         self.present(alert, animated: false)
     }
     
+    //MARK: Route
     func clearRoute() {
         pathes.forEach({ $0.mapView = nil })
     }
@@ -203,7 +215,12 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
                     print("총 시간 :  \(result.duration)")
                     self.drawRoute(with: result.coordinates, phase: phase)
                     self.routeInfoVC!.setData(phase: phase, response: result)
-                    self.delegate?.showRouteInfo()
+                    self.routeInfodelegate?.showRouteInfo()
+                    self.countQueue += 1
+                    if self.countQueue == 3 {
+                        self.progressDelegate?.stopProgress()
+                        self.countQueue = 0
+                    }
                 } catch(let error) {
                     print(error.localizedDescription)
                 }
