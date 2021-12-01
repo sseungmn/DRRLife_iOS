@@ -70,6 +70,8 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
         routeInputVC.mapVC = mapVC
         routeInputVC.routeInfoVC = routeInfoVC
         routeInputVC.delegate = self
+        routeInputVC.view.clipsToBounds = false
+        routeInfoVC.addShadow()
         
         self.add(routeInfoVC)
         routeInfoVC.view.layer.masksToBounds = true
@@ -84,7 +86,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
         routeInputVC.view.snp.makeConstraints { make in
             make.top.equalTo(view.safeArea)
             make.left.right.equalToSuperview().inset(20)
-            make.height.equalTo(200)
+            make.height.equalTo(222)
         }
         
         mapVC.view.snp.makeConstraints { make in

@@ -102,6 +102,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     func swapButtonClicked() {
         print(#function)
         routeParams.swap()
+        Marker.shared.swapRouteParams()
         for tag in [0, 2] {
             if let tmp = routeParams.allCases[tag] as? PlaceDetail {
                 setTitle(of: userInputs[tag], with: tmp.road_address_name)
@@ -120,7 +121,6 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
 
     @objc
     func cancelButtonClicked(_ sender: UIButton) {
-        Marker.shared.locationMarker.mapView = nil
         self.clearRoute()
         userInputs.filter({ $0.tag / 2 == sender.tag }).forEach { userInput in
             if userInput.tag == 0 {
@@ -143,7 +143,6 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
             presentAlert(title: "검색 실패", message: "모든 정보를 입력해주세요.", okTitle: "돌아가기")
         } else {
             clearRoute()
-            Marker.shared.locationMarker.mapView = nil
             for phase in 0...2 {
                 showRouteArray(phase: phase)
             }
@@ -274,11 +273,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         super.viewDidLoad()
         setContstraints()
         setTextFields()
-        view.clipsToBounds = false
-        view.layer.shadowRadius = 5
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.3
-    }
+}
     
     func setContstraints() {
         view.addSubview(contentView)

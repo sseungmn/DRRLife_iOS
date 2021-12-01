@@ -114,7 +114,6 @@ struct SODResponse: Codable {
 }
 
 typealias StationInfo = SODResponse.SODRentBikeStatus.SODRantalStationStatus
-
 // MARK: - MAP
 class Marker {
     static let shared = Marker()
@@ -126,10 +125,34 @@ class Marker {
         $0.height = 40
     }
     lazy var allCases = [oriMarker, oriRantalMarker, dstMarker, dstRantalMarker]
-    var oriMarker = NMFMarker()
-    var oriRantalMarker = NMFMarker()
-    var dstMarker = NMFMarker()
-    var dstRantalMarker = NMFMarker()
+    var oriMarker = NMFMarker().then {
+        $0.iconImage = NMF_MARKER_IMAGE_RED
+        $0.captionText = "출발지".localized()
+        
+        $0.isHideCollidedSymbols = true
+        $0.isHideCollidedCaptions = true
+    }
+    var oriRantalMarker = NMFMarker().then {
+        $0.iconImage = NMF_MARKER_IMAGE_PINK
+        $0.captionText = "출발 대여소".localized()
+        
+        $0.isHideCollidedSymbols = true
+        $0.isHideCollidedCaptions = true
+    }
+    var dstMarker = NMFMarker().then {
+        $0.iconImage = NMF_MARKER_IMAGE_GREEN
+        $0.captionText = "도착 대여소".localized()
+        
+        $0.isHideCollidedSymbols = true
+        $0.isHideCollidedCaptions = true
+    }
+    var dstRantalMarker = NMFMarker().then {
+        $0.iconImage = NMF_MARKER_IMAGE_BLUE
+        $0.captionText = "도착지".localized()
+        
+        $0.isHideCollidedSymbols = true
+        $0.isHideCollidedCaptions = true
+    }
     
     var stationMarkers = [NMFMarker]()
     
@@ -144,6 +167,23 @@ class Marker {
         self.stationMarkers.forEach { marker in
             marker.mapView = nil
         }
+    }
+    func swapRouteParams() {
+        var tmpPosition = oriMarker.position
+        oriMarker.position = dstMarker.position
+        dstMarker.position = tmpPosition
+        
+        tmpPosition = oriRantalMarker.position
+        oriRantalMarker.position = dstRantalMarker.position
+        dstRantalMarker.position = tmpPosition
+        
+        var tmpMapview = oriMarker.mapView
+        oriMarker.mapView = dstMarker.mapView
+        dstMarker.mapView = tmpMapview
+        
+        tmpMapview = oriRantalMarker.mapView
+        oriRantalMarker.mapView = dstRantalMarker.mapView
+        dstRantalMarker.mapView = tmpMapview
     }
 }
 

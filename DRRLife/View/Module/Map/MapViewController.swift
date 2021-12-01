@@ -151,12 +151,12 @@ extension MapViewController: NMFMapViewTouchDelegate {
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         delegate?.hideLocationInfo()
         delegate?.hideRouteInput()
-        delegate?.hideRouteInfo
+        delegate?.hideRouteInfo()
     }
     
     func updateMap(to coor: Coordinate) {
         setCamera(to: coor)
-        setMarker(to: coor)
+//        setMarker(to: coor)
     }
     
     func setCamera(to coor: Coordinate) {
@@ -249,32 +249,25 @@ extension MapViewController {
         })
     }
     func makeRouteparamMarker(coor: Coordinate, for type: RouteInput) {
-        let tmpMarker = NMFMarker(position: NMGLatLng(lat: coor.lat, lng: coor.lng))
+        var tmpMarker: NMFMarker
+        switch type {
+        case .origin:
+            tmpMarker = Marker.shared.oriMarker
+        case .originRantalStation:
+            tmpMarker =  Marker.shared.oriRantalMarker
+        case .destination:
+            tmpMarker = Marker.shared.dstMarker
+        case .destinationRantalStation:
+            tmpMarker = Marker.shared.dstRantalMarker
+        }
+        
+        tmpMarker.position = NMGLatLng(lat: coor.lat, lng: coor.lng)
         
         tmpMarker.width = 30
         tmpMarker.height = 30
         
         tmpMarker.mapView = mapView
         
-        switch type {
-        case .origin:
-            tmpMarker.iconImage = NMF_MARKER_IMAGE_RED
-            tmpMarker.captionText = "출발지".localized()
-            Marker.shared.oriMarker = tmpMarker
-        case .originRantalStation:
-            tmpMarker.iconImage = NMF_MARKER_IMAGE_PINK
-            tmpMarker.captionText = "출발 대여소".localized()
-            Marker.shared.oriRantalMarker = tmpMarker
-        case .destination:
-            tmpMarker.iconImage = NMF_MARKER_IMAGE_BLUE
-            tmpMarker.captionText = "도착지".localized()
-            Marker.shared.dstMarker = tmpMarker
-        case .destinationRantalStation:
-            tmpMarker.iconImage = NMF_MARKER_IMAGE_GREEN
-            tmpMarker.captionText = "도착 대여소".localized()
-            Marker.shared.dstRantalMarker = tmpMarker
-            
-        }
     }
     
     func makeStationMarker(station: StationStatus) {
