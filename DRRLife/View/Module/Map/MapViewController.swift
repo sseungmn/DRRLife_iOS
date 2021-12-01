@@ -16,10 +16,12 @@ protocol ContainerDelegate {
     func showLocationInfo(with stationStatus: StationStatus)
     func hideLocationInfo()
     func hideRouteInput()
+    func hideRouteInfo()
 }
 
 class MapViewController: UIViewController {
     var isRouteInputViewHidden: Bool = true
+    var countUpdatingStationQuene: Int = 0
     var stations = [StationStatus]()
     lazy var locationManager = CLLocationManager()
     lazy var mapView = NMFMapView()
@@ -35,7 +37,9 @@ class MapViewController: UIViewController {
     func scopeButtonClicked(_ sender: UIButton) {
         print("모드를 변경했습니다. (.compass)")
         mapView.positionMode = .compass
-        mapView.moveCamera(NMFCameraUpdate(scrollBy: CGPoint(x: 0, y: 100))) // 검색창이 차지하는 부분만큼 중앙좌표를 내려준다.
+        if !isRouteInputViewHidden {
+            mapView.moveCamera(NMFCameraUpdate(scrollBy: CGPoint(x: 0, y: 100))) // 검색창이 차지하는 부분만큼 중앙좌표를 내려준다.
+        }
     }
     
     // MARK: StationToggleButton
@@ -147,6 +151,7 @@ extension MapViewController: NMFMapViewTouchDelegate {
     func mapView(_ mapView: NMFMapView, didTapMap latlng: NMGLatLng, point: CGPoint) {
         delegate?.hideLocationInfo()
         delegate?.hideRouteInput()
+        delegate?.hideRouteInfo
     }
     
     func updateMap(to coor: Coordinate) {
@@ -193,9 +198,14 @@ extension MapViewController: CLLocationManagerDelegate {
 extension MapViewController {
     /// API를 사용해서 실시간 대여정보를 받아오고, 대여소 Marker을 생성한다.
     func setStaionListAndSetStationMarkers(count: Int) {
+        if countUpdatingStationQuene != 0 {
+            print("이미 대여소 업데이트를 진행중입니다.")
+            return
+        }
+        // 중복 처리 방지
         self.stations.removeAll()
+        Marker.shared.hideStationMarkers() // 기존의 마커들을 맵에서 제거한다.
         Marker.shared.stationMarkers.removeAll()
-        
         var start = 1
         var end = count > 1000 ? 1000 : count
         
@@ -207,6 +217,7 @@ extension MapViewController {
     }
     
     func requestRantalStationList(_ start: Int, _ end: Int) {
+        self.countUpdatingStationQuene += 1
         SODRequestURL.parameters["START_INDEX"] = start
         SODRequestURL.parameters["END_INDEX"] = end
         print("\(start)~\(end)")
@@ -234,10 +245,39 @@ extension MapViewController {
             case .failure(let error):
                 print(error.localizedDescription)
             }
+            self.countUpdatingStationQuene -= 1
         })
     }
+    func makeRouteparamMarker(coor: Coordinate, for type: RouteInput) {
+        let tmpMarker = NMFMarker(position: NMGLatLng(lat: coor.lat, lng: coor.lng))
+        
+        tmpMarker.width = 30
+        tmpMarker.height = 30
+        
+        tmpMarker.mapView = mapView
+        
+        switch type {
+        case .origin:
+            tmpMarker.iconImage = NMF_MARKER_IMAGE_RED
+            tmpMarker.captionText = "출발지".localized()
+            Marker.shared.oriMarker = tmpMarker
+        case .originRantalStation:
+            tmpMarker.iconImage = NMF_MARKER_IMAGE_PINK
+            tmpMarker.captionText = "출발 대여소".localized()
+            Marker.shared.oriRantalMarker = tmpMarker
+        case .destination:
+            tmpMarker.iconImage = NMF_MARKER_IMAGE_BLUE
+            tmpMarker.captionText = "도착지".localized()
+            Marker.shared.dstMarker = tmpMarker
+        case .destinationRantalStation:
+            tmpMarker.iconImage = NMF_MARKER_IMAGE_GREEN
+            tmpMarker.captionText = "도착 대여소".localized()
+            Marker.shared.dstRantalMarker = tmpMarker
+            
+        }
+    }
     
-    func makeStationMarker(station: StationStatus, for type: RouteInput? = nil) {
+    func makeStationMarker(station: StationStatus) {
         let tmpMarker = NMFMarker(position: NMGLatLng(lat: station.coordinate.lat,
                                                       lng: station.coordinate.lng))
         let userInfo: [AnyHashable : Any] = ["mapVC" : self,
@@ -259,35 +299,16 @@ extension MapViewController {
             return true
         }
         
-        tmpMarker.width = 50
-        tmpMarker.height = 50
+        tmpMarker.width = 40
+        tmpMarker.height = 40
         tmpMarker.captionText = station.stationName
         
+        tmpMarker.iconImage = calcMarkerIcon(by: station.parkingBikeTotCnt)
+        tmpMarker.isHideCollidedSymbols = true
+        tmpMarker.isHideCollidedCaptions = true
+        tmpMarker.minZoom = calcMinZoomLevel(by: station.rackTotCnt)
         
-        switch type {
-        case .origin:
-            tmpMarker.iconImage = NMF_MARKER_IMAGE_RED
-            tmpMarker.subCaptionText = "출발지".localized()
-            Marker.shared.oriMarker = tmpMarker
-        case .originRantalStation:
-            tmpMarker.iconImage = NMF_MARKER_IMAGE_PINK
-            tmpMarker.subCaptionText = "출발 대여소".localized()
-            Marker.shared.oriRantalMarker = tmpMarker
-        case .destination:
-            tmpMarker.iconImage = NMF_MARKER_IMAGE_BLUE
-            tmpMarker.subCaptionText = "도착지".localized()
-            Marker.shared.dstMarker = tmpMarker
-        case .destinationRantalStation:
-            tmpMarker.iconImage = NMF_MARKER_IMAGE_GREEN
-            tmpMarker.subCaptionText = "도착 대여소".localized()
-            Marker.shared.dstRantalMarker = tmpMarker
-        default:
-            tmpMarker.iconImage = calcMarkerIcon(by: station.parkingBikeTotCnt)
-            tmpMarker.isHideCollidedSymbols = true
-            tmpMarker.isHideCollidedCaptions = true
-            tmpMarker.minZoom = calcMinZoomLevel(by: station.rackTotCnt)
-            Marker.shared.stationMarkers.append(tmpMarker)
-        }
+        Marker.shared.stationMarkers.append(tmpMarker)
     }
     
     func calcMarkerIcon(by parkingBikeTotCnt: Int) -> NMFOverlayImage {

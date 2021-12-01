@@ -143,10 +143,6 @@ extension SearchViewController: UISearchBarDelegate {
                     let result = try JSONDecoder().decode(KLResponse.self, from: json)
                     self.places = result.documents
                     print("===== 검색 결과 '\(self.itemCount)개'")
-                    for place in self.places {
-                        print(place)
-                    }
-                    
                 } catch(let error) {
                     print(error.localizedDescription)
                 }

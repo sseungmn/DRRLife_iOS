@@ -88,11 +88,11 @@ class LocationInfoViewController: UIViewController {
         if sender == self.oriButton {
             delegate?.getStationStatus(stationStatus: stationStatus!, tag: 1)
             Marker.shared.oriRantalMarker.mapView = nil
-            mapVC?.makeStationMarker(station: stationStatus!, for: .originRantalStation)
+            mapVC?.makeRouteparamMarker(coor: stationStatus!.coordinate, for: .originRantalStation)
         } else {
             delegate?.getStationStatus(stationStatus: stationStatus!, tag: 3)
             Marker.shared.dstRantalMarker.mapView = nil
-            mapVC?.makeStationMarker(station: stationStatus!, for: .destinationRantalStation)
+            mapVC?.makeRouteparamMarker(coor: stationStatus!.coordinate, for: .destinationRantalStation)
         }
     }
     

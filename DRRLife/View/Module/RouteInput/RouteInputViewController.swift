@@ -143,6 +143,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
             presentAlert(title: "검색 실패", message: "모든 정보를 입력해주세요.", okTitle: "돌아가기")
         } else {
             clearRoute()
+            Marker.shared.locationMarker.mapView = nil
             for phase in 0...2 {
                 showRouteArray(phase: phase)
             }
@@ -229,6 +230,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     // MARK: Set UserInput Title
     func setInitailTitle(of button: UIButton) {
         button.setTitle(userInputTitles[button.tag], for: .normal)
+        button.setTitleColor(.themeGreyscaled, for: .normal)
     }
     func setTitle(of button: UIButton, with title: String) {
         button.setTitle(title, for: .normal)
@@ -341,8 +343,10 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         setTitle(of: button, with: placeDetail.road_address_name)
         if tag == 0 {
             routeParams.origin = placeDetail
+            mapVC!.makeRouteparamMarker(coor: placeDetail.coordinate, for: .origin)
         } else {
             routeParams.destination = placeDetail
+            mapVC!.makeRouteparamMarker(coor: placeDetail.coordinate, for: .destination)
         }
         mapVC?.updateMap(to: placeDetail.coordinate)
     }
