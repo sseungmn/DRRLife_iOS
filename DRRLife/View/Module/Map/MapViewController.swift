@@ -154,6 +154,7 @@ extension MapViewController: NMFMapViewTouchDelegate {
         containerDelegate?.hideLocationInfo()
         containerDelegate?.hideRouteInput()
         containerDelegate?.hideRouteInfo()
+        Marker.shared.selectedMarker = nil
     }
     
     func updateMap(to coor: Coordinate) {
@@ -295,6 +296,7 @@ extension MapViewController {
             print("\(stationStatus.stationName)에서 touchEvent 발생")
             mapVC.setCamera(to: stationStatus.coordinate)
             mapVC.showLocationInfo(stationStatus: stationStatus)
+            Marker.shared.selectedMarker = overlay as? NMFMarker
             return true
         }
         

@@ -118,11 +118,22 @@ typealias StationInfo = SODResponse.SODRentBikeStatus.SODRantalStationStatus
 class Marker {
     static let shared = Marker()
     
+    var selectedMarker: NMFMarker? {
+        didSet(oldMarker) {
+            oldMarker?.height = 30
+            oldMarker?.width = 30
+        }
+        willSet(newMarker) {
+            newMarker?.height = 70
+            newMarker?.width = 70
+        }
+    }
+    
     lazy var locationMarker = NMFMarker().then {
         $0.iconImage = NMF_MARKER_IMAGE_BLACK
         $0.iconTintColor = UIColor.red
         $0.width = 30
-        $0.height = 40
+        $0.height = 30
     }
     lazy var allCases = [oriMarker, oriRantalMarker, dstMarker, dstRantalMarker]
     var oriMarker = NMFMarker().then {
