@@ -13,6 +13,7 @@ import NMapsMap
 protocol RouteInfoDelegate {
     func showRouteInfo()
     func hideRouteInfo()
+    func hideRouteInfoButton()
 }
 
 class RouteInputViewController: UIViewController, SearchViewDelegate, LocationInfoDataDelegate {
@@ -122,6 +123,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     @objc
     func cancelButtonClicked(_ sender: UIButton) {
         self.clearRoute()
+        delegate?.hideRouteInfoButton()
         userInputs.filter({ $0.tag / 2 == sender.tag }).forEach { userInput in
             if userInput.tag == 0 {
                 routeParams.origin = nil

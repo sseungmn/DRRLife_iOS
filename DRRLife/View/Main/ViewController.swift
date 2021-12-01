@@ -12,6 +12,7 @@ import Alamofire
 
 class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
     
+    
     var isRouteInputViewHidden: Bool {
         get {
             return mapVC.isRouteInputViewHidden
@@ -36,9 +37,27 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
         
         $0.addTarget(self, action: #selector(routeButtonClicked), for: .touchUpInside)
     }
+    lazy var routeInfoButton = UIButton().then {
+        $0.setTitle("경로 상세 정보", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.titleLabel?.font = .boldThemeFont(ofSize: 20)
+        
+        $0.backgroundColor = .themeMain
+        $0.layer.cornerRadius = 15
+        
+        $0.isHidden = true
+        $0.addTarget(self, action: #selector(routeInfoButtonClicked), for: .touchUpInside)
+    }
     @objc
     func routeButtonClicked() {
         showRouteInput()
+    }
+    @objc
+    func routeInfoButtonClicked() {
+        showRouteInfo()
+    }
+    func hideRouteInfoButton() {
+        routeInfoButton.isHidden = true
     }
     
     override func viewDidLoad() {
@@ -58,6 +77,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
         mapVC.delegate = self
         
         view.addSubview(routeButton)
+        view.addSubview(routeInfoButton)
         
         self.add(locationInfoVC)
         locationInfoVC.view.layer.masksToBounds = true
@@ -71,7 +91,6 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
         routeInputVC.routeInfoVC = routeInfoVC
         routeInputVC.delegate = self
         routeInputVC.view.clipsToBounds = false
-        routeInfoVC.addShadow()
         
         self.add(routeInfoVC)
         routeInfoVC.view.layer.masksToBounds = true
@@ -83,6 +102,11 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
             make.top.equalTo(view.safeArea).inset(20)
             make.left.right.equalToSuperview().inset(20)
         }
+        routeInfoButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeArea)
+            make.left.right.equalToSuperview().inset(20)
+        }
+        
         routeInputVC.view.snp.makeConstraints { make in
             make.top.equalTo(view.safeArea)
             make.left.right.equalToSuperview().inset(20)
@@ -173,6 +197,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate {
     func showRouteInfo() {
         hideLocationInfo()
         showRouteInfoUI()
+        routeInfoButton.isHidden = false
     }
     
     func showRouteInfoUI() {

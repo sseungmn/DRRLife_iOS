@@ -141,14 +141,14 @@ class Marker {
     }
     var dstMarker = NMFMarker().then {
         $0.iconImage = NMF_MARKER_IMAGE_GREEN
-        $0.captionText = "도착 대여소".localized()
+        $0.captionText = "도착지".localized()
         
         $0.isHideCollidedSymbols = true
         $0.isHideCollidedCaptions = true
     }
     var dstRantalMarker = NMFMarker().then {
         $0.iconImage = NMF_MARKER_IMAGE_BLUE
-        $0.captionText = "도착지".localized()
+        $0.captionText = "도착 대여소".localized()
         
         $0.isHideCollidedSymbols = true
         $0.isHideCollidedCaptions = true
