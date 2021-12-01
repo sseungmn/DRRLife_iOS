@@ -1,11 +1,13 @@
 PODS:
   - Alamofire (5.4.4)
+  - MBProgressHUD (1.2.0)
   - NMapsMap (3.14.0)
   - SnapKit (5.0.1)
   - Then (2.7.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.4)
+  - MBProgressHUD (~> 1.2.0)
   - NMapsMap
   - SnapKit (~> 5.0.0)
   - Then
@@ -13,16 +15,18 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - MBProgressHUD
     - NMapsMap
     - SnapKit
     - Then
 
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   NMapsMap: 61c2abfc409bbcdc91583ccc455a5b6f64c7414e
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: e1d41a1c885b8d74c0e1c3f4f476080ad9e73511
+PODFILE CHECKSUM: 7b0f412e3b0e694815265c81e035d41544edddc1
 
 COCOAPODS: 1.11.2
