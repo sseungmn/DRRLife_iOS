@@ -102,12 +102,12 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     
     func setConstraints() {
         routeButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeArea).inset(20)
-            make.left.right.equalToSuperview().inset(20)
+            make.top.equalTo(view.safeArea).inset(15)
+            make.left.right.equalToSuperview().inset(80)
         }
         routeInfoButton.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeArea)
-            make.left.right.equalToSuperview().inset(20)
+            make.bottom.equalTo(view.safeArea).inset(15)
+            make.left.right.equalToSuperview().inset(80)
         }
         
         routeInputVC.view.snp.makeConstraints { make in
@@ -126,7 +126,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
         }
         routeInfoVC.view.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
-            make.bottom.equalTo(view.safeArea)
+            make.bottom.equalToSuperview()
             make.height.equalTo(0)
         }
     }
@@ -206,11 +206,11 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     func showRouteInfoUI() {
         UIView.animate(withDuration: 0.5, delay: 0.5) {
             self.routeInfoVC.view.snp.updateConstraints { make in
-                make.height.equalTo(264)
+                make.height.equalTo(274)
             }
             self.mapVC.view.snp.remakeConstraints { make in
                 make.top.left.right.equalToSuperview()
-                make.bottom.equalTo(self.view.safeArea).inset(254)
+                make.bottom.equalToSuperview().inset(264)
             }
         }
     }
@@ -221,7 +221,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
             make.bottom.equalTo(view)
         }
         routeInfoVC.view.snp.updateConstraints { make in
-            make.bottom.equalTo(view.safeArea)
+            make.bottom.equalToSuperview()
             make.height.equalTo(0)
         }
     }

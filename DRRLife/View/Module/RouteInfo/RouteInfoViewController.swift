@@ -116,7 +116,8 @@ class RouteInfoViewController: UIViewController {
         }
         ph2ContainerView.snp.makeConstraints { make in
             make.top.equalTo(ph1ContainerView.snp.bottom).offset(4)
-            make.left.right.bottom.equalToSuperview().inset(20)
+            make.left.right.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(30)
             make.height.equalTo(60)
         }
     }
