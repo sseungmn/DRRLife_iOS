@@ -112,7 +112,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     func swapButtonClicked() {
         print(#function)
         routeParams.swap()
-        Marker.shared.swapRouteParams()
+        MarkerManager.shared.swapRouteParams()
         for tag in [0, 2] {
             if let tmp = routeParams.allCases[tag] as? PlaceDetail {
                 setTitle(of: userInputs[tag], with: tmp.road_address_name)
@@ -144,7 +144,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
                 routeParams.destinationStation = nil
             }
             setInitailTitle(of: userInput)
-            Marker.shared.allCases[userInput.tag].mapView = nil
+            MarkerManager.shared.allCases[userInput.tag].mapView = nil
         }
     }
    
@@ -358,10 +358,10 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         setTitle(of: button, with: placeDetail.road_address_name)
         if tag == 0 {
             routeParams.origin = placeDetail
-            mapVC!.makeRouteparamMarker(coor: placeDetail.coordinate, for: .origin)
+            mapVC!.makeParamMarker(coor: placeDetail.coordinate, for: .origin)
         } else {
             routeParams.destination = placeDetail
-            mapVC!.makeRouteparamMarker(coor: placeDetail.coordinate, for: .destination)
+            mapVC!.makeParamMarker(coor: placeDetail.coordinate, for: .destination)
         }
         mapVC?.updateMap(to: placeDetail.coordinate)
     }

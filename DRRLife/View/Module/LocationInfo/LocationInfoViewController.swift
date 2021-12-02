@@ -39,8 +39,8 @@ class LocationInfoViewController: UIViewController {
         $0.backgroundColor = .themeGreyscaled
     }
     
-    lazy var oriButton = UIButton().then {
-        print("oriButton Setting")
+    lazy var oriRantalButton = UIButton().then {
+        print("oriRantalButton Setting")
         $0.backgroundColor = .white
         
         $0.layer.cornerRadius = 15
@@ -52,8 +52,8 @@ class LocationInfoViewController: UIViewController {
         $0.setTitleColor(.themeMain, for: .normal)
         $0.addTarget(self, action: #selector(setLocationButtonClicked), for: .touchUpInside)
     }
-    lazy var dstButton = UIButton().then {
-        print("dstButton Setting")
+    lazy var dstRantalButton = UIButton().then {
+        print("dstRantalButton Setting")
         $0.backgroundColor = .themeMain
         
         $0.layer.cornerRadius = 15
@@ -73,8 +73,8 @@ class LocationInfoViewController: UIViewController {
         $0.addSubview(descriptionLabel)
         $0.addSubview(parkingBikeTotCntLabel)
         $0.addSubview(sepView)
-        $0.addSubview(oriButton)
-        $0.addSubview(dstButton)
+        $0.addSubview(oriRantalButton)
+        $0.addSubview(dstRantalButton)
     }
     
     override func viewDidLoad() {
@@ -85,14 +85,14 @@ class LocationInfoViewController: UIViewController {
     var delegate: LocationInfoDataDelegate?
     @objc
     func setLocationButtonClicked(_ sender: UIButton) {
-        if sender == self.oriButton {
+        if sender == self.oriRantalButton {
             delegate?.getStationStatus(stationStatus: stationStatus!, tag: 1)
-            Marker.shared.oriRantalMarker.mapView = nil
-            mapVC?.makeRouteparamMarker(coor: stationStatus!.coordinate, for: .originRantalStation)
+            MarkerManager.shared.originRantalMarker.mapView = nil
+            mapVC?.makeParamMarker(coor: stationStatus!.coordinate, for: .originRantalStation)
         } else {
             delegate?.getStationStatus(stationStatus: stationStatus!, tag: 3)
-            Marker.shared.dstRantalMarker.mapView = nil
-            mapVC?.makeRouteparamMarker(coor: stationStatus!.coordinate, for: .destinationRantalStation)
+            MarkerManager.shared.destinationRantalMarker.mapView = nil
+            mapVC?.makeParamMarker(coor: stationStatus!.coordinate, for: .destinationRantalStation)
         }
     }
     
@@ -127,13 +127,13 @@ class LocationInfoViewController: UIViewController {
             make.left.right.equalToSuperview()
         }
         
-        oriButton.snp.makeConstraints { make in
+        oriRantalButton.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(8)
             make.right.equalToSuperview().inset(110)
             make.width.equalTo(100)
             make.height.equalTo(40)
         }
-        dstButton.snp.makeConstraints { make in
+        dstRantalButton.snp.makeConstraints { make in
             make.bottom.equalToSuperview().inset(8)
             make.right.equalToSuperview().inset(12)
             make.width.equalTo(90)

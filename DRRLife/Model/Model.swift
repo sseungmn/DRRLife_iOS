@@ -8,7 +8,7 @@ import Foundation
 import NMapsMap
 import Then
 
-enum RouteInput {
+enum RouteInputType {
     case origin
     case originRantalStation
     case destination
@@ -113,101 +113,23 @@ struct SODResponse: Codable {
     
 }
 
+// MARK: Marker
+
 typealias StationInfo = SODResponse.SODRentBikeStatus.SODRantalStationStatus
 // MARK: - MAP
-class Marker {
-    static let shared = Marker()
-    
-    var selectedMarker: NMFMarker? {
-        didSet(oldMarker) {
-            oldMarker?.height = 30
-            oldMarker?.width = 30
-        }
-        willSet(newMarker) {
-            newMarker?.height = 70
-            newMarker?.width = 70
-        }
-    }
-    
-    lazy var locationMarker = NMFMarker().then {
-        $0.iconImage = NMF_MARKER_IMAGE_BLACK
-        $0.iconTintColor = UIColor.red
-        $0.width = 30
-        $0.height = 30
-    }
-    lazy var allCases = [oriMarker, oriRantalMarker, dstMarker, dstRantalMarker]
-    var oriMarker = NMFMarker().then {
-        $0.iconImage = NMF_MARKER_IMAGE_RED
-        $0.captionText = "출발지".localized()
-        
-        $0.isHideCollidedSymbols = true
-        $0.isHideCollidedCaptions = true
-    }
-    var oriRantalMarker = NMFMarker().then {
-        $0.iconImage = NMF_MARKER_IMAGE_PINK
-        $0.captionText = "출발 대여소".localized()
-        
-        $0.isHideCollidedSymbols = true
-        $0.isHideCollidedCaptions = true
-    }
-    var dstMarker = NMFMarker().then {
-        $0.iconImage = NMF_MARKER_IMAGE_GREEN
-        $0.captionText = "도착지".localized()
-        
-        $0.isHideCollidedSymbols = true
-        $0.isHideCollidedCaptions = true
-    }
-    var dstRantalMarker = NMFMarker().then {
-        $0.iconImage = NMF_MARKER_IMAGE_BLUE
-        $0.captionText = "도착 대여소".localized()
-        
-        $0.isHideCollidedSymbols = true
-        $0.isHideCollidedCaptions = true
-    }
-    
-    var stationMarkers = [NMFMarker]()
-    
-    func showStationMarkers(mapView: NMFMapView) {
-        print("showStationMarkers for \(stationMarkers.count)개")
-        self.stationMarkers.forEach { marker in
-            marker.mapView = mapView
-        }
-    }
-    func hideStationMarkers() {
-        print("hideStationMarkers")
-        self.stationMarkers.forEach { marker in
-            marker.mapView = nil
-        }
-    }
-    func swapRouteParams() {
-        var tmpPosition = oriMarker.position
-        oriMarker.position = dstMarker.position
-        dstMarker.position = tmpPosition
-        
-        tmpPosition = oriRantalMarker.position
-        oriRantalMarker.position = dstRantalMarker.position
-        dstRantalMarker.position = tmpPosition
-        
-        var tmpMapview = oriMarker.mapView
-        oriMarker.mapView = dstMarker.mapView
-        dstMarker.mapView = tmpMapview
-        
-        tmpMapview = oriRantalMarker.mapView
-        oriRantalMarker.mapView = dstRantalMarker.mapView
-        dstRantalMarker.mapView = tmpMapview
-    }
-}
 
 // MARK: - MAP, Search
 /// Contain variables for using coordinate
 struct Coordinate {
     /// *latitude*, and also can be *y*
     var lat: Double
-    
     /// *longitude*, and also can be *x*
     var lng: Double
     var toString: String {
         return "\(lng),\(lat)"
+    }
+    var toCLLocationCoordinate2D: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: lat, longitude: lng)
     }
     
     /// 서울시청의 좌표로 초기화한다.

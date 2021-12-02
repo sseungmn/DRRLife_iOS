@@ -39,6 +39,7 @@
 		B56A33122752771400843975 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56A33082752771400843975 /* UILabel.swift */; };
 		B56A33132752771400843975 /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56A33092752771400843975 /* UIFont.swift */; };
 		B56A33142752771400843975 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56A330A2752771400843975 /* CALayer.swift */; };
+		B585C0582758B02600BADDDC /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585C0572758B02600BADDDC /* Marker.swift */; };
 		B5B03AB827527D60008DB5C9 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5B03AB727527D60008DB5C9 /* APIKeys.plist */; };
 		B5B03ABA27527E0D008DB5C9 /* ConverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B03AB927527E0D008DB5C9 /* ConverType.swift */; };
 		B5BBCCDA2754BD630009C0EA /* ORResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BBCCD92754BD630009C0EA /* ORResponse.swift */; };
@@ -107,6 +108,7 @@
 		B56A33082752771400843975 /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		B56A33092752771400843975 /* UIFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		B56A330A2752771400843975 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
+		B585C0572758B02600BADDDC /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		B5B03AB727527D60008DB5C9 /* APIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		B5B03AB927527E0D008DB5C9 /* ConverType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverType.swift; sourceTree = "<group>"; };
 		B5BBCCD92754BD630009C0EA /* ORResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORResponse.swift; sourceTree = "<group>"; };
@@ -339,6 +341,7 @@
 			children = (
 				B56A32F7275276D800843975 /* Model.swift */,
 				B5BBCCD92754BD630009C0EA /* ORResponse.swift */,
+				B585C0572758B02600BADDDC /* Marker.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -606,6 +609,7 @@
 				B56A330B2752771400843975 /* UIView+Snapkit.swift in Sources */,
 				B56A33112752771400843975 /* UIButton.swift in Sources */,
 				B56A32AF2752752300843975 /* AppDelegate.swift in Sources */,
+				B585C0582758B02600BADDDC /* Marker.swift in Sources */,
 				B56A330C2752771400843975 /* UIViewController.swift in Sources */,
 				B56A32F5275276D000843975 /* LocationInfoViewController.swift in Sources */,
 				B56A33132752771400843975 /* UIFont.swift in Sources */,
@@ -806,7 +810,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = AVZ9493N69;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DRRLife/Info.plist;
@@ -842,8 +846,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = AVZ9493N69;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DRRLife/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "따르릉라이프";

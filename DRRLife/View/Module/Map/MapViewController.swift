@@ -59,10 +59,10 @@ class MapViewController: UIViewController {
     func stationButtonToggled(_ sender: UIButton) {
         if !sender.isSelected {
             sender.isSelected.toggle()
-            Marker.shared.showStationMarkers(mapView: mapView)
+            MarkerManager.shared.showStationMarkers(mapView: mapView)
         } else {
             sender.isSelected.toggle()
-            Marker.shared.hideStationMarkers()
+            MarkerManager.shared.hideStationMarkers()
         }
     }
     
@@ -154,7 +154,7 @@ extension MapViewController: NMFMapViewTouchDelegate {
         containerDelegate?.hideLocationInfo()
         containerDelegate?.hideRouteInput()
         containerDelegate?.hideRouteInfo()
-        Marker.shared.selectedMarker = nil
+        MarkerManager.shared.selectedMarker = nil
     }
     
     func updateMap(to coor: Coordinate) {
@@ -171,8 +171,8 @@ extension MapViewController: NMFMapViewTouchDelegate {
     }
     
     func setMarker(to coor: Coordinate) {
-        Marker.shared.locationMarker.position = NMGLatLng(lat: coor.lat, lng: coor.lng)
-        Marker.shared.locationMarker.mapView = mapView
+        MarkerManager.shared.locationMarker.position = NMGLatLng(lat: coor.lat, lng: coor.lng)
+        MarkerManager.shared.locationMarker.mapView = mapView
     }
 }
     
@@ -207,8 +207,8 @@ extension MapViewController {
         }
         // 중복 처리 방지
         self.stations.removeAll()
-        Marker.shared.hideStationMarkers() // 기존의 마커들을 맵에서 제거한다.
-        Marker.shared.stationMarkers.removeAll()
+        MarkerManager.shared.hideStationMarkers() // 기존의 마커들을 맵에서 제거한다.
+        MarkerManager.shared.stationMarkers.removeAll()
         progressDelegate?.startProgress()
         var start = 1
         var end = count > 1000 ? 1000 : count
@@ -255,86 +255,15 @@ extension MapViewController {
             }
         })
     }
-    func makeRouteparamMarker(coor: Coordinate, for type: RouteInput) {
-        var tmpMarker: NMFMarker
-        switch type {
-        case .origin:
-            tmpMarker = Marker.shared.oriMarker
-        case .originRantalStation:
-            tmpMarker =  Marker.shared.oriRantalMarker
-        case .destination:
-            tmpMarker = Marker.shared.dstMarker
-        case .destinationRantalStation:
-            tmpMarker = Marker.shared.dstRantalMarker
-        }
-        
-        tmpMarker.position = NMGLatLng(lat: coor.lat, lng: coor.lng)
-        
-        tmpMarker.width = 30
-        tmpMarker.height = 30
-        
+    func makeParamMarker(coor: Coordinate, for type: RouteInputType) {
+        let tmpMarker = MarkerManager.shared.getParamMarker(type: type)
+        tmpMarker.position = NMGLatLng(from: coor.toCLLocationCoordinate2D)
         tmpMarker.mapView = mapView
-        
+        tmpMarker.register()
     }
     
     func makeStationMarker(station: StationStatus) {
-        let tmpMarker = NMFMarker(position: NMGLatLng(lat: station.coordinate.lat,
-                                                      lng: station.coordinate.lng))
-        let userInfo: [AnyHashable : Any] = ["mapVC" : self,
-                                             "stationStatus" : station]
-        tmpMarker.userInfo = userInfo
-        tmpMarker.mapView = mapView
-        tmpMarker.touchHandler = { (overlay: NMFOverlay) -> Bool in
-            guard let mapVC = userInfo["mapVC"] as? MapViewController else {
-                print("해당 MapView가 존재하지 않습니다.")
-                return true
-            }
-            guard let stationStatus = userInfo["stationStatus"] as? StationStatus else {
-                print("해당 stationStatus가 존재하지 않습니다.")
-                return true
-            }
-            print("\(stationStatus.stationName)에서 touchEvent 발생")
-            mapVC.setCamera(to: stationStatus.coordinate)
-            mapVC.showLocationInfo(stationStatus: stationStatus)
-            Marker.shared.selectedMarker = overlay as? NMFMarker
-            return true
-        }
-        
-        tmpMarker.width = 40
-        tmpMarker.height = 40
-        tmpMarker.captionText = station.stationName
-        
-        tmpMarker.iconImage = calcMarkerIcon(by: station.parkingBikeTotCnt)
-        tmpMarker.isHideCollidedSymbols = true
-        tmpMarker.isHideCollidedCaptions = true
-        tmpMarker.minZoom = calcMinZoomLevel(by: station.rackTotCnt)
-        
-        Marker.shared.stationMarkers.append(tmpMarker)
-    }
-    
-    func calcMarkerIcon(by parkingBikeTotCnt: Int) -> NMFOverlayImage {
-        if parkingBikeTotCnt == 0 {
-            return NMFOverlayImage(name: "grayMarker")
-        } else if parkingBikeTotCnt <= 5 {
-            return NMFOverlayImage(name: "redMarker")
-        } else if parkingBikeTotCnt <= 10 {
-            return NMFOverlayImage(name: "orangeMarker")
-        } else {
-            return NMFOverlayImage(name: "greenMarker")
-        }
-    }
-    
-    func calcMinZoomLevel(by rackTotCnt: Int) -> Double {
-        if rackTotCnt < 10 {
-            return NMF_MIN_ZOOM + 14
-        } else if rackTotCnt < 15 {
-            return NMF_MIN_ZOOM + 12
-        } else if rackTotCnt < 20 {
-            return NMF_MIN_ZOOM + 10
-        } else if rackTotCnt < 30 {
-            return NMF_MIN_ZOOM + 8
-        } else {
-            return NMF_MIN_ZOOM + 6
-        }
+        let tmpMarker = StationMarker(station: station, mapVC: self)
+        MarkerManager.shared.stationMarkers.append(tmpMarker)
     }
 }
