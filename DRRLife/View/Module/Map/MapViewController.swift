@@ -115,7 +115,7 @@ extension MapViewController {
         super.viewDidLoad()
         self.setLocationManagerDelegate()
         self.setMapDelegate()
-        self.setMap()
+//        self.setMap()
         self.setConstraints()
         
         if self.checkService() { mapView.positionMode = .compass }

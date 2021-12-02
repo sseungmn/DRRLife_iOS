@@ -90,8 +90,8 @@ struct MarkerImageManager {
     private let redImage = NMFOverlayImage(name: "red")
     private let greenImage = NMFOverlayImage(name: "green")
     private let originImage = NMFOverlayImage(name: "origin")
-    private let originStationImage = NMFOverlayImage(name: "originStationImage ")
-    private let destinationStationImage = NMFOverlayImage(name: "destinationStationImage")
+    private let originStationImage = NMFOverlayImage(name: "originStation")
+    private let destinationStationImage = NMFOverlayImage(name: "destinationStation")
     private let destinationImage = NMFOverlayImage(name: "destination")
     
     func getImage(type: ImageType) -> NMFOverlayImage {

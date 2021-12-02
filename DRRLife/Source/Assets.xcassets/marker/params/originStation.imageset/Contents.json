@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "destinationMarker@1x.png",
+      "filename" : "originStation@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "destinationMarker@2x.png",
+      "filename" : "originStation@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "destinationMarker@3x.png",
+      "filename" : "originStation@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

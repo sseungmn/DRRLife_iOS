@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "oriMarker@1x.png",
+      "filename" : "destination@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "oriMarker@2x.png",
+      "filename" : "destination@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "oriMarker@3x.png",
+      "filename" : "destination@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

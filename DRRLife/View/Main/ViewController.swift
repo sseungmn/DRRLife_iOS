@@ -71,6 +71,9 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
         
         routeInputVC.view.isHidden = true
         mapVC.isRouteInputViewHidden = true
+        
+        // 가장 오래걸리는 일이므로 다른 준비가 끝난 뒤에 한다
+        mapVC.setMap()
     }
     
     func setInnerView() {
