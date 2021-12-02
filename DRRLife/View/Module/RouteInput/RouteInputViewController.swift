@@ -160,6 +160,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
                 showRouteArray(phase: phase)
             }
             mapVC!.stationButtonToggled(mapVC!.stationToggleButton)
+            self.mapVC?.containerDelegate?.hideRouteInput()
         }
     }
     

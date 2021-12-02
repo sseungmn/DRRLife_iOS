@@ -12,7 +12,7 @@ import NMapsMap
 struct MarkerManager {
     static var shared = MarkerManager()
     
-    var selectedMarker: MarkerBase? {
+    var selectedMarker: BaseMarker? {
         didSet(oldMarker) {
             oldMarker?.height = 40
             oldMarker?.width = 40
@@ -83,21 +83,22 @@ struct MarkerManager {
 }
 
 // MARK: Base
-class MarkerBase: NMFMarker {
+class BaseMarker: NMFMarker {
     override init() {
         super.init()
-        isHideCollidedSymbols = true
-        isHideCollidedCaptions = true
+        isHideCollidedSymbols = false
+        isHideCollidedCaptions = false
     }
 }
 
 // MARK: StationMarker
-class StationMarker: MarkerBase {
+class StationMarker: BaseMarker {
     override init() {
         super.init()
         self.width = 40
         self.height = 40
         self.zIndex = 0 // Marker중 가장 아래 존재
+        self.isForceShowIcon = false
     }
     convenience init(station: StationStatus, mapVC: MapViewController) {
         self.init()
@@ -119,7 +120,7 @@ class StationMarker: MarkerBase {
             print("\(stationStatus.stationName)에서 touchEvent 발생")
             mapVC.setCamera(to: stationStatus.coordinate)
             mapVC.showLocationInfo(stationStatus: stationStatus)
-            MarkerManager.shared.selectedMarker = overlay as? MarkerBase
+            MarkerManager.shared.selectedMarker = overlay as? BaseMarker
             return true
         }
         
@@ -158,7 +159,7 @@ class StationMarker: MarkerBase {
 }
 
 // MARK: ParamMarker
-class ParamMarker: MarkerBase {
+class ParamMarker: BaseMarker {
     var type: RouteInputType
     
     init(type: RouteInputType) {
@@ -167,9 +168,11 @@ class ParamMarker: MarkerBase {
         super.init()
         
         self.setMetaByType()
-        self.width = 50
-        self.height = 50
-        self.zIndex = 1 // Marker중 가장 높은곳에 존재
+        self.width = 60
+        self.height = 60
+        self.isForceShowIcon = true // 겹쳐도 무조건 표시
+        isHideCollidedSymbols = true
+        isHideCollidedCaptions = true
     }
     
     func register() {
@@ -188,17 +191,21 @@ class ParamMarker: MarkerBase {
     private func setMetaByType() {
         switch type {
         case .origin:
-            self.iconImage = NMF_MARKER_IMAGE_RED
+            self.iconImage = NMFOverlayImage(name: "origin")
             self.captionText = "출발지".localized()
+            self.zIndex = 2 // Marker중 가장 높은곳에 존재
         case .originRantalStation:
-            self.iconImage = NMF_MARKER_IMAGE_PINK
+            self.iconImage = NMFOverlayImage(name: "originRantalStation")
             self.captionText = "출발 대여소".localized()
+            self.zIndex = 1 // Marker중 가장 높은곳에 존재
         case .destinationRantalStation:
-            self.iconImage = NMF_MARKER_IMAGE_GREEN
+            self.iconImage = NMFOverlayImage(name: "destinationRantalStation")
             self.captionText = "도착 대여소".localized()
+            self.zIndex = 1 // Marker중 가장 높은곳에 존재
         case .destination:
-            self.iconImage = NMF_MARKER_IMAGE_BLUE
+            self.iconImage = NMFOverlayImage(name: "destination")
             self.captionText = "도착지".localized()
+            self.zIndex = 2 // Marker중 가장 높은곳에 존재
         }
     }
 }
