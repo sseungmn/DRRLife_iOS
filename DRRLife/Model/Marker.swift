@@ -82,13 +82,59 @@ struct MarkerManager {
     }
 }
 
+struct MarkerImageManager {
+    static let shared = MarkerImageManager()
+    
+    private let grayImage = NMFOverlayImage(name: "gray")
+    private let orangerImage = NMFOverlayImage(name: "orange")
+    private let redImage = NMFOverlayImage(name: "red")
+    private let greenImage = NMFOverlayImage(name: "green")
+    private let originImage = NMFOverlayImage(name: "origin")
+    private let originStationImage = NMFOverlayImage(name: "originStationImage ")
+    private let destinationStationImage = NMFOverlayImage(name: "destinationStationImage")
+    private let destinationImage = NMFOverlayImage(name: "destination")
+    
+    func getImage(type: ImageType) -> NMFOverlayImage {
+        switch type {
+        case .gray:
+            return grayImage
+        case .red:
+            return redImage
+        case .orange:
+            return orangerImage
+        case .green:
+            return greenImage
+        case .origin:
+            return originImage
+        case .originStation:
+            return originStationImage
+        case .destinationStation:
+            return destinationStationImage
+        case .destination:
+            return destinationImage
+        }
+    }
+    enum ImageType {
+        case gray
+        case red
+        case orange
+        case green
+        case origin
+        case originStation
+        case destinationStation
+        case destination
+    }
+}
 // MARK: Base
 class BaseMarker: NMFMarker {
     override init() {
         super.init()
         isHideCollidedSymbols = false
         isHideCollidedCaptions = false
+        isForceShowIcon = false
     }
+    
+    
 }
 
 // MARK: StationMarker
@@ -133,13 +179,13 @@ class StationMarker: BaseMarker {
     
     private func calcMarkerIcon(by parkingBikeTotCnt: Int) -> NMFOverlayImage {
         if parkingBikeTotCnt == 0 {
-            return NMFOverlayImage(name: "grayMarker")
+            return MarkerImageManager.shared.getImage(type: .gray)
         } else if parkingBikeTotCnt <= 5 {
-            return NMFOverlayImage(name: "redMarker")
+            return MarkerImageManager.shared.getImage(type: .red)
         } else if parkingBikeTotCnt <= 10 {
-            return NMFOverlayImage(name: "orangeMarker")
+            return MarkerImageManager.shared.getImage(type: .orange)
         } else {
-            return NMFOverlayImage(name: "greenMarker")
+            return MarkerImageManager.shared.getImage(type: .green)
         }
     }
     
@@ -191,19 +237,19 @@ class ParamMarker: BaseMarker {
     private func setMetaByType() {
         switch type {
         case .origin:
-            self.iconImage = NMFOverlayImage(name: "origin")
+            self.iconImage = MarkerImageManager.shared.getImage(type: .origin)
             self.captionText = "출발지".localized()
             self.zIndex = 2 // Marker중 가장 높은곳에 존재
         case .originRantalStation:
-            self.iconImage = NMFOverlayImage(name: "originRantalStation")
+            self.iconImage = MarkerImageManager.shared.getImage(type: .originStation)
             self.captionText = "출발 대여소".localized()
-            self.zIndex = 1 // Marker중 가장 높은곳에 존재
+            self.zIndex = 1 
         case .destinationRantalStation:
-            self.iconImage = NMFOverlayImage(name: "destinationRantalStation")
+            self.iconImage = MarkerImageManager.shared.getImage(type: .destinationStation)
             self.captionText = "도착 대여소".localized()
-            self.zIndex = 1 // Marker중 가장 높은곳에 존재
+            self.zIndex = 1
         case .destination:
-            self.iconImage = NMFOverlayImage(name: "destination")
+            self.iconImage = MarkerImageManager.shared.getImage(type: .destination)
             self.captionText = "도착지".localized()
             self.zIndex = 2 // Marker중 가장 높은곳에 존재
         }

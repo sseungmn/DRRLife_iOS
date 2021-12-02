@@ -38,7 +38,7 @@ class MapViewController: UIViewController {
     }
     @objc
     func scopeButtonClicked(_ sender: UIButton) {
-        print("모드를 변경했습니다. (.compass)")
+        print(#function)
         mapView.positionMode = .compass
         if !isRouteInputViewHidden {
             mapView.moveCamera(NMFCameraUpdate(scrollBy: CGPoint(x: 0, y: 100))) // 검색창이 차지하는 부분만큼 중앙좌표를 내려준다.
@@ -57,6 +57,7 @@ class MapViewController: UIViewController {
     }
     @objc
     func stationButtonToggled(_ sender: UIButton) {
+        print(#function)
         if !sender.isSelected {
             sender.isSelected.toggle()
             MarkerManager.shared.showStationMarkers(mapView: mapView)
@@ -75,12 +76,35 @@ class MapViewController: UIViewController {
     }
     @objc
     func updateButtonClicked(_ sender: UIButton) {
-        print("Update Button Clicked")
+        print(#function)
         self.setStaionListAndSetStationMarkers(count: 3000)
     }
     
     func showLocationInfo(stationStatus: StationStatus) {
         containerDelegate?.showLocationInfo(with: stationStatus)
+    }
+    
+    // MARK: LayerButton
+    lazy var layerButton = UIButton().then {
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 3
+        $0.setImage(UIImage(named:"square.3.layers.3d.down.right"), for: .normal)
+        $0.addTarget(self, action: #selector(layerButtonClicked), for: .touchUpInside)
+    }
+    @objc
+    func layerButtonClicked(_ sender: UIButton) {
+        print(#function)
+        if !sender.isSelected {
+            sender.isSelected.toggle()
+            sender.backgroundColor = .systemBlue
+            sender.tintColor = .white
+            mapView.setLayerGroup(NMF_LAYER_GROUP_BICYCLE, isEnabled: true)
+        } else {
+            sender.isSelected.toggle()
+            sender.backgroundColor = .white
+            sender.tintColor = .systemBlue
+            mapView.setLayerGroup(NMF_LAYER_GROUP_BICYCLE, isEnabled: false)
+        }
     }
 }
 
@@ -103,42 +127,40 @@ extension MapViewController {
         view.addSubview(scopeButton)
         view.addSubview(stationToggleButton)
         view.addSubview(updateButton)
+        view.addSubview(layerButton)
         
         mapView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
+        // MARK: Left
         updateButton.snp.makeConstraints { make in
             make.size.equalTo(40)
-            make.bottom.equalTo(view.safeArea).inset(140)
-            make.leading.equalToSuperview().inset(15)
-        }
-        
-        stationToggleButton.snp.makeConstraints { make in
-            make.size.equalTo(40)
             make.bottom.equalTo(view.safeArea).inset(90)
-            make.leading.equalToSuperview().inset(15)
+            make.left.equalToSuperview().inset(15)
         }
         
         scopeButton.snp.makeConstraints { make in
             make.size.equalTo(40)
             make.bottom.equalTo(view.safeArea).inset(40)
-            make.leading.equalToSuperview().inset(15)
+            make.left.equalToSuperview().inset(15)
+        }
+        
+        // MAKR: Right
+        stationToggleButton.snp.makeConstraints { make in
+            make.size.equalTo(40)
+            make.bottom.equalTo(view.safeArea).inset(90)
+            make.right.equalToSuperview().inset(15)
+        }
+        
+        layerButton.snp.makeConstraints { make in
+            make.size.equalTo(40)
+            make.bottom.equalTo(view.safeArea).inset(40)
+            make.right.equalToSuperview().inset(15)
         }
     }
     
     func setMap() {
-        mapView.setLayerGroup(NMF_LAYER_GROUP_BICYCLE, isEnabled: true)
-        mapView.setLayerGroup(NMF_LAYER_GROUP_TRANSIT, isEnabled: true)
-        
-        // 다크모드 대응
-//        if traitCollection.userInterfaceStyle == .dark {
-//            mapView.mapType = .navi
-//            mapView.isNightModeEnabled = true
-//        } else {
-//            mapView.mapType = .basic
-//            mapView.isNightModeEnabled = false
-//        }
         self.setStaionListAndSetStationMarkers(count: 3000)
     }
 }
