@@ -187,7 +187,9 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         } else if phase == 1 {
             params = ORRequest.Parameter(start: routeParams.originStation!.coordinate,
                                          end: routeParams.destinationStation!.coordinate,
-                                         profile: .cycling_regular)
+//                                         profile: .cycling_electric)
+                                         profile: .cycling_road)
+//                                         profile: .cycling_regular)
         } else if phase == 2 {
             params = ORRequest.Parameter(start: routeParams.destinationStation!.coordinate,
                                          end: routeParams.destination!.coordinate,

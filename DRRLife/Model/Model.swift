@@ -30,6 +30,7 @@ struct ORRequest {
         enum Profile: String {
             case cycling_regular = "cycling-regular"
             case cycling_road = "cycling-road"
+            case cycling_electric = "cycling-electric"
             case foot_walking = "foot-walking"
         }
         

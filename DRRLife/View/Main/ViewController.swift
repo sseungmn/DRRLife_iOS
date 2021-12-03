@@ -51,17 +51,21 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     }
     @objc
     func routeButtonClicked() {
+        print(#function)
         showRouteInput()
     }
     @objc
     func routeInfoButtonClicked() {
+        print(#function)
         showRouteInfo()
     }
     func hideRouteInfoButton() {
+        print(#function)
         routeInfoButton.isHidden = true
     }
     
     override func viewDidLoad() {
+        print(#function)
         super.viewDidLoad()
         
         self.view.backgroundColor = .white
@@ -77,6 +81,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     }
     
     func setInnerView() {
+        print(#function)
         self.add(mapVC)
         mapVC.containerDelegate = self
         mapVC.progressDelegate = self
@@ -104,6 +109,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     }
     
     func setConstraints() {
+        print(#function)
         routeButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeArea).inset(15)
             make.left.right.equalToSuperview().inset(80)
@@ -135,6 +141,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     }
     
     func getStationStatus(stationStatus: StationStatus, tag: Int) {
+        print(#function)
         if tag == 1 {
             routeInputVC.setTitle(of: routeInputVC.oriRantalStationInput, with: stationStatus.stationName)
             routeInputVC.routeParams.originStation = stationStatus
@@ -147,7 +154,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     // MARK: Manipulate locationInfo
     
     func showLocationInfo(with stationStatus: StationStatus) {
-        print("프로토콜 실행중...")
+        print(#function)
         locationInfoVC.stationStatus = stationStatus
         locationInfoVC.updateData()
         if isLocationInfoViewHidden {
@@ -157,6 +164,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     }
     
     func showLocationInfoUI() {
+        print(#function)
         UIView.animate(withDuration: 0.5, delay: 0.5) {
             self.locationInfoVC.view.snp.updateConstraints { make in
                 make.height.equalTo(160)
@@ -169,6 +177,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     }
     
     func hideLocationInfo() {
+        print(#function)
         if !isLocationInfoViewHidden {
             hideLocationInfoUI()
             isLocationInfoViewHidden = true
@@ -176,6 +185,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     }
     
     func hideLocationInfoUI() {
+        print(#function)
         mapVC.view.snp.remakeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.bottom.equalTo(view)
@@ -189,11 +199,13 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     // MARK: Manipulate RouteInput
     
     func showRouteInput() {
+        print(#function)
         routeInputVC.view.isHidden = false
         isRouteInputViewHidden = false
     }
     
     func hideRouteInput() {
+        print(#function)
         routeInputVC.view.isHidden = true
         isRouteInputViewHidden = true
     }
@@ -201,12 +213,14 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     // MARK: Manipulate RouteInfo
     
     func showRouteInfo() {
+        print(#function)
         hideLocationInfo()
         showRouteInfoUI()
         routeInfoButton.isHidden = false
     }
     
     func showRouteInfoUI() {
+        print(#function)
         UIView.animate(withDuration: 0.5, delay: 0.5) {
             self.routeInfoVC.view.snp.updateConstraints { make in
                 make.height.equalTo(274)
@@ -219,6 +233,7 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     }
     
     func hideRouteInfo() {
+        print(#function)
         mapVC.view.snp.remakeConstraints { make in
             make.top.left.right.equalToSuperview()
             make.bottom.equalTo(view)
@@ -232,10 +247,12 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     // MARK: ProgressHUD
     var progress: MBProgressHUD?
     func startProgress() {
+        print(#function)
         progress = MBProgressHUD.showAdded(to: self.view, animated: true)
     }
     
     func stopProgress() {
+        print(#function)
         if progress != nil {
             progress!.hide(animated: true)
         }

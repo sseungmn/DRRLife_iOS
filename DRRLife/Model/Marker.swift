@@ -129,12 +129,9 @@ struct MarkerImageManager {
 class BaseMarker: NMFMarker {
     override init() {
         super.init()
-        isHideCollidedSymbols = false
-        isHideCollidedCaptions = false
-        isForceShowIcon = false
+        isHideCollidedSymbols = true
+        isHideCollidedCaptions = true
     }
-    
-    
 }
 
 // MARK: StationMarker
@@ -217,8 +214,6 @@ class ParamMarker: BaseMarker {
         self.width = 60
         self.height = 60
         self.isForceShowIcon = true // 겹쳐도 무조건 표시
-        isHideCollidedSymbols = true
-        isHideCollidedCaptions = true
     }
     
     func register() {

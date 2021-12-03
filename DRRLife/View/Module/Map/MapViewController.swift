@@ -274,6 +274,7 @@ extension MapViewController {
             self.countUpdatingStationQuene -= 1
             if self.countUpdatingStationQuene == 0 {
                 self.progressDelegate?.stopProgress()
+                self.stationToggleButton.isSelected = true // 상태만 바꿔주면 됨
             }
         })
     }
