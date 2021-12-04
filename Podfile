@@ -6,9 +6,13 @@ target 'DRRLife' do
   use_frameworks!
 
   pod 'NMapsMap'
-  pod 'Alamofire', '~> 5.4'
+
+# API Networking
+  pod 'Moya', '~> 15.0'
+# UI programmatically
   pod 'Then'
   pod 'SnapKit', '~> 5.0.0'
+# More
   pod 'MBProgressHUD', '~> 1.2.0'
 
   target 'DRRLifeTests' do

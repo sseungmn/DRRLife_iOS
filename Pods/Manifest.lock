@@ -1,13 +1,17 @@
 PODS:
   - Alamofire (5.4.4)
   - MBProgressHUD (1.2.0)
+  - Moya (15.0.0):
+    - Moya/Core (= 15.0.0)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
   - NMapsMap (3.14.0)
   - SnapKit (5.0.1)
   - Then (2.7.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.4)
   - MBProgressHUD (~> 1.2.0)
+  - Moya (~> 15.0)
   - NMapsMap
   - SnapKit (~> 5.0.0)
   - Then
@@ -16,6 +20,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - MBProgressHUD
+    - Moya
     - NMapsMap
     - SnapKit
     - Then
@@ -23,10 +28,11 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   NMapsMap: 61c2abfc409bbcdc91583ccc455a5b6f64c7414e
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 7b0f412e3b0e694815265c81e035d41544edddc1
+PODFILE CHECKSUM: 887758675e657b8031cc98c015fc8a34861d012e
 
 COCOAPODS: 1.11.2
