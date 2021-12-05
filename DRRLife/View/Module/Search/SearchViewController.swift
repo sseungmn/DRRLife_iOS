@@ -10,6 +10,7 @@ import Alamofire
 import SnapKit
 import Then
 import CoreLocation
+import Moya
 
 protocol SearchViewDelegate {
     func sendPlaceDetails(targetTag tag: Int, _ placeDetail: PlaceDetail)
@@ -24,26 +25,13 @@ class SearchViewController: UIViewController {
     let tableView = UITableView()
     var delegate: SearchViewDelegate?
     
-    let headers: HTTPHeaders = [
-        "Authorization": "KakaoAK \(Bundle.main.KakaoLocal)"
-    ]
-    
-    lazy var parameters: [String: Any] = [
-        "query": "",
-        "x": "",
-        "y": "",
-        "page": 1,
-        "size": maxCount,
-        "sort": "accuracy"
-    ]
-    
     var currentCoordinate: Coordinate {
         return makeCurrentCoordinate() ?? Coordinate()
     }
     var itemCount: Int {
-        return places.count > maxCount ? maxCount : places.count
+        return placeDetails.count > maxCount ? maxCount : placeDetails.count
     }
-    var places = [KLResponse.KLPlace]()
+    var placeDetails = [PlaceDetail]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,14 +70,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath) as? SearchTableViewCell else {
             return UITableViewCell()
         }
-        cell.setData(row: self.places[indexPath.row])
+        cell.setData(row: self.placeDetails[indexPath.row])
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let row = places[indexPath.row]
-        let placeDetail = row.makePlaceDetail()
+        let placeDetail = placeDetails[indexPath.row]
         delegate?.sendPlaceDetails(targetTag: callBackTag, placeDetail)
         self.dismiss(animated: false, completion: nil)
     }
@@ -126,39 +113,37 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count <= 0 { self.clearResults() }
         
-        parameters["query"] = searchText
-        parameters["x"] = currentCoordinate.lng
-        parameters["y"] = currentCoordinate.lat
+        let query =  searchText
+        let x = currentCoordinate.lng.toString
+        let y = currentCoordinate.lat.toString
         
-        AF.request("https://dapi.kakao.com/v2/local/search/keyword.json",
-                   method: .get,
-                   parameters: self.parameters, headers: self.headers
-        ).responseJSON(completionHandler: { response in
-            switch response.result {
-            case .success(let jsonData):
-                print(jsonData)
-                print("===== 검색 성공 '\(searchText)' =====")
+        let provider = MoyaProvider<KLRequest>()
+        provider.request(.location(query: query, x: x, y: y)) {
+            [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let response):
                 do {
-                    let json = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
-                    let result = try JSONDecoder().decode(KLResponse.self, from: json)
-                    self.places = result.documents
+                    try print(response.mapJSON())
+                    let data = try JSONDecoder().decode(KLResponse.self, from: response.data)
+                    self.placeDetails = data.documents
                     print("===== 검색 결과 '\(self.itemCount)개'")
-                } catch(let error) {
+                } catch {
                     print(error.localizedDescription)
                 }
                 self.tableView.reloadData()
             case .failure(let error):
                 print(error.localizedDescription)
             }
-        })
+        }
     }
-    
     // MARK: Clear
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.clearResults()
     }
     func clearResults() {
-        self.places.removeAll()
+        self.placeDetails.removeAll()
         tableView.reloadData()
     }
 }

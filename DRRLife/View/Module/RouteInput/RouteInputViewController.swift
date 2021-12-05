@@ -115,7 +115,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         MarkerManager.shared.swapRouteParams()
         for tag in [0, 2] {
             if let tmp = routeParams.allCases[tag] as? PlaceDetail {
-                setTitle(of: userInputs[tag], with: tmp.road_address_name)
+                setTitle(of: userInputs[tag], with: tmp.roadAddressName)
             } else {
                 setInitailTitle(of: userInputs[tag])
             }
@@ -360,7 +360,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     // MARK: Delegate
     func sendPlaceDetails(targetTag tag: Int, _ placeDetail: PlaceDetail) {
         guard let button = locationInputs.filter({ $0.tag == tag }).first else { return }
-        setTitle(of: button, with: placeDetail.road_address_name)
+        setTitle(of: button, with: placeDetail.roadAddressName)
         if tag == 0 {
             routeParams.origin = placeDetail
             mapVC!.makeParamMarker(coor: placeDetail.coordinate, for: .origin)

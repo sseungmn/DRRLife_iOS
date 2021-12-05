@@ -10,6 +10,7 @@
 		28B14E321D1D6BF9715B50E5 /* Pods_DRRLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F1F9F65B3BC5F76512AFD84 /* Pods_DRRLife.framework */; };
 		748F149C59F1232FC3B668C6 /* Pods_DRRLife_DRRLifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB6FFE9358658DF5104253E /* Pods_DRRLife_DRRLifeUITests.framework */; };
 		B52297FB27528C3F00BCEB89 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B52297FD27528C3F00BCEB89 /* Localizable.strings */; };
+		B565B443275B8EF8005BC7AC /* KakaoLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B565B442275B8EF8005BC7AC /* KakaoLocation.swift */; };
 		B56A32AF2752752300843975 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56A32AE2752752300843975 /* AppDelegate.swift */; };
 		B56A32B12752752300843975 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56A32B02752752300843975 /* SceneDelegate.swift */; };
 		B56A32B32752752300843975 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56A32B22752752300843975 /* ViewController.swift */; };
@@ -42,7 +43,7 @@
 		B585C0582758B02600BADDDC /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B585C0572758B02600BADDDC /* Marker.swift */; };
 		B5B03AB827527D60008DB5C9 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5B03AB727527D60008DB5C9 /* APIKeys.plist */; };
 		B5B03ABA27527E0D008DB5C9 /* ConverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B03AB927527E0D008DB5C9 /* ConverType.swift */; };
-		B5BBCCDA2754BD630009C0EA /* ORResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BBCCD92754BD630009C0EA /* ORResponse.swift */; };
+		B5BBCCDA2754BD630009C0EA /* OpenRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BBCCD92754BD630009C0EA /* OpenRoute.swift */; };
 		B5BBCCDC2754CC680009C0EA /* launchImage.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B5BBCCDB2754CC680009C0EA /* launchImage.jpeg */; };
 		B5BBCCDF275610B70009C0EA /* RouteInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BBCCDE275610B70009C0EA /* RouteInfoViewController.swift */; };
 		C6A3F33113FB58A7D25BF47F /* Pods_DRRLifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 492F05532B77F3124BBBAF2D /* Pods_DRRLifeTests.framework */; };
@@ -75,6 +76,7 @@
 		B52297FC27528C3F00BCEB89 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B52297FE27528C9B00BCEB89 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		B52297FF27528C9B00BCEB89 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B565B442275B8EF8005BC7AC /* KakaoLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLocation.swift; sourceTree = "<group>"; };
 		B56A32AB2752752300843975 /* DRRLife.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DRRLife.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B56A32AE2752752300843975 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B56A32B02752752300843975 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -111,7 +113,7 @@
 		B585C0572758B02600BADDDC /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		B5B03AB727527D60008DB5C9 /* APIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		B5B03AB927527E0D008DB5C9 /* ConverType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverType.swift; sourceTree = "<group>"; };
-		B5BBCCD92754BD630009C0EA /* ORResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORResponse.swift; sourceTree = "<group>"; };
+		B5BBCCD92754BD630009C0EA /* OpenRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenRoute.swift; sourceTree = "<group>"; };
 		B5BBCCDB2754CC680009C0EA /* launchImage.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launchImage.jpeg; sourceTree = "<group>"; };
 		B5BBCCDE275610B70009C0EA /* RouteInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInfoViewController.swift; sourceTree = "<group>"; };
 		BDC950A4A3948B7D2D3D1061 /* Pods-DRRLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife/Pods-DRRLife.debug.xcconfig"; sourceTree = "<group>"; };
@@ -340,8 +342,9 @@
 			isa = PBXGroup;
 			children = (
 				B56A32F7275276D800843975 /* Model.swift */,
-				B5BBCCD92754BD630009C0EA /* ORResponse.swift */,
+				B5BBCCD92754BD630009C0EA /* OpenRoute.swift */,
 				B585C0572758B02600BADDDC /* Marker.swift */,
+				B565B442275B8EF8005BC7AC /* KakaoLocation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -604,7 +607,8 @@
 				B56A33122752771400843975 /* UILabel.swift in Sources */,
 				B56A330D2752771400843975 /* Localize.swift in Sources */,
 				B56A32B32752752300843975 /* ViewController.swift in Sources */,
-				B5BBCCDA2754BD630009C0EA /* ORResponse.swift in Sources */,
+				B5BBCCDA2754BD630009C0EA /* OpenRoute.swift in Sources */,
+				B565B443275B8EF8005BC7AC /* KakaoLocation.swift in Sources */,
 				B56A33142752771400843975 /* CALayer.swift in Sources */,
 				B56A330B2752771400843975 /* UIView+Snapkit.swift in Sources */,
 				B56A33112752771400843975 /* UIButton.swift in Sources */,

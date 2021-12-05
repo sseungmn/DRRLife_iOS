@@ -19,10 +19,10 @@ class SearchTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    func setData(row: KLResponse.KLPlace) {
-        nameLabel.text = row.place_name
-        addressLabel.text = row.road_address_name
-        categoryLabel.text = row.category_name.components(separatedBy: ">").last
+    func setData(row: PlaceDetail) {
+        nameLabel.text = row.placeName
+        addressLabel.text = row.roadAddressName
+        categoryLabel.text = row.categoryName.components(separatedBy: ">").last
     }
     
 }

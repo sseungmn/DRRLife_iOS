@@ -121,6 +121,9 @@ typealias StationInfo = SODResponse.SODRentBikeStatus.SODRantalStationStatus
 
 // MARK: - MAP, Search
 /// Contain variables for using coordinate
+///
+/// - lat : *latitude* and also can be *y*
+/// - lng : *longitude*, and also can be *x*
 struct Coordinate {
     /// *latitude*, and also can be *y*
     var lat: Double
@@ -148,67 +151,6 @@ struct Coordinate {
     init(lat: String, lng: String) {
         self.lat = lat.toDouble
         self.lng = lng.toDouble
-    }
-}
-
-// MARK: - Search
-struct PlaceDetail {
-    var place_name: String
-    var category_name: String
-    var road_address_name: String
-    var coordinate: Coordinate
-    
-    init(place_name: String, category_name: String, road_address_name: String, coordinate: Coordinate) {
-        self.place_name = place_name
-        self.category_name = category_name
-        self.road_address_name = road_address_name
-        self.coordinate = coordinate
-    }
-    
-    init() {
-        self.place_name = ""
-        self.category_name = ""
-        self.road_address_name = ""
-        self.coordinate = Coordinate()
-    }
-}
-
-struct KLResponse: Codable {
-    var meta: KLPlaceMeta
-    var documents: [KLPlace]
-    
-    struct KLPlaceMeta: Codable {
-        var total_count: Int
-        var pageable_count: Int
-        var is_end: Bool
-        var same_name: KLReginInfo
-        
-        struct KLReginInfo: Codable {
-            var region: [String]
-            var keyword: String
-            var selected_region: String
-        }
-    }
-    struct KLPlace: Codable {
-        var id: String
-        var place_name: String
-        var category_name: String
-        var category_group_code: String
-        var category_group_name: String
-        var phone: String
-        var address_name: String
-        var road_address_name: String
-        var x: String
-        var y: String
-        var place_url: String
-        var distance: String
-        
-        func makePlaceDetail() -> PlaceDetail {
-            return PlaceDetail(place_name: self.place_name,
-                               category_name: self.category_name,
-                               road_address_name: self.road_address_name,
-                               coordinate: Coordinate(lat: self.y, lng: self.x))
-        }
     }
 }
 
