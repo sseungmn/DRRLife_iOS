@@ -12,7 +12,7 @@ import UIKit
 enum KLRequest {
     static private let key = Bundle.main.KakaoLocal
     
-    case location(query: String, x: String, y:String)
+    case local(query: String, x: String, y:String)
 }
 
 extension KLRequest: TargetType {
@@ -22,14 +22,14 @@ extension KLRequest: TargetType {
     
     var path: String {
         switch self {
-        case .location:
+        case .local:
             return "/keyword.json"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .location:
+        case .local:
             return .get
         }
     }
@@ -40,7 +40,7 @@ extension KLRequest: TargetType {
         let sort = "accuracy"
         
         switch self {
-        case .location(let query, let x, let y):
+        case .local(let query, let x, let y):
             return .requestParameters(
                 parameters: [
                     "query": query,
