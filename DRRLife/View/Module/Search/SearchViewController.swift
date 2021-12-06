@@ -118,7 +118,7 @@ extension SearchViewController: UISearchBarDelegate {
         let y = currentCoordinate.lat.toString
         
         let provider = MoyaProvider<KLRequest>()
-        provider.request(.location(query: query, x: x, y: y)) {
+        provider.request(.local(query: query, x: x, y: y)) {
             [weak self] result in
             guard let self = self else { return }
             

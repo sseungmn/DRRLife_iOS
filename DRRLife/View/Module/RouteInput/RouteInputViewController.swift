@@ -10,6 +10,7 @@ import Then
 import Alamofire
 import NMapsMap
 import MBProgressHUD
+import Moya
 
 protocol RouteInfoDelegate {
     func showRouteInfo()
@@ -178,55 +179,43 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         pathes.forEach({ $0.mapView = nil })
     }
     
-    func makeRequestURL(phase: Int) -> String {
-        var params: ORRequest.Parameter
+    func makeTarget(phase: Int) -> ORRequest {
         if phase == 0 {
-            params = ORRequest.Parameter(start: routeParams.origin!.coordinate,
-                                         end: routeParams.originStation!.coordinate,
-                                         profile: .foot_walking)
+            return .foot_walking(start: routeParams.origin!.coordinate,
+                                 end: routeParams.originStation!.coordinate)
         } else if phase == 1 {
-            params = ORRequest.Parameter(start: routeParams.originStation!.coordinate,
-                                         end: routeParams.destinationStation!.coordinate,
-//                                         profile: .cycling_electric)
-                                         profile: .cycling_road)
-//                                         profile: .cycling_regular)
+            return .cycling_road(start: routeParams.originStation!.coordinate,
+                                 end: routeParams.destinationStation!.coordinate)
         } else if phase == 2 {
-            params = ORRequest.Parameter(start: routeParams.destinationStation!.coordinate,
-                                         end: routeParams.destination!.coordinate,
-                                         profile: .foot_walking)
+            return .foot_walking(start: routeParams.destinationStation!.coordinate,
+                                 end: routeParams.destination!.coordinate)
         } else {
-            return ""
+            fatalError("존재하지 않는 검색 범위입니다.")
         }
-        return ORRequest.makeRequestURL(params: params)
     }
     
     func showRouteArray(phase: Int) {
-        let requestURL = self.makeRequestURL(phase: phase)
-        
-        print("Request URL : ", requestURL)
-        
-        AF.request(requestURL,
-                   method: .get,
-                   parameters: nil,
-                   headers: nil
-        ).responseJSON { response in
-            switch response.result {
-            case .success(let jsonData):
+        let provider = MoyaProvider<ORRequest>()
+        let target: ORRequest = makeTarget(phase: phase)
+        provider.request(target) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let response):
                 do {
-                    let json = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
-                    let result = try JSONDecoder().decode(ORResponse.self, from: json)
+                    let data = try JSONDecoder().decode(ORResponse.self, from: response.data)
                     print("===PHASE \(phase) ===")
-                    print("총 거리 :  \(result.distance)")
-                    print("총 시간 :  \(result.duration)")
-                    self.drawRoute(with: result.coordinates, phase: phase)
-                    self.routeInfoVC!.setData(phase: phase, response: result)
+                    print("총 거리 :  \(data.distance)")
+                    print("총 시간 :  \(data.duration)")
+                    self.drawRoute(with: data.coordinates, phase: phase)
+                    self.routeInfoVC!.setData(phase: phase, response: data)
                     self.routeInfodelegate?.showRouteInfo()
                     self.countQueue += 1
                     if self.countQueue == 3 {
                         self.progressDelegate?.stopProgress()
                         self.countQueue = 0
                     }
-                } catch(let error) {
+                } catch {
                     print(error.localizedDescription)
                 }
             case .failure(let error):

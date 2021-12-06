@@ -1,5 +1,71 @@
 import Foundation
+import Moya
+// MARK: - OpenRoute Request
+enum ORRequest {
+    static private let key = Bundle.main.Openroute
+    
+    case cycling_regular(start: Coordinate, end: Coordinate)
+    case cycling_road(start: Coordinate, end: Coordinate)
+    case cycling_electric(start: Coordinate, end: Coordinate)
+    case foot_walking(start: Coordinate, end: Coordinate)
+}
 
+extension ORRequest: TargetType {
+    var baseURL: URL {
+        return URL(string: "https://api.openrouteservice.org/v2/directions")!
+    }
+    var path: String {
+        switch self {
+        case .cycling_regular:
+            return "/cycling-regular"
+        case .cycling_road:
+            return "/cycling-road"
+        case .cycling_electric:
+            return "/cycling-electric"
+        case .foot_walking:
+            return "/foot-walking"
+        }
+    }
+    var method: Moya.Method {
+        switch self {
+        case .cycling_regular:
+            return .get
+        case .cycling_road:
+            return .get
+        case .cycling_electric:
+            return .get
+        case .foot_walking:
+            return .get
+        }
+    }
+    var task: Task {
+        var parameters: [String: Any] = [
+            "api_key": ORRequest.key,
+            "start": "",
+            "end": ""
+        ]
+        switch self {
+        case .cycling_regular(let start, let end):
+            parameters["start"] = start.toString
+            parameters["end"] = end.toString
+        case .cycling_road(let start, let end):
+            parameters["start"] = start.toString
+            parameters["end"] = end.toString
+        case .cycling_electric(let start, let end):
+            parameters["start"] = start.toString
+            parameters["end"] = end.toString
+        case .foot_walking(let start, let end):
+            parameters["start"] = start.toString
+            parameters["end"] = end.toString
+        }
+        return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
+    }
+    var headers: [String : String]? {
+        return nil
+    }
+}
+
+// MARK: - OpenRoute Response
 struct ORResponse: Decodable {
     let distance: Double
     let duration: Double

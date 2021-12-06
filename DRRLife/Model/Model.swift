@@ -15,31 +15,6 @@ enum RouteInputType {
     case destinationRantalStation
 }
 
-struct ORRequest {
-    static func makeRequestURL(params: ORRequest.Parameter) -> String {
-        let endpoint = "https://api.openrouteservice.org/v2/directions"
-        return "\(endpoint)/\(params.toString)"
-    }
-    
-    struct Parameter {
-        let api_key = Bundle.main.Openroute
-        var start: Coordinate
-        var end: Coordinate
-        var profile: Profile
-        
-        enum Profile: String {
-            case cycling_regular = "cycling-regular"
-            case cycling_road = "cycling-road"
-            case cycling_electric = "cycling-electric"
-            case foot_walking = "foot-walking"
-        }
-        
-        var toString: String {
-            return "\(profile.rawValue)?api_key=\(api_key)&start=\(start.toString)&end=\(end.toString)"
-        }
-    }
-}
-
 struct SODRequestURL {
     static private let url = "http://openapi.seoul.go.kr:8088"
     static var parameters: [String : Any] = [
