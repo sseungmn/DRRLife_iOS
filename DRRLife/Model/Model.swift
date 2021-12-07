@@ -8,6 +8,12 @@ import Foundation
 import NMapsMap
 import Then
 
+protocol Location {
+    var name: String { get set }
+    var address: String? { get set }
+    var coordinate: Coordinate { get }
+}
+
 enum RouteInputType {
     case origin
     case originRantalStation
@@ -47,59 +53,45 @@ struct SODStationInformation {
 }
 
 // SeoulOpenData Response
-struct StationStatus {
-    var stationName: String
-    var rackTotCnt: Int
-    var parkingBikeTotCnt: Int
-    var coordinate: Coordinate
-}
+//struct StationStatus {
+//    var stationName: String
+//    var parkingBikeTotCnt: Int
+//    var coordinate: Coordinate
+//}
 
-struct SODResponse: Codable {
+struct SODResponse: Decodable {
     var rentBikeStatus: SODRentBikeStatus
+}
     
-    struct SODRentBikeStatus: Codable {
-        var RESULT: SODResult
-        var list_total_count: Int
-        var row: [SODRantalStationStatus]
-        
-        struct SODResult: Codable {
-            var CODE: String
-            var MESSAGE: String
-        }
-        
-        struct SODRantalStationStatus: Codable {
-            var parkingBikeTotCnt: String
-            var rackTotCnt: String
-            var shared: String
-            var stationId: String
-            var stationLatitude: String
-            var stationLongitude: String
-            var stationName: String
-            
-            func makeStationDetail() -> StationStatus {
-                var formattedStationName = self.stationName.components(separatedBy: ["."]).last!
-                if formattedStationName.first == " " { formattedStationName.removeFirst() }
-                return StationStatus(stationName: formattedStationName,
-                                     rackTotCnt: self.rackTotCnt.toInt,
-                                     parkingBikeTotCnt: self.parkingBikeTotCnt.toInt,
-                                     coordinate: Coordinate(lat: self.stationLatitude, lng: self.stationLongitude))
-            }
-        }
+struct SODRentBikeStatus: Decodable {
+    var row: [StationStatus]
+}
+    
+struct StationStatus: Decodable, Location {
+    var parkingBikeTotCnt: String
+    var latitude: String
+    var longitude: String
+    
+    var name: String
+    var address: String?
+    var coordinate: Coordinate {
+        return Coordinate(lat: latitude, lng: longitude)
     }
+//    var stationId: String
     
+    private enum CodingKeys: String, CodingKey {
+        case parkingBikeTotCnt
+        case latitude = "stationLatitude"
+        case longitude = "stationLongitude"
+        case name = "stationName"
+    }
 }
 
-// MARK: Marker
-
-typealias StationInfo = SODResponse.SODRentBikeStatus.SODRantalStationStatus
-// MARK: - MAP
-
-// MARK: - MAP, Search
 /// Contain variables for using coordinate
 ///
 /// - lat : *latitude* and also can be *y*
 /// - lng : *longitude*, and also can be *x*
-struct Coordinate {
+struct Coordinate: Decodable {
     /// *latitude*, and also can be *y*
     var lat: Double
     /// *longitude*, and also can be *x*

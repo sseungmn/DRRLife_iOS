@@ -20,8 +20,8 @@ class SearchTableViewCell: UITableViewCell {
     }
 
     func setData(row: PlaceDetail) {
-        nameLabel.text = row.placeName
-        addressLabel.text = row.roadAddressName
+        nameLabel.text = row.name
+        addressLabel.text = row.address!
         categoryLabel.text = row.categoryName.components(separatedBy: ">").last
     }
     

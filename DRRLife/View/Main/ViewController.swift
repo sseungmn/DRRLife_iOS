@@ -76,6 +76,8 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
         routeInputVC.view.isHidden = true
         mapVC.isRouteInputViewHidden = true
         
+        RouteManager.mapView = mapVC.mapView
+        
         // 가장 오래걸리는 일이므로 다른 준비가 끝난 뒤에 한다
         mapVC.setMap()
     }
@@ -143,10 +145,10 @@ class ViewController: UIViewController, ContainerDelegate, RouteInfoDelegate, Pr
     func getStationStatus(stationStatus: StationStatus, tag: Int) {
         print(#function)
         if tag == 1 {
-            routeInputVC.setTitle(of: routeInputVC.oriRantalStationInput, with: stationStatus.stationName)
+            routeInputVC.setTitle(of: routeInputVC.oriRantalStationInput, with: stationStatus.name)
             routeInputVC.routeParams.originStation = stationStatus
         } else {
-            routeInputVC.setTitle(of: routeInputVC.dstRantalStationInput, with: stationStatus.stationName)
+            routeInputVC.setTitle(of: routeInputVC.dstRantalStationInput, with: stationStatus.name)
             routeInputVC.routeParams.destinationStation = stationStatus
         }
     }

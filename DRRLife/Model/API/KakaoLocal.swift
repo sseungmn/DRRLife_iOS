@@ -69,26 +69,24 @@ struct KLResponse: Codable {
 }
 
 // MARK: - PlaceDetail
-struct PlaceDetail: Codable {
+struct PlaceDetail: Codable, Location {
     let categoryName: String
     let distance: String
-    let placeName: String
-    let roadAddressName: String
-    let x: String
-    let y: String
+    let latitude: String
+    let longitude: String
+    
+    var name: String
+    var address: String?
+    var coordinate: Coordinate {
+        return Coordinate(lat: latitude, lng: longitude)
+    }
 
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case categoryName = "category_name"
         case distance = "distance"
-        case placeName = "place_name"
-        case roadAddressName = "road_address_name"
-        case x = "x"
-        case y = "y"
-    }
-}
-
-extension PlaceDetail {
-    var coordinate: Coordinate {
-        return Coordinate(lat: y, lng: x)
+        case name = "place_name"
+        case address = "road_address_name"
+        case longitude = "x"
+        case latitude = "y"
     }
 }

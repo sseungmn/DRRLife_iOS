@@ -97,8 +97,8 @@ class LocationInfoViewController: UIViewController {
     }
     
     func updateData() {
-        stationNameLabel.text = stationStatus?.stationName
-        parkingBikeTotCntLabel.text = stationStatus?.parkingBikeTotCnt.toString
+        stationNameLabel.text = stationStatus?.name
+        parkingBikeTotCntLabel.text = stationStatus?.parkingBikeTotCnt
     }
     
     func setContraints() {

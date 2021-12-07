@@ -122,10 +122,24 @@ class RouteInfoViewController: UIViewController {
         }
     }
     
-    func setData(phase: Int, response: ORResponse) {
-        self.containers[phase].setData(response: response)
-        totDistance += response.distance
-        totDuration += response.duration
+//    func setData(phase: Int, response: ORResponse) {
+//        self.containers[phase].setData(response: response)
+//        totDistance += response.distance
+//        totDuration += response.duration
+//        count += 1
+//        if count == 3 {
+//            totDuraLbl.text = makeFormattedDuration(totDuration)
+//            totDistLbl.text = makeFormattedDistance(totDistance)
+//
+//            totDuration = 0
+//            totDistance = 0
+//            count = 0
+//        }
+//    }
+    func setData(phase: Int, route: Route) {
+        self.containers[phase].setData(route: route)
+        totDistance += route.distance!
+        totDuration += route.duration!
         count += 1
         if count == 3 {
             totDuraLbl.text = makeFormattedDuration(totDuration)
@@ -234,9 +248,9 @@ struct Container {
         }
     }
     
-    func setData(response: ORResponse) {
-        self.distanceLabel.text = makeFormattedDistance(response.distance)
-        self.durationLabel.text = makeFormattedDuration(response.duration)
+    func setData(route: Route) {
+        self.distanceLabel.text = makeFormattedDistance(route.distance!)
+        self.durationLabel.text = makeFormattedDuration(route.duration!)
     }
     
     private func makeFormattedDistance(_ distance: Double) -> String {

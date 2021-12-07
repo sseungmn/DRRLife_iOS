@@ -41,8 +41,6 @@ extension ORRequest: TargetType {
     var task: Task {
         var parameters: [String: Any] = [
             "api_key": ORRequest.key,
-            "start": "",
-            "end": ""
         ]
         switch self {
         case .cycling_regular(let start, let end):

@@ -160,16 +160,16 @@ class StationMarker: BaseMarker {
                 print("해당 stationStatus가 존재하지 않습니다.")
                 return true
             }
-            print("\(stationStatus.stationName)에서 touchEvent 발생")
+            print("\(stationStatus.name)에서 touchEvent 발생")
             mapVC.setCamera(to: stationStatus.coordinate)
             mapVC.showLocationInfo(stationStatus: stationStatus)
             MarkerManager.shared.selectedMarker = overlay as? BaseMarker
             return true
         }
         
-        self.captionText = station.stationName
-        self.iconImage = calcMarkerIcon(by: station.parkingBikeTotCnt)
-        self.minZoom = calcMinZoomLevel(by: station.parkingBikeTotCnt)
+        self.captionText = station.name
+        self.iconImage = calcMarkerIcon(by: station.parkingBikeTotCnt.toInt)
+        self.minZoom = calcMinZoomLevel(by: station.parkingBikeTotCnt.toInt)
         
         self.mapView = mapVC.mapView
     }

@@ -261,7 +261,7 @@ extension MapViewController {
                     let result = try JSONDecoder().decode(SODResponse.self, from: json)
                     print("===== 검색 결과 '\(result.rentBikeStatus.row.count)개'")
                     for stationInfo in result.rentBikeStatus.row {
-                        let tmpStationDetail = stationInfo.makeStationDetail()
+                        let tmpStationDetail = stationInfo
                         self.stations.append(tmpStationDetail)
                         self.makeStationMarker(station: tmpStationDetail)
                     }

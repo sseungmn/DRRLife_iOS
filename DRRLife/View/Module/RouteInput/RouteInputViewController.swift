@@ -30,7 +30,14 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     var routeInfodelegate: RouteInfoDelegate?
     var progressDelegate: ProgressHUDDelegate?
     
-    var countQueue = 0
+    var countQueue = 0 {
+        willSet(newValue) {
+            if newValue == 3 {
+                self.progressDelegate?.stopProgress()
+                self.countQueue = 0
+            }
+        }
+    }
     
     let viewHeight: CGFloat = 222
     let contentViewPadding: CGFloat = 16
@@ -116,14 +123,14 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         MarkerManager.shared.swapRouteParams()
         for tag in [0, 2] {
             if let tmp = routeParams.allCases[tag] as? PlaceDetail {
-                setTitle(of: userInputs[tag], with: tmp.roadAddressName)
+                setTitle(of: userInputs[tag], with: tmp.address!)
             } else {
                 setInitailTitle(of: userInputs[tag])
             }
         }
         for tag in [1, 3] {
             if let tmp = routeParams.allCases[tag] as? StationStatus {
-                setTitle(of: userInputs[tag], with: tmp.stationName)
+                setTitle(of: userInputs[tag], with: tmp.name)
             } else {
                 setInitailTitle(of: userInputs[tag])
             }
@@ -157,9 +164,11 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
             if countQueue != 0 { return }
             progressDelegate?.startProgress()
             clearRoute()
-            for phase in 0...2 {
-                showRouteArray(phase: phase)
-            }
+            
+            findWalkingRoute(phase: 0)
+            findRecommendCyclingRoute()
+            findWalkingRoute(phase: 2)
+            
             if mapVC!.stationToggleButton.isSelected {
                 mapVC!.stationButtonToggled(mapVC!.stationToggleButton)
             }
@@ -174,18 +183,16 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
         self.present(alert, animated: false)
     }
     
-    //MARK: Route
+    // MARK: Route
     func clearRoute() {
         pathes.forEach({ $0.mapView = nil })
     }
     
-    func makeTarget(phase: Int) -> ORRequest {
+    
+    func makeWalkingTarget(phase: Int) -> TMRequest {
         if phase == 0 {
             return .foot_walking(start: routeParams.origin!.coordinate,
                                  end: routeParams.originStation!.coordinate)
-        } else if phase == 1 {
-            return .cycling_road(start: routeParams.originStation!.coordinate,
-                                 end: routeParams.destinationStation!.coordinate)
         } else if phase == 2 {
             return .foot_walking(start: routeParams.destinationStation!.coordinate,
                                  end: routeParams.destination!.coordinate)
@@ -193,28 +200,138 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
             fatalError("존재하지 않는 검색 범위입니다.")
         }
     }
-    
-    func showRouteArray(phase: Int) {
-        let provider = MoyaProvider<ORRequest>()
-        let target: ORRequest = makeTarget(phase: phase)
+                                 
+    func findWalkingRoute(phase: Int) {
+        let provider = MoyaProvider<TMRequest>()
+        let target = makeWalkingTarget(phase: phase)
+        var route: Route {
+            if phase == 0 {
+                return RouteManager.shared.foot_walking_start
+            } else if phase == 2 {
+                return RouteManager.shared.foot_walking_end
+            } else {
+                fatalError("존재하지 않는 검색 범위입니다.")
+            }
+        }
+        
         provider.request(target) { [weak self] result in
             guard let self = self else { return }
-            
             switch result {
             case .success(let response):
+                print("\(phase) 성공")
                 do {
-                    let data = try JSONDecoder().decode(ORResponse.self, from: response.data)
+                    try print(response.mapJSON())
+                    print("=====================")
+                    let data = try JSONDecoder().decode(TMResponse.self, from: response.data)
+                    let summary = data.features.filter({
+                        $0.properties!.pointType == .sp
+                    }).first!
+                    let lines = data.features.filter({ $0.geometry.type == .lineString })
+                    var points: [NMGLatLng] {
+                        var points = [[Double]]()
+                        lines.forEach({
+                            $0.geometry.coordinates.forEach({
+                                if let tmp = $0.getDoubleArray() {
+                                    points.append(tmp)
+                                }
+                            })
+                        })
+                        return points.toNMGLatLngArray()
+                    }
+                        
+                    route.distance = summary.properties?.distance
+                    route.duration = summary.properties?.duration
+                    route.path = NMGLineString(points: points)
+                    route.showRoute()
+                    
                     print("===PHASE \(phase) ===")
-                    print("총 거리 :  \(data.distance)")
-                    print("총 시간 :  \(data.duration)")
-                    self.drawRoute(with: data.coordinates, phase: phase)
-                    self.routeInfoVC!.setData(phase: phase, response: data)
+                    print("총 거리 :  \(route.distance!)")
+                    print("총 시간 :  \(route.duration!)")
+                    self.routeInfoVC!.setData(phase: phase, route: route)
                     self.routeInfodelegate?.showRouteInfo()
                     self.countQueue += 1
                     if self.countQueue == 3 {
                         self.progressDelegate?.stopProgress()
                         self.countQueue = 0
                     }
+                } catch {
+                    print(error.localizedDescription)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+                
+    }
+    
+// MARK: CyclingRoute
+    var cyclingQueueCount: Int = 0 {
+        willSet(newValue) {
+            if newValue == 3 {
+                print("Recommend cycling route : \(RouteManager.shared.recommendCyclingRoute.duration!)")
+                RouteManager.shared.recommendCyclingRoute.showRoute()
+                self.routeInfoVC!.setData(phase: 1, route: RouteManager.shared.recommendCyclingRoute)
+                self.routeInfodelegate?.showRouteInfo()
+                
+                self.countQueue += 1
+                cyclingQueueCount = 0
+            }
+        }
+    }
+    
+    func findRecommendCyclingRoute() {
+        [RouteType.cycling_electric, RouteType.cycling_road, RouteType.cycling_regular].forEach({
+            requestBicycleRoute(type: $0)
+        })
+    }
+    
+    func makeBicycleTarget(type: RouteType) -> ORRequest {
+        if type == .cycling_regular {
+            return .cycling_regular(start: routeParams.originStation!.coordinate,
+                             end: routeParams.destinationStation!.coordinate)
+        } else if type == .cycling_road {
+            return .cycling_road(start: routeParams.originStation!.coordinate,
+                             end: routeParams.destinationStation!.coordinate)
+        } else if type == .cycling_electric {
+            return .cycling_electric(start: routeParams.originStation!.coordinate,
+                             end: routeParams.destinationStation!.coordinate)
+        } else {
+            fatalError("존재하지 않는 범위입니다.")
+        }
+    }
+    
+    func requestBicycleRoute(type: RouteType) {
+        let provider = MoyaProvider<ORRequest>()
+        let target: ORRequest = makeBicycleTarget(type: type)
+        var route: Route {
+            if type == .cycling_regular {
+                return RouteManager.shared.cycling_regular
+            } else if type == .cycling_road {
+                return RouteManager.shared.cycling_road
+            } else if type == .cycling_electric {
+                return RouteManager.shared.cycling_electric
+            } else {
+                fatalError("존재하지 않는 범위입니다.")
+            }
+        }
+        
+        provider.request(target) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let response):
+                do {
+                    let result = try JSONDecoder().decode(ORResponse.self, from: response.data)
+                    print("===Type \(type) ===")
+                    print("총 거리 :  \(result.distance)")
+                    print("총 시간 :  \(result.duration)")
+    
+                    route.distance = result.distance
+                    route.duration = result.duration
+                    route.path = NMGLineString(points: result.coordinates.toNMGLatLngArray())
+                    
+                    self.cyclingQueueCount += 1
+                    
                 } catch {
                     print(error.localizedDescription)
                 }
@@ -232,10 +349,10 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     
     func getStationStatus(stationStatus: StationStatus, tag: Int) {
         if tag  == 1 {
-            setTitle(of: oriRantalStationInput, with: stationStatus.stationName)
+            setTitle(of: oriRantalStationInput, with: stationStatus.name)
             routeParams.originStation = stationStatus
         } else {
-            setTitle(of: dstRantalStationInput, with: stationStatus.stationName)
+            setTitle(of: dstRantalStationInput, with: stationStatus.name)
             routeParams.destinationStation = stationStatus
         }
     }
@@ -349,7 +466,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     // MARK: Delegate
     func sendPlaceDetails(targetTag tag: Int, _ placeDetail: PlaceDetail) {
         guard let button = locationInputs.filter({ $0.tag == tag }).first else { return }
-        setTitle(of: button, with: placeDetail.roadAddressName)
+        setTitle(of: button, with: placeDetail.address!)
         if tag == 0 {
             routeParams.origin = placeDetail
             mapVC!.makeParamMarker(coor: placeDetail.coordinate, for: .origin)
