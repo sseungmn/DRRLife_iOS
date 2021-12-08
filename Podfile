@@ -14,6 +14,9 @@ target 'DRRLife' do
   pod 'SnapKit', '~> 5.0.0'
 # More
   pod 'MBProgressHUD', '~> 1.2.0'
+# Firebase
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
 
   target 'DRRLifeTests' do
     inherit! :search_paths

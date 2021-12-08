@@ -82,6 +82,7 @@ struct MarkerManager {
     }
 }
 
+// MARK: MarkerImageManager
 struct MarkerImageManager {
     static let shared = MarkerImageManager()
     

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		28B14E321D1D6BF9715B50E5 /* Pods_DRRLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F1F9F65B3BC5F76512AFD84 /* Pods_DRRLife.framework */; };
 		748F149C59F1232FC3B668C6 /* Pods_DRRLife_DRRLifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB6FFE9358658DF5104253E /* Pods_DRRLife_DRRLifeUITests.framework */; };
+		B50C762E276083A5004DF2F6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B50C762D276083A5004DF2F6 /* GoogleService-Info.plist */; };
 		B52297FB27528C3F00BCEB89 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B52297FD27528C3F00BCEB89 /* Localizable.strings */; };
 		B565B443275B8EF8005BC7AC /* KakaoLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B565B442275B8EF8005BC7AC /* KakaoLocal.swift */; };
 		B565B447275F1299005BC7AC /* TMapRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = B565B446275F1299005BC7AC /* TMapRoute.swift */; };
@@ -75,6 +76,7 @@
 		8F1F9F65B3BC5F76512AFD84 /* Pods_DRRLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A346DCE60A6D73A8E0B1D705 /* Pods-DRRLifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLifeTests.debug.xcconfig"; path = "Target Support Files/Pods-DRRLifeTests/Pods-DRRLifeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A8E0DA35B561CE5E4778FE87 /* Pods-DRRLife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife.release.xcconfig"; path = "Target Support Files/Pods-DRRLife/Pods-DRRLife.release.xcconfig"; sourceTree = "<group>"; };
+		B50C762D276083A5004DF2F6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B52297FC27528C3F00BCEB89 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B52297FE27528C9B00BCEB89 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		B52297FF27528C9B00BCEB89 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 		B56A32DE275275A000843975 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				B50C762D276083A5004DF2F6 /* GoogleService-Info.plist */,
 				B5B03AB727527D60008DB5C9 /* APIKeys.plist */,
 				B56A32E22752762400843975 /* Font */,
 				B56A32B72752752300843975 /* Assets.xcassets */,
@@ -383,6 +386,7 @@
 				B56A32A82752752300843975 /* Frameworks */,
 				B56A32A92752752300843975 /* Resources */,
 				85709EFFAF7793F62E2443E0 /* [CP] Embed Pods Frameworks */,
+				B545A763276092AD008A3A88 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -489,6 +493,7 @@
 				B56A32E82752763200843975 /* NanumSquareB.ttf in Resources */,
 				B52297FB27528C3F00BCEB89 /* Localizable.strings in Resources */,
 				B56A32B82752752300843975 /* Assets.xcassets in Resources */,
+				B50C762E276083A5004DF2F6 /* GoogleService-Info.plist in Resources */,
 				B5B03AB827527D60008DB5C9 /* APIKeys.plist in Resources */,
 				B56A32EA2752763200843975 /* NanumSquareR.ttf in Resources */,
 			);
@@ -610,6 +615,25 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		B545A763276092AD008A3A88 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -831,7 +855,9 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AVZ9493N69;
+				EXCLUDED_ARCHS = arm64;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DRRLife/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "따르릉라이프";
@@ -867,7 +893,9 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AVZ9493N69;
+				EXCLUDED_ARCHS = arm64;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DRRLife/Info.plist;
