@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,7 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchImage.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="rTf-46-C2n">
-                                <rect key="frame" x="0.0" y="-92" width="414" height="1080"/>
+                                <rect key="frame" x="0.0" y="194" width="414" height="250"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="uwj-iG-jqF"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -24,7 +28,7 @@
                         <constraints>
                             <constraint firstItem="rTf-46-C2n" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="9l8-8p-ii8"/>
                             <constraint firstItem="rTf-46-C2n" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="GIr-kv-dPD"/>
-                            <constraint firstItem="rTf-46-C2n" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="lDF-WZ-gXL"/>
+                            <constraint firstItem="rTf-46-C2n" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="150" id="Whf-Xe-BcR"/>
                         </constraints>
                     </view>
                 </viewController>
