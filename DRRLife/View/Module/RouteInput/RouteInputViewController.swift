@@ -69,19 +69,6 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     lazy var dstRantalStationInput = UIButton().then {
         $0.tag = 3
     }
-    lazy var path0 = NMFPath().then {
-        $0.color = .gray
-        $0.width = 8
-    }
-    lazy var path1 = NMFPath().then {
-        $0.color = .blue
-        $0.width = 3
-    }
-    lazy var path2 = NMFPath().then {
-        $0.color = .gray
-        $0.width = 8
-    }
-    lazy var pathes = [path0, path1, path2]
     
     lazy var swapButton = UIButton().then {
         $0.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
@@ -165,6 +152,7 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
             progressDelegate?.startProgress()
             clearRoute()
             
+            RouteManager.count += 1
             findWalkingRoute(phase: 0)
             findRecommendCyclingRoute()
             findWalkingRoute(phase: 2)
@@ -185,7 +173,9 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
     
     // MARK: Route
     func clearRoute() {
-        pathes.forEach({ $0.mapView = nil })
+        if RouteManager.count > 0 {
+            RouteManager.shared.hideAllRoute()
+        }
     }
     
     
@@ -250,10 +240,6 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
                     self.routeInfoVC!.setData(phase: phase, route: route)
                     self.routeInfodelegate?.showRouteInfo()
                     self.countQueue += 1
-                    if self.countQueue == 3 {
-                        self.progressDelegate?.stopProgress()
-                        self.countQueue = 0
-                    }
                 } catch {
                     print(error.localizedDescription)
                 }
@@ -339,12 +325,6 @@ class RouteInputViewController: UIViewController, SearchViewDelegate, LocationIn
                 print(error.localizedDescription)
             }
         }
-    }
-    
-    func drawRoute(with doublepoints: [[Double]], phase: Int) {
-        let points = doublepoints.toNMGLatLngArray()
-        self.pathes[phase].path = NMGLineString(points: points)
-        self.pathes[phase].mapView = self.mapVC?.mapView
     }
     
     func getStationStatus(stationStatus: StationStatus, tag: Int) {

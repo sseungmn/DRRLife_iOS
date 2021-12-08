@@ -19,25 +19,26 @@ enum RouteType {
 class RouteManager {
     static let shared = RouteManager()
     static var mapView: NMFMapView? = nil
+    static var count = 0
     
     lazy var cycling_regular = Route(mapView: RouteManager.mapView!, type: .cycling_regular).then {
-        $0.color = .green
-        $0.width = 3
+        $0.color = .systemGreen
+        $0.width = 4
     }
     lazy var cycling_road = Route(mapView: RouteManager.mapView!, type: .cycling_road).then {
-        $0.color = .green
-        $0.width = 3
+        $0.color = .systemGreen
+        $0.width = 4
     }
     lazy var cycling_electric = Route(mapView: RouteManager.mapView!, type: .cycling_electric).then {
-        $0.color = .green
-        $0.width = 3
+        $0.color = .systemGreen
+        $0.width = 4
     }
     lazy var foot_walking_start = Route(mapView: RouteManager.mapView!, type: .foot_walking_start).then {
-        $0.color = .yellow
+        $0.color = .systemYellow
         $0.width = 8
     }
     lazy var foot_walking_end = Route(mapView: RouteManager.mapView!, type: .foot_walking_end).then {
-        $0.color = .yellow
+        $0.color = .systemYellow
         $0.width = 8
     }
     lazy var recommendCyclingRoute = getRecommendCyclingRoute()
@@ -46,6 +47,12 @@ class RouteManager {
         return [cycling_regular, cycling_road, cycling_electric].min { firstRoute, secondRoute in
             firstRoute.duration! < secondRoute.duration!
         } as! Route
+    }
+    
+    func hideAllRoute() {
+        [recommendCyclingRoute, foot_walking_start, foot_walking_end].forEach({
+            $0.hideRoute()
+        })
     }
 }
 

@@ -11,6 +11,7 @@ import Then
 import SnapKit
 import CoreLocation
 import Alamofire
+import Moya
 
 protocol ContainerDelegate {
     func showLocationInfo(with stationStatus: StationStatus)
@@ -248,24 +249,22 @@ extension MapViewController {
         SODRequestURL.parameters["END_INDEX"] = end
         print("\(start)~\(end)")
         
-        AF.request(SODRequestURL.requestURL,
-                   method: .get,
-                   parameters: nil,
-                   headers: nil
-        ).responseJSON(completionHandler: { response in
-            switch response.result {
-            case .success(let jsonData):
-                print("===== 검색 성공 =====")
+        let provider = MoyaProvider<SODRequest>()
+        provider.request(.station(start: start, end: end)) {
+            [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let response):
                 do {
-                    let json = try JSONSerialization.data(withJSONObject: jsonData, options: .prettyPrinted)
-                    let result = try JSONDecoder().decode(SODResponse.self, from: json)
-                    print("===== 검색 결과 '\(result.rentBikeStatus.row.count)개'")
-                    for stationInfo in result.rentBikeStatus.row {
+                    let data = try JSONDecoder().decode(SODResponse.self, from: response.data)
+                    print("===== 검색 결과 '\(data.rentBikeStatus.row.count)개'")
+                    for stationInfo in data.rentBikeStatus.row {
                         let tmpStationDetail = stationInfo
                         self.stations.append(tmpStationDetail)
                         self.makeStationMarker(station: tmpStationDetail)
                     }
-                } catch(let error) {
+                } catch {
                     print(error.localizedDescription)
                 }
             case .failure(let error):
@@ -276,7 +275,7 @@ extension MapViewController {
                 self.progressDelegate?.stopProgress()
                 self.stationToggleButton.isSelected = true // 상태만 바꿔주면 됨
             }
-        })
+        }
     }
     func makeParamMarker(coor: Coordinate, for type: RouteInputType) {
         let tmpMarker = MarkerManager.shared.getParamMarker(type: type)

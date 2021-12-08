@@ -52,41 +52,6 @@ struct SODStationInformation {
     var rantalType: String
 }
 
-// SeoulOpenData Response
-//struct StationStatus {
-//    var stationName: String
-//    var parkingBikeTotCnt: Int
-//    var coordinate: Coordinate
-//}
-
-struct SODResponse: Decodable {
-    var rentBikeStatus: SODRentBikeStatus
-}
-    
-struct SODRentBikeStatus: Decodable {
-    var row: [StationStatus]
-}
-    
-struct StationStatus: Decodable, Location {
-    var parkingBikeTotCnt: String
-    var latitude: String
-    var longitude: String
-    
-    var name: String
-    var address: String?
-    var coordinate: Coordinate {
-        return Coordinate(lat: latitude, lng: longitude)
-    }
-//    var stationId: String
-    
-    private enum CodingKeys: String, CodingKey {
-        case parkingBikeTotCnt
-        case latitude = "stationLatitude"
-        case longitude = "stationLongitude"
-        case name = "stationName"
-    }
-}
-
 /// Contain variables for using coordinate
 ///
 /// - lat : *latitude* and also can be *y*

@@ -125,7 +125,6 @@ extension SearchViewController: UISearchBarDelegate {
             switch result {
             case .success(let response):
                 do {
-                    try print(response.mapJSON())
                     let data = try JSONDecoder().decode(KLResponse.self, from: response.data)
                     self.placeDetails = data.documents
                     print("===== 검색 결과 '\(self.itemCount)개'")

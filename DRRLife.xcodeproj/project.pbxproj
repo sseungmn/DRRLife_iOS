@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28B14E321D1D6BF9715B50E5 /* Pods_DRRLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F1F9F65B3BC5F76512AFD84 /* Pods_DRRLife.framework */; };
-		748F149C59F1232FC3B668C6 /* Pods_DRRLife_DRRLifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB6FFE9358658DF5104253E /* Pods_DRRLife_DRRLifeUITests.framework */; };
+		1703D1BFB109C35F7A3AD537 /* Pods_DRRLife_DRRLifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3270A064CFD6156027828B5C /* Pods_DRRLife_DRRLifeUITests.framework */; };
+		53A1DC008E57933D31BA0076 /* Pods_DRRLife.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E2E8C5D1EF2E6A48F3C60A6 /* Pods_DRRLife.framework */; };
 		B50C762E276083A5004DF2F6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B50C762D276083A5004DF2F6 /* GoogleService-Info.plist */; };
 		B52297FB27528C3F00BCEB89 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B52297FD27528C3F00BCEB89 /* Localizable.strings */; };
+		B54042642760D35900F55EBF /* SeoulOpenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54042632760D35900F55EBF /* SeoulOpenData.swift */; };
 		B565B443275B8EF8005BC7AC /* KakaoLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B565B442275B8EF8005BC7AC /* KakaoLocal.swift */; };
 		B565B447275F1299005BC7AC /* TMapRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = B565B446275F1299005BC7AC /* TMapRoute.swift */; };
 		B565B449275F3CFB005BC7AC /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = B565B448275F3CFB005BC7AC /* Route.swift */; };
@@ -49,7 +50,7 @@
 		B5BBCCDA2754BD630009C0EA /* OpenRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BBCCD92754BD630009C0EA /* OpenRoute.swift */; };
 		B5BBCCDC2754CC680009C0EA /* launchImage.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B5BBCCDB2754CC680009C0EA /* launchImage.jpeg */; };
 		B5BBCCDF275610B70009C0EA /* RouteInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BBCCDE275610B70009C0EA /* RouteInfoViewController.swift */; };
-		C6A3F33113FB58A7D25BF47F /* Pods_DRRLifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 492F05532B77F3124BBBAF2D /* Pods_DRRLifeTests.framework */; };
+		B937D6C8A0EFBB4BE471451A /* Pods_DRRLifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C024860122EEB17B41C017D6 /* Pods_DRRLifeTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,16 +71,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2CB6FFE9358658DF5104253E /* Pods_DRRLife_DRRLifeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLife_DRRLifeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		492F05532B77F3124BBBAF2D /* Pods_DRRLifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		50392489B2FF2C235EC0EA4E /* Pods-DRRLifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLifeTests.release.xcconfig"; path = "Target Support Files/Pods-DRRLifeTests/Pods-DRRLifeTests.release.xcconfig"; sourceTree = "<group>"; };
-		8F1F9F65B3BC5F76512AFD84 /* Pods_DRRLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A346DCE60A6D73A8E0B1D705 /* Pods-DRRLifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLifeTests.debug.xcconfig"; path = "Target Support Files/Pods-DRRLifeTests/Pods-DRRLifeTests.debug.xcconfig"; sourceTree = "<group>"; };
-		A8E0DA35B561CE5E4778FE87 /* Pods-DRRLife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife.release.xcconfig"; path = "Target Support Files/Pods-DRRLife/Pods-DRRLife.release.xcconfig"; sourceTree = "<group>"; };
+		1FA58306CB418D4B539ABC55 /* Pods-DRRLifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLifeTests.release.xcconfig"; path = "Target Support Files/Pods-DRRLifeTests/Pods-DRRLifeTests.release.xcconfig"; sourceTree = "<group>"; };
+		2E2E8C5D1EF2E6A48F3C60A6 /* Pods_DRRLife.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLife.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F869D394CE023FC1D713B16 /* Pods-DRRLife-DRRLifeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife-DRRLifeUITests.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife-DRRLifeUITests/Pods-DRRLife-DRRLifeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		3270A064CFD6156027828B5C /* Pods_DRRLife_DRRLifeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLife_DRRLifeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4631ADD0AEC0A4EC8AA70421 /* Pods-DRRLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife/Pods-DRRLife.debug.xcconfig"; sourceTree = "<group>"; };
+		5D1FCAE0930A2DACCFDB5420 /* Pods-DRRLife.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife.release.xcconfig"; path = "Target Support Files/Pods-DRRLife/Pods-DRRLife.release.xcconfig"; sourceTree = "<group>"; };
+		A29EEA79B02BE92FCC28321C /* Pods-DRRLife-DRRLifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife-DRRLifeUITests.release.xcconfig"; path = "Target Support Files/Pods-DRRLife-DRRLifeUITests/Pods-DRRLife-DRRLifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B50C762D276083A5004DF2F6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B52297FC27528C3F00BCEB89 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B52297FE27528C9B00BCEB89 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		B52297FF27528C9B00BCEB89 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B54042632760D35900F55EBF /* SeoulOpenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeoulOpenData.swift; sourceTree = "<group>"; };
 		B565B442275B8EF8005BC7AC /* KakaoLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLocal.swift; sourceTree = "<group>"; };
 		B565B446275F1299005BC7AC /* TMapRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMapRoute.swift; sourceTree = "<group>"; };
 		B565B448275F3CFB005BC7AC /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -122,9 +125,8 @@
 		B5BBCCD92754BD630009C0EA /* OpenRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenRoute.swift; sourceTree = "<group>"; };
 		B5BBCCDB2754CC680009C0EA /* launchImage.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = launchImage.jpeg; sourceTree = "<group>"; };
 		B5BBCCDE275610B70009C0EA /* RouteInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteInfoViewController.swift; sourceTree = "<group>"; };
-		BDC950A4A3948B7D2D3D1061 /* Pods-DRRLife.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife/Pods-DRRLife.debug.xcconfig"; sourceTree = "<group>"; };
-		CF32F3E62971C9DCE6BB9883 /* Pods-DRRLife-DRRLifeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife-DRRLifeUITests.debug.xcconfig"; path = "Target Support Files/Pods-DRRLife-DRRLifeUITests/Pods-DRRLife-DRRLifeUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		DEBBA80BE57F86CA49270660 /* Pods-DRRLife-DRRLifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLife-DRRLifeUITests.release.xcconfig"; path = "Target Support Files/Pods-DRRLife-DRRLifeUITests/Pods-DRRLife-DRRLifeUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C024860122EEB17B41C017D6 /* Pods_DRRLifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DRRLifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CFEA429E92885B975A65EE39 /* Pods-DRRLifeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DRRLifeTests.debug.xcconfig"; path = "Target Support Files/Pods-DRRLifeTests/Pods-DRRLifeTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28B14E321D1D6BF9715B50E5 /* Pods_DRRLife.framework in Frameworks */,
+				53A1DC008E57933D31BA0076 /* Pods_DRRLife.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,7 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C6A3F33113FB58A7D25BF47F /* Pods_DRRLifeTests.framework in Frameworks */,
+				B937D6C8A0EFBB4BE471451A /* Pods_DRRLifeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,34 +150,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				748F149C59F1232FC3B668C6 /* Pods_DRRLife_DRRLifeUITests.framework in Frameworks */,
+				1703D1BFB109C35F7A3AD537 /* Pods_DRRLife_DRRLifeUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01ADAF51FB34DC7ED187F1AB /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8F1F9F65B3BC5F76512AFD84 /* Pods_DRRLife.framework */,
-				2CB6FFE9358658DF5104253E /* Pods_DRRLife_DRRLifeUITests.framework */,
-				492F05532B77F3124BBBAF2D /* Pods_DRRLifeTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		A1289EA8B4D1D2DC429CCDDE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BDC950A4A3948B7D2D3D1061 /* Pods-DRRLife.debug.xcconfig */,
-				A8E0DA35B561CE5E4778FE87 /* Pods-DRRLife.release.xcconfig */,
-				CF32F3E62971C9DCE6BB9883 /* Pods-DRRLife-DRRLifeUITests.debug.xcconfig */,
-				DEBBA80BE57F86CA49270660 /* Pods-DRRLife-DRRLifeUITests.release.xcconfig */,
-				A346DCE60A6D73A8E0B1D705 /* Pods-DRRLifeTests.debug.xcconfig */,
-				50392489B2FF2C235EC0EA4E /* Pods-DRRLifeTests.release.xcconfig */,
+				4631ADD0AEC0A4EC8AA70421 /* Pods-DRRLife.debug.xcconfig */,
+				5D1FCAE0930A2DACCFDB5420 /* Pods-DRRLife.release.xcconfig */,
+				2F869D394CE023FC1D713B16 /* Pods-DRRLife-DRRLifeUITests.debug.xcconfig */,
+				A29EEA79B02BE92FCC28321C /* Pods-DRRLife-DRRLifeUITests.release.xcconfig */,
+				CFEA429E92885B975A65EE39 /* Pods-DRRLifeTests.debug.xcconfig */,
+				1FA58306CB418D4B539ABC55 /* Pods-DRRLifeTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		B4311C934EDB51E37CF94390 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2E2E8C5D1EF2E6A48F3C60A6 /* Pods_DRRLife.framework */,
+				3270A064CFD6156027828B5C /* Pods_DRRLife_DRRLifeUITests.framework */,
+				C024860122EEB17B41C017D6 /* Pods_DRRLifeTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B565B44A275F3D04005BC7AC /* API */ = {
@@ -184,6 +186,7 @@
 				B5BBCCD92754BD630009C0EA /* OpenRoute.swift */,
 				B565B442275B8EF8005BC7AC /* KakaoLocal.swift */,
 				B565B446275F1299005BC7AC /* TMapRoute.swift */,
+				B54042632760D35900F55EBF /* SeoulOpenData.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -196,7 +199,7 @@
 				B56A32CE2752752300843975 /* DRRLifeUITests */,
 				B56A32AC2752752300843975 /* Products */,
 				A1289EA8B4D1D2DC429CCDDE /* Pods */,
-				01ADAF51FB34DC7ED187F1AB /* Frameworks */,
+				B4311C934EDB51E37CF94390 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -381,12 +384,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B56A32D52752752300843975 /* Build configuration list for PBXNativeTarget "DRRLife" */;
 			buildPhases = (
-				87CC6209B67E4B5708FEBA3E /* [CP] Check Pods Manifest.lock */,
+				F22F491153470DB7C23399B0 /* [CP] Check Pods Manifest.lock */,
 				B56A32A72752752300843975 /* Sources */,
 				B56A32A82752752300843975 /* Frameworks */,
 				B56A32A92752752300843975 /* Resources */,
-				85709EFFAF7793F62E2443E0 /* [CP] Embed Pods Frameworks */,
-				B545A763276092AD008A3A88 /* ShellScript */,
+				753831D950D21AB736E758F5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -401,7 +403,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B56A32D82752752300843975 /* Build configuration list for PBXNativeTarget "DRRLifeTests" */;
 			buildPhases = (
-				AAA319E7B23E546B17DBCB5A /* [CP] Check Pods Manifest.lock */,
+				FDDC604A6DFD2635436ED5A4 /* [CP] Check Pods Manifest.lock */,
 				B56A32BD2752752300843975 /* Sources */,
 				B56A32BE2752752300843975 /* Frameworks */,
 				B56A32BF2752752300843975 /* Resources */,
@@ -420,11 +422,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B56A32DB2752752300843975 /* Build configuration list for PBXNativeTarget "DRRLifeUITests" */;
 			buildPhases = (
-				4A982BB7FC5E8C5F2ECE3C36 /* [CP] Check Pods Manifest.lock */,
+				6324E75E1323D3B1E6FE2A6A /* [CP] Check Pods Manifest.lock */,
 				B56A32C72752752300843975 /* Sources */,
 				B56A32C82752752300843975 /* Frameworks */,
 				B56A32C92752752300843975 /* Resources */,
-				1E22AF4FCC6411DCAE184EAD /* [CP] Embed Pods Frameworks */,
+				0FD0047D9E1122C0125CE691 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -516,7 +518,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1E22AF4FCC6411DCAE184EAD /* [CP] Embed Pods Frameworks */ = {
+		0FD0047D9E1122C0125CE691 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -533,7 +535,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DRRLife-DRRLifeUITests/Pods-DRRLife-DRRLifeUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4A982BB7FC5E8C5F2ECE3C36 /* [CP] Check Pods Manifest.lock */ = {
+		6324E75E1323D3B1E6FE2A6A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -555,7 +557,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		85709EFFAF7793F62E2443E0 /* [CP] Embed Pods Frameworks */ = {
+		753831D950D21AB736E758F5 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -572,7 +574,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DRRLife/Pods-DRRLife-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		87CC6209B67E4B5708FEBA3E /* [CP] Check Pods Manifest.lock */ = {
+		F22F491153470DB7C23399B0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -594,7 +596,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AAA319E7B23E546B17DBCB5A /* [CP] Check Pods Manifest.lock */ = {
+		FDDC604A6DFD2635436ED5A4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -615,25 +617,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		B545A763276092AD008A3A88 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -663,6 +646,7 @@
 				B56A33102752771400843975 /* DRRLife++Bundle.swift in Sources */,
 				B5B03ABA27527E0D008DB5C9 /* ConverType.swift in Sources */,
 				B56A330F2752771400843975 /* UITextField.swift in Sources */,
+				B54042642760D35900F55EBF /* SeoulOpenData.swift in Sources */,
 				B56A330E2752771400843975 /* UIColor.swift in Sources */,
 				B56A32F3275276C800843975 /* RouteInputViewController.swift in Sources */,
 				B56A32FA275276D800843975 /* SearchTableViewCell.swift in Sources */,
@@ -848,54 +832,15 @@
 		};
 		B56A32D62752752300843975 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BDC950A4A3948B7D2D3D1061 /* Pods-DRRLife.debug.xcconfig */;
+			baseConfigurationReference = 4631ADD0AEC0A4EC8AA70421 /* Pods-DRRLife.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = AVZ9493N69;
-				EXCLUDED_ARCHS = arm64;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DRRLife/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "따르릉라이프";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치를 기준으로 지도를 보여드리기 위해, 위치 정보 권한이 필요합니다.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기준으로 지도를 보여드리기 위해, 위치 정보 권한이 필요합니다.";
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.miniOS.DRRLife;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		B56A32D72752752300843975 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A8E0DA35B561CE5E4778FE87 /* Pods-DRRLife.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = AVZ9493N69;
-				EXCLUDED_ARCHS = arm64;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DRRLife/Info.plist;
@@ -913,7 +858,45 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.miniOS.DRRLife;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		B56A32D72752752300843975 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D1FCAE0930A2DACCFDB5420 /* Pods-DRRLife.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = AVZ9493N69;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DRRLife/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "따르릉라이프";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치를 기준으로 지도를 보여드리기 위해, 위치 정보 권한이 필요합니다.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기준으로 지도를 보여드리기 위해, 위치 정보 권한이 필요합니다.";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miniOS.DRRLife;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -925,7 +908,7 @@
 		};
 		B56A32D92752752300843975 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A346DCE60A6D73A8E0B1D705 /* Pods-DRRLifeTests.debug.xcconfig */;
+			baseConfigurationReference = CFEA429E92885B975A65EE39 /* Pods-DRRLifeTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -951,7 +934,7 @@
 		};
 		B56A32DA2752752300843975 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 50392489B2FF2C235EC0EA4E /* Pods-DRRLifeTests.release.xcconfig */;
+			baseConfigurationReference = 1FA58306CB418D4B539ABC55 /* Pods-DRRLifeTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -977,7 +960,7 @@
 		};
 		B56A32DC2752752300843975 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CF32F3E62971C9DCE6BB9883 /* Pods-DRRLife-DRRLifeUITests.debug.xcconfig */;
+			baseConfigurationReference = 2F869D394CE023FC1D713B16 /* Pods-DRRLife-DRRLifeUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1001,7 +984,7 @@
 		};
 		B56A32DD2752752300843975 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DEBBA80BE57F86CA49270660 /* Pods-DRRLife-DRRLifeUITests.release.xcconfig */;
+			baseConfigurationReference = A29EEA79B02BE92FCC28321C /* Pods-DRRLife-DRRLifeUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
