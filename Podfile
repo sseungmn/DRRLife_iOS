@@ -8,12 +8,12 @@ target 'DRRLife' do
   pod 'NMapsMap'
 
 # API Networking
-  pod 'Moya', '~> 15.0'
+  pod 'Moya'
 # UI programmatically
   pod 'Then'
-  pod 'SnapKit', '~> 5.0.0'
+  pod 'SnapKit'
 # More
-  pod 'MBProgressHUD', '~> 1.2.0'
+  pod 'MBProgressHUD'
 # Firebase
   pod 'Firebase/Analytics'
   pod 'Firebase/Crashlytics'
@@ -27,4 +27,12 @@ target 'DRRLife' do
     # Pods for testing
   end
 
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+      end
+    end
 end

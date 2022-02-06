@@ -10,7 +10,6 @@ import NMapsMap
 import Then
 import SnapKit
 import CoreLocation
-import Alamofire
 import Moya
 
 protocol ContainerDelegate {
@@ -245,8 +244,6 @@ extension MapViewController {
     
     func requestRantalStationList(_ start: Int, _ end: Int) {
         self.countUpdatingStationQuene += 1
-        SODRequestURL.parameters["START_INDEX"] = start
-        SODRequestURL.parameters["END_INDEX"] = end
         print("\(start)~\(end)")
         
         let provider = MoyaProvider<SODRequest>()

@@ -136,7 +136,7 @@ class BaseMarker: NMFMarker {
 }
 
 // MARK: StationMarker
-class StationMarker: BaseMarker {
+final class StationMarker: BaseMarker {
     override init() {
         super.init()
         self.width = 40
@@ -203,7 +203,7 @@ class StationMarker: BaseMarker {
 }
 
 // MARK: ParamMarker
-class ParamMarker: BaseMarker {
+final class ParamMarker: BaseMarker {
     var type: RouteInputType
     
     init(type: RouteInputType) {

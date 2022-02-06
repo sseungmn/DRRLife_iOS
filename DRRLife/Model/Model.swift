@@ -21,20 +21,6 @@ enum RouteInputType {
     case destinationRantalStation
 }
 
-struct SODRequestURL {
-    static private let url = "http://openapi.seoul.go.kr:8088"
-    static var parameters: [String : Any] = [
-        "KEY": Bundle.main.SeoulOpenData,
-        "TYPE": "json",
-        "SERVICE": "bikeList",
-        "START_INDEX": 0,
-        "END_INDEX": 0
-        ]
-    static var requestURL: String {
-        return "\(url)/\(parameters["KEY"]!)/\(parameters["TYPE"]!)/\(parameters["SERVICE"]!)/\(parameters["START_INDEX"]!)/\(parameters["END_INDEX"]!)/"
-    }
-}
-
 // StationInformation File
 struct SODStationInformation {
     var stationNumber: String
